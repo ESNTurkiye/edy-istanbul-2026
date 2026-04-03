@@ -1,36 +1,13 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+**Read Me! Seriously...**
 
-## Getting Started
+So far, only the folder structure and the Hero component have been completed. The Tailwind inside the Hero component was moved outwards because it's easier to manage from a single place rather than writing separate Tailwind code for each breakpoint.
 
-First, run the development server:
+Thanks to the useHeroParallax hook used at the top of the page, every element now moves according to the scroll.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+useGSAP is for making the clouds bounce up and down.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+I also added comment lines to the divs underneath to make it clear what each one is.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Feel free to experiment with the CSS file however you like; right now, the layout for normal laptop screens is the one I like best. Asking the PR team to stick to the design and just provide better versions of these assets could make our job a lot easier.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Since the assets are going to change, no optimization has been done.
