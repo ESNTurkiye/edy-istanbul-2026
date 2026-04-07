@@ -1,36 +1,59 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import localFont from "next/font/local";
+import { Lato } from "next/font/google";
 import "./globals.css";
+import Footer from "@/components/global/Footer";
 import SmoothScroll from "@/context/SmoothScroll";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
+const kelsonSans = localFont({
+    src: [
+        {
+            path: "../../public/fonts/KelsonSans-Light.woff2",
+            weight: "300",
+            style: "normal",
+        },
+        {
+            path: "../../public/fonts/KelsonSans-Normal.woff2",
+            weight: "400",
+            style: "normal",
+        },
+        {
+            path: "../../public/fonts/KelsonSans-Bold.woff2",
+            weight: "700",
+            style: "normal",
+        },
+    ],
+    variable: "--font-kelson-sans",
+    display: "swap",
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
+const lato = Lato({
+    variable: "--font-lato",
+    subsets: ["latin"],
+    weight: ["400", "700"],
 });
 
 export const metadata: Metadata = {
-  title: "Istanbul EDY 2026",
-  description: "Erasmus Destination Year Istanbul",
+    title: "Istanbul EDY 2026",
+    description: "Erasmus Destination Year Istanbul",
 };
 
 export default function RootLayout({
-  children,
+    children,
 }: Readonly<{
-  children: React.ReactNode;
+    children: React.ReactNode;
 }>) {
-  return (
-    <html
-      lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
-    >
-      <body className="min-h-full flex flex-col bg-zinc-50 dark:bg-black font-sans">
-        <SmoothScroll>{children}</SmoothScroll>
-      </body>
-    </html>
-  );
+    return (
+        <html
+            lang="en"
+            className={`${kelsonSans.variable} ${lato.variable} h-full antialiased`}
+        >
+            <body className="min-h-full flex flex-col bg-zinc-50 dark:bg-black font-sans">
+                <SmoothScroll>
+                    {children}
+                    <Footer />
+                </SmoothScroll>
+            </body>
+        </html>
+    );
 }

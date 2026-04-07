@@ -10,8 +10,8 @@ if (typeof window !== "undefined") {
 }
 
 // Derived from design requirements (Cyan -> Sunset Orange)
-const START_COLOR = "#00A6EF"; 
-const END_COLOR = "#F47B20";   
+const START_COLOR = "#00A6EF";
+const END_COLOR = "#F47B20";
 const FLUSH_COLOR = "#F9A33A"; // Intermediate warm mid-tone glow
 
 export default function GlobalBackgroundTransition() {
@@ -46,7 +46,7 @@ export default function GlobalBackgroundTransition() {
                 const progress = gsap.utils.clamp(0, 1, self.progress);
                 const base = gsap.utils.interpolate(START_COLOR, END_COLOR, progress) as string;
                 const mid = gsap.utils.interpolate(FLUSH_COLOR, END_COLOR, progress) as string;
-                
+
                 const focus = gsap.utils.interpolate(0, 34, progress);
                 const depth = gsap.utils.interpolate(46, 74, progress);
                 const opacity = gsap.utils.interpolate(0, 0.92, progress);
