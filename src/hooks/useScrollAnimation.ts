@@ -26,13 +26,13 @@ export function useHeroParallax(
         if (!containerRef.current) return;
 
         // Use matchMedia to handle responsive scroll distances
-        let mm = gsap.matchMedia();
+        const mm = gsap.matchMedia();
 
         mm.add({
             isDesktop: "(min-width: 768px)",
             isMobile: "(max-width: 767px)"
         }, (context) => {
-            let { isMobile } = context.conditions as { isMobile: boolean };
+            const { isMobile } = context.conditions as { isMobile: boolean };
             
             // Dampen travel distance for mobile so items don't fly off screen
             const depthMultiplier = isMobile ? 0.4 : 1;
