@@ -13,12 +13,12 @@ export default function Home() {
             <GlobalBackgroundTransition />
             <Navigation />
             <main className="flex flex-col w-full relative overflow-x-hidden">
-                <Hero />
-                <Discovery />
-                <Support />
-                <Reality />
-                <Pride />
-                <Action />
+                <section id="hero"><Hero /></section>
+                <section id="discovery"><Discovery /></section>
+                <section id="support"><Support /></section>
+                <section id="reality"><Reality /></section>
+                <section id="pride"><Pride /></section>
+                <section id="action"><Action /></section>
             </main>
         </>
     );
