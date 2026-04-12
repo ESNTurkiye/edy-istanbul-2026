@@ -70,6 +70,150 @@
     50%       { transform: translateY(6px) scaleY(0.85); opacity: 0.4; }
 }
 
+/* ── Cutout element idle sway (continuous, even while scrolling) ── */
+@keyframes sway-idle {
+    0%, 100% { rotate: -3deg; }
+    50%       { rotate:  3deg; }
+}
+
+/* Variant durations for natural staggering — applied as className */
+.sway-a { animation: sway-idle 11s ease-in-out infinite; }
+.sway-b { animation: sway-idle  9s ease-in-out infinite 0.7s; }
+.sway-c { animation: sway-idle 13s ease-in-out infinite 1.4s; }
+.sway-d { animation: sway-idle  8s ease-in-out infinite 2.2s; }
+
+/* ── Intro globe animations ── */
+@keyframes globe-grid-spin {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-15%); }
+}
+
+@keyframes marker-pulse {
+    0%   { transform: translate(-50%, -50%) scale(1);   opacity: 0.9; }
+    100% { transform: translate(-50%, -50%) scale(2.8); opacity: 0;   }
+}
+
+/* ── Globe sphere styles ── */
+.globe-sphere {
+    border-radius: 50%;
+    position: relative;
+    overflow: hidden;
+    background: radial-gradient(
+        circle at 35% 33%,
+        #4db8e8 0%,
+        #1a78c2 25%,
+        #0c4a86 52%,
+        #07224a 75%,
+        #030f24 100%
+    );
+    box-shadow:
+        inset -22px -14px 50px rgba(0, 0, 0, 0.6),
+        inset  8px  6px 25px rgba(100, 190, 255, 0.08);
+}
+
+.globe-latitudes {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background:
+        linear-gradient(transparent 21.5%, rgba(255,255,255,0.055) 22%, rgba(255,255,255,0.055) 22.5%, transparent 23%),
+        linear-gradient(transparent 47%,   rgba(255,255,255,0.12)  47.5%, rgba(255,255,255,0.12)  52.5%, transparent 53%),
+        linear-gradient(transparent 73%,   rgba(255,255,255,0.055) 73.5%, rgba(255,255,255,0.055) 74%,   transparent 74.5%);
+}
+
+.globe-grid {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: repeating-linear-gradient(
+        90deg,
+        transparent 0%,
+        transparent 14.3%,
+        rgba(255, 255, 255, 0.065) 14.3%,
+        rgba(255, 255, 255, 0.065) 14.9%,
+        transparent 15%
+    );
+    animation: globe-grid-spin 18s linear infinite;
+}
+
+.globe-shine {
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    pointer-events: none;
+    background: radial-gradient(
+        circle at 33% 28%,
+        rgba(255, 255, 255, 0.18) 0%,
+        rgba(255, 255, 255, 0.05) 35%,
+        transparent 60%
+    );
+}
+
+.globe-atmosphere {
+    position: absolute;
+    inset: -10px;
+    border-radius: 50%;
+    pointer-events: none;
+    background: radial-gradient(
+        circle at 50% 50%,
+        transparent 76%,
+        rgba(40, 120, 220, 0.28) 88%,
+        rgba(20, 80, 180, 0.08) 100%
+    );
+}
+
+/* ── Istanbul Marker ── */
+.marker-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #ec008c;
+    box-shadow: 0 0 14px 5px rgba(236, 0, 140, 0.7), 0 0 28px 10px rgba(236, 0, 140, 0.3);
+    position: relative;
+    z-index: 3;
+}
+
+.marker-ring {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    border-radius: 50%;
+    border: 1.5px solid rgba(236, 0, 140, 0.7);
+    animation: marker-pulse 2s ease-out infinite;
+    z-index: 1;
+}
+
+.marker-ring-outer {
+    width: 36px;
+    height: 36px;
+    margin-left: -18px;
+    margin-top: -18px;
+    animation-delay: 0s;
+    border-color: rgba(236, 0, 140, 0.45);
+}
+
+.marker-ring-inner {
+    width: 22px;
+    height: 22px;
+    margin-left: -11px;
+    margin-top: -11px;
+    animation-delay: 0.4s;
+}
+
+.marker-label {
+    position: absolute;
+    top: calc(100% + 12px);
+    left: 50%;
+    transform: translateX(-50%);
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 0.6rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    text-shadow: 0 0 12px rgba(236, 0, 140, 0.9), 0 0 24px rgba(236, 0, 140, 0.5);
+    z-index: 4;
+}
+
 @media (prefers-color-scheme: dark) {
     :root {
         --background: #0a0a0a;

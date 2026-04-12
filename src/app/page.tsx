@@ -6,10 +6,11 @@ import Reality from "@/components/sections/4-Reality/Reality";
 import Pride from "@/components/sections/5-Pride/Pride";
 import Action from "@/components/sections/6-Action/Action";
 import GlobalBackgroundTransition from "@/components/global/GlobalBackgroundTransition";
+import PageWrapper from "@/components/global/PageWrapper";
 
 export default function Home() {
     return (
-        <>
+        <PageWrapper>
             <GlobalBackgroundTransition />
             <Navigation />
             <main className="flex flex-col w-full relative overflow-x-hidden">
@@ -20,6 +21,6 @@ export default function Home() {
                 <section id="pride"><Pride /></section>
                 <section id="action"><Action /></section>
             </main>
-        </>
+        </PageWrapper>
     );
 }
