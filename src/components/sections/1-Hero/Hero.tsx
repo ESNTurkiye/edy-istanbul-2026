@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { useRef } from "react";
@@ -53,44 +52,43 @@ export default function Hero() {
 
             {/* ── Top-left cloud ─────────────────────────────────────────── */}
             <div ref={cloudOneRef} className="absolute cloud-one z-20 pointer-events-none">
-                <div ref={innerCloudOneRef} className="sway-a w-full h-full relative">
-                    <Image src="/images/cloud-one.png" alt="" fill priority className="object-contain" />
+                <div ref={innerCloudOneRef} className="sway-a w-full h-full">
+                    <img src="/images/cloud-one.png" alt="" className="w-full h-full object-contain" />
                 </div>
             </div>
 
             {/* ── Top-right cloud ────────────────────────────────────────── */}
             <div ref={cloudTwoRef} className="absolute cloud-two z-20 pointer-events-none">
-                <div ref={innerCloudTwoRef} className="sway-c w-full h-full relative">
-                    <Image src="/images/cloud-one.png" alt="" fill priority className="object-contain" />
+                <div ref={innerCloudTwoRef} className="sway-c w-full h-full">
+                    <img src="/images/cloud-one.png" alt="" className="w-full h-full object-contain" />
                 </div>
             </div>
 
             {/* ── Bottom-left cloud ──────────────────────────────────────── */}
             <div ref={leftCloudRef} className="absolute left-cloud-bottom z-20 pointer-events-none">
-                <div ref={innerLCRef} className="sway-b w-full h-full relative">
-                    <Image src="/images/cloud-two.png" alt="" fill priority className="object-contain" />
+                <div ref={innerLCRef} className="sway-b w-full h-full">
+                    <img src="/images/cloud-two.png" alt="" className="w-full h-full object-contain" />
                 </div>
             </div>
 
             {/* ── Bottom-right cloud ─────────────────────────────────────── */}
             <div ref={rightCloudRef} className="absolute right-cloud-bottom z-20 pointer-events-none">
                 <div ref={innerRCRef} className="sway-d w-full h-full">
-                    <Image src="/images/cloud-two.png" alt="" fill priority className="object-contain -scale-x-100" />
+                    <img src="/images/cloud-two.png" alt="" className="w-full h-full object-contain -scale-x-100" />
                 </div>
             </div>
 
             {/* ── Left flower bouquet (foreground) ───────────────────────── */}
             <div ref={flowerLeftRef} className="absolute flower-left z-20 pointer-events-none">
-                {/* sway-b gives a slightly different rhythm from the clouds */}
-                <div className="sway-b w-full h-full relative">
-                    <Image src="/images/flower-bouquet.png" alt="" fill priority className="object-contain" />
+                <div className="sway-b w-full h-full">
+                    <img src="/images/flower-bouquet.png" alt="" className="w-full h-full object-contain" />
                 </div>
             </div>
 
             {/* ── Right flower bouquet (foreground) ──────────────────────── */}
             <div ref={flowerRightRef} className="absolute flower-right z-20 pointer-events-none">
-                <div className="sway-d w-full h-full relative">
-                    <Image src="/images/flower-bouquet.png" alt="" fill priority className="object-contain" />
+                <div className="sway-d w-full h-full">
+                    <img src="/images/flower-bouquet.png" alt="" className="w-full h-full object-contain" />
                 </div>
             </div>
 
@@ -111,13 +109,11 @@ export default function Hero() {
                 </video>
 
                 {/* Frame overlay (cutout photo) – sways gently as a single unit */}
-                <div className="sway-a w-full h-full relative z-10">
-                    <Image
+                <div className="sway-a w-full h-full z-10">
+                    <img
                         src="/images/frame.png"
                         alt="Hero frame — Bosphorus view"
-                        fill
-                        priority
-                        className="object-contain"
+                        className="w-full h-full object-contain"
                     />
                 </div>
             </div>

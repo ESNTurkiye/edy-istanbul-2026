@@ -27,7 +27,6 @@ export default function IntroSplash({ onComplete }: IntroSplashProps) {
     const labelRef = useRef<HTMLDivElement>(null);
     const titleRef = useRef<HTMLDivElement>(null);
     const taglineRef = useRef<HTMLDivElement>(null);
-    const esnBadgeRef = useRef<HTMLDivElement>(null);
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const globeEl = useRef<any>(null);
 
@@ -66,13 +65,6 @@ export default function IntroSplash({ onComplete }: IntroSplashProps) {
             { opacity: 1, duration: 0.6, ease: "power2.out" },
         );
 
-        // ── 0.4  ESN badge ───────────────────────────────────────────────
-        tl.fromTo(esnBadgeRef.current,
-            { opacity: 0, y: 12 },
-            { opacity: 1, y: 0, duration: 0.7, ease: "power2.out" },
-            0.4,
-        );
-
         // ── 0.7  Headline ────────────────────────────────────────────────
         tl.fromTo(titleRef.current,
             { opacity: 0, y: 16, letterSpacing: "0.55em" },
@@ -96,7 +88,7 @@ export default function IntroSplash({ onComplete }: IntroSplashProps) {
 
         // ── 5.1  Texts fade out ──────────────────────────────────────────
         tl.to(
-            [titleRef.current, taglineRef.current, esnBadgeRef.current],
+            [titleRef.current, taglineRef.current],
             { opacity: 0, duration: 0.45, ease: "power2.in" },
             5.1,
         );
