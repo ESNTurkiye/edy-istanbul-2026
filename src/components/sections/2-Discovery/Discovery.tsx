@@ -1,7 +1,6 @@
 "use client";
 
-import { useRef, useCallback } from "react";
-import type { Map as LeafletMap } from "leaflet";
+import { useRef, useCallback, useState, Fragment } from "react";
 import dynamic from "next/dynamic";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
@@ -16,7 +15,6 @@ const MapBackground = dynamic(() => import("./MapBackground"), { ssr: false });
 const CDN = "https://cdn.jsdelivr.net/gh/ESNTurkiye/esn-assets@main/istanbul";
 
 const PIN_TIMINGS = [1.1, 2.0, 3.0, 4.0, 5.1] as const;
-const TOTAL_DURATION = 6.1;
 
 /* ── Landmark data ─────────────────────────────────────────────────────── */
 interface Landmark {
@@ -27,129 +25,168 @@ interface Landmark {
     image: string;
     imageAlt: string;
     accent: string;
-    cx: number;
-    cy: number;
+    /** Real GPS coordinates — used by Leaflet for exact pin placement */
     lat: number;
     lng: number;
-    mapZoom: number;
-    panelSide: "left" | "right";
+    /**
+     * Which side the info card appears on relative to the pin.
+     * right → card to the right; left → card to the left.
+     * Right-of-center (Taksim, Kadıköy) use left so card doesn't overflow screen.
+     */
+    cardSide: "left" | "right";
 }
 
 const LANDMARKS: Landmark[] = [
     {
-        id: "sultanahmet",
-        label: "Sultanahmet",
-        sublabel: "Historic Heart",
+        id:          "sultanahmet",
+        label:       "Sultanahmet",
+        sublabel:    "Historic Heart",
         description: "Six minarets, two millennia of empire. The Blue Mosque and Hagia Sophia face each other across a silence that hums with history.",
-        image: `${CDN}/ayasofya.webp`,
-        imageAlt: "Hagia Sophia",
-        accent: "#f47b20",
-        cx: 16, cy: 38,
-        lat: 41.0054, lng: 28.9768, mapZoom: 15,
-        panelSide: "right",
+        image:       `${CDN}/ayasofya.webp`,
+        imageAlt:    "Hagia Sophia",
+        accent:      "#f47b20",
+        lat: 41.0054, lng: 28.9768,
+        cardSide: "right",
     },
     {
-        id: "bazaar",
-        label: "Kapalıçarşı",
-        sublabel: "Grand Bazaar",
+        id:          "bazaar",
+        label:       "Kapalıçarşı",
+        sublabel:    "Grand Bazaar",
         description: "61 covered streets, 4,000 shops and the world's oldest scent of spice. Once you enter, the city will never fully let you leave.",
-        image: `${CDN}/kapali-carsi-1.webp`,
-        imageAlt: "Grand Bazaar Istanbul",
-        accent: "#7ac143",
-        cx: 28, cy: 33,
-        lat: 41.0105, lng: 28.9680, mapZoom: 15,
-        panelSide: "right",
+        image:       `${CDN}/kapali-carsi-1.webp`,
+        imageAlt:    "Grand Bazaar Istanbul",
+        accent:      "#7ac143",
+        lat: 41.0107, lng: 28.9681,
+        cardSide: "right",
     },
     {
-        id: "galata",
-        label: "Galata",
-        sublabel: "Beyoğlu Nights",
+        id:          "galata",
+        label:       "Galata",
+        sublabel:    "Beyoğlu Nights",
         description: "A medieval tower that watches over the city's most bohemian quarter. Coffee in the morning, jazz at midnight.",
-        image: `${CDN}/galata-kulesi.webp`,
-        imageAlt: "Galata Tower",
-        accent: "#00a6ef",
-        cx: 40, cy: 27,
-        lat: 41.0258, lng: 28.9744, mapZoom: 15,
-        panelSide: "right",
+        image:       `${CDN}/galata-kulesi.webp`,
+        imageAlt:    "Galata Tower",
+        accent:      "#00a6ef",
+        lat: 41.0256, lng: 28.9741,
+        cardSide: "right",
     },
     {
-        id: "taksim",
-        label: "Taksim",
-        sublabel: "İstiklal Avenue",
+        id:          "taksim",
+        label:       "Taksim",
+        sublabel:    "İstiklal Avenue",
         description: "Three kilometres of bookshops, galleries and street music. The nostalgic red tram still runs through the crowd.",
-        image: `${CDN}/taksim-tramvay.webp`,
-        imageAlt: "İstiklal tram Taksim",
-        accent: "#2e3192",
-        cx: 53, cy: 24,
-        lat: 41.0369, lng: 28.9854, mapZoom: 15,
-        panelSide: "left",
+        image:       `${CDN}/taksim-tramvay.webp`,
+        imageAlt:    "İstiklal tram Taksim",
+        accent:      "#2e3192",
+        lat: 41.0370, lng: 28.9851,
+        cardSide: "left",
     },
     {
-        id: "kadikoy",
-        label: "Kadıköy",
-        sublabel: "Asian Soul",
+        id:          "kadikoy",
+        label:       "Kadıköy",
+        sublabel:    "Asian Soul",
         description: "The Bosphorus crossing takes 20 minutes and delivers you to another world. Markets, murals and the bull that became a symbol.",
-        image: `${CDN}/boga-heykeli.webp`,
-        imageAlt: "Kadıköy Bull Statue",
-        accent: "#ec008c",
-        cx: 76, cy: 37,
-        lat: 40.9924, lng: 29.0275, mapZoom: 15,
-        panelSide: "left",
+        image:       `${CDN}/boga-heykeli.webp`,
+        imageAlt:    "Kadıköy Bull Statue",
+        accent:      "#ec008c",
+        lat: 40.9904, lng: 29.0292,
+        cardSide: "left",
     },
 ];
 
-const ROUTE =
-    "M 16,38 C 21,36 24,34 28,33 C 34,31 37,29 40,27 C 46,26 50,25 53,24 C 61,27 68,32 76,37";
+/** Smooth quadratic-bezier path through pixel-coordinate points */
+function smoothPath(pts: { x: number; y: number }[]) {
+    if (pts.length < 2) return "";
+    let d = `M ${pts[0].x} ${pts[0].y}`;
+    for (let i = 1; i < pts.length - 1; i++) {
+        const mx = (pts[i].x + pts[i + 1].x) / 2;
+        const my = (pts[i].y + pts[i + 1].y) / 2;
+        d += ` Q ${pts[i].x} ${pts[i].y} ${mx} ${my}`;
+    }
+    const last = pts[pts.length - 1];
+    d += ` L ${last.x} ${last.y}`;
+    return d;
+}
+
+/** Card position relative to the section, offset from the pin */
+function cardPos(pinPx: { x: number; y: number }, lm: Landmark) {
+    const W   = 200; // approx card width in px
+    const GAP = 20;
+    const Y   = -100; // card appears 100px above the pin centre
+    const x = lm.cardSide === "right"
+        ? pinPx.x + GAP
+        : Math.max(8, pinPx.x - W - GAP);
+    return { x, y: Math.max(68, pinPx.y + Y) };
+}
 
 export default function Discovery() {
-    const sectionRef = useRef<HTMLElement>(null);
-    const svgStageRef = useRef<HTMLDivElement>(null);
-    const routeRef = useRef<SVGPathElement>(null);
-    const ferryRef = useRef<HTMLDivElement>(null);
-    const headlineRef = useRef<HTMLDivElement>(null);
-    const subRef = useRef<HTMLParagraphElement>(null);
-    const pinRefs = useRef<(HTMLDivElement | null)[]>([]);
-    const labelRefs = useRef<(HTMLDivElement | null)[]>([]);
-    const ringRefs = useRef<(HTMLDivElement | null)[]>([]);
-    const panelRefs = useRef<(HTMLDivElement | null)[]>([]);
-    const atmRefs = useRef<(HTMLDivElement | null)[]>([]);
-    const marti2Ref = useRef<HTMLDivElement>(null);
-    const marti1Ref = useRef<HTMLDivElement>(null);
-    const laleRef = useRef<HTMLDivElement>(null);
-    const leafletMap = useRef<LeafletMap | null>(null);
+    const sectionRef   = useRef<HTMLElement>(null);
+    const routeRef     = useRef<SVGPathElement>(null);
+    const ferryRef     = useRef<HTMLDivElement>(null);
+    const headlineRef  = useRef<HTMLDivElement>(null);
+    const subRef       = useRef<HTMLParagraphElement>(null);
+    const pinDotRefs   = useRef<(HTMLDivElement | null)[]>([]);
+    const ringRefs     = useRef<(HTMLDivElement | null)[]>([]);
+    const labelRefs    = useRef<(HTMLDivElement | null)[]>([]);
+    const cardRefs     = useRef<(HTMLDivElement | null)[]>([]);
+    const marti2Ref    = useRef<HTMLDivElement>(null);
+    const marti1Ref    = useRef<HTMLDivElement>(null);
+    const laleLeftRef  = useRef<HTMLDivElement>(null);
+    const laleRightRef = useRef<HTMLDivElement>(null);
 
-    const handleMapReady = useCallback((m: LeafletMap) => {
-        leafletMap.current = m;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const leafletMap = useRef<any>(null);
+    const [mapReady,      setMapReady]      = useState(false);
+    const [pinPositions,  setPinPositions]  = useState<{ x: number; y: number }[]>([]);
+    const [routePath,     setRoutePath]     = useState("");
+
+    const handleMapReady = useCallback((m: unknown) => {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const map = m as any;
+        leafletMap.current = map;
+        map.invalidateSize();
+
+        // Use Leaflet's own projection — pins will sit exactly on the map tiles
+        const positions = LANDMARKS.map(lm => {
+            const pt = map.latLngToContainerPoint([lm.lat, lm.lng]);
+            return { x: Math.round(pt.x), y: Math.round(pt.y) };
+        });
+
+        setPinPositions(positions);
+        setRoutePath(smoothPath(positions));
+        setMapReady(true);
     }, []);
 
     useGSAP(() => {
-        if (!sectionRef.current || !routeRef.current || !svgStageRef.current) return;
+        if (!sectionRef.current) return;
 
-        const path = routeRef.current;
-        const length = path.getTotalLength();
-
-        gsap.set(path, { strokeDasharray: length, strokeDashoffset: length });
-        gsap.set(pinRefs.current, { scale: 0, opacity: 0 });
-        gsap.set(labelRefs.current, { opacity: 0, y: 10 });
-        gsap.set(ferryRef.current, { x: "115%" });
-        gsap.set(headlineRef.current, { opacity: 0, y: 28 });
-        gsap.set(subRef.current, { opacity: 0 });
+        /* ── Always hide decoratives / headline on first paint ──────────── */
+        gsap.set(headlineRef.current,  { opacity: 0, y: 28 });
+        gsap.set(subRef.current,       { opacity: 0 });
+        gsap.set(ferryRef.current,     { x: "115%" });
         gsap.set([marti2Ref.current, marti1Ref.current], { opacity: 0, y: -15 });
-        gsap.set(laleRef.current, { opacity: 0, y: 40 });
+        // Left lale needs to be flipped via GSAP so rotation is also handled by GSAP
+        gsap.set(laleLeftRef.current,  { scaleX: -1, opacity: 0, y: -30 });
+        gsap.set(laleRightRef.current, { opacity: 0, y: -30 });
 
-        LANDMARKS.forEach((lm, i) => {
-            const p = panelRefs.current[i];
-            if (p) gsap.set(p, {
+        /* Hide pins/cards — refs may still be null before mapReady */
+        pinDotRefs.current.forEach(el => { if (el) gsap.set(el, { scale: 0, opacity: 0 }); });
+        ringRefs.current.forEach(el   => { if (el) gsap.set(el, { scale: 1, opacity: 0 }); });
+        labelRefs.current.forEach(el  => { if (el) gsap.set(el, { opacity: 0, y: 6 }); });
+        cardRefs.current.forEach((el, i) => {
+            if (el) gsap.set(el, {
                 opacity: 0,
-                x: lm.panelSide === "right" ? 80 : -80,
+                x: LANDMARKS[i].cardSide === "right" ? -20 : 20,
                 pointerEvents: "none",
             });
-            const a = atmRefs.current[i];
-            if (a) gsap.set(a, {
-                opacity: 0,
-                x: lm.panelSide === "right" ? -80 : 80,
-            });
         });
+
+        /* ── Bail until Leaflet has calculated real pixel positions ─────── */
+        if (!mapReady || pinPositions.length === 0 || !routeRef.current) return;
+
+        const path   = routeRef.current;
+        const length = path.getTotalLength();
+        gsap.set(path, { strokeDasharray: length, strokeDashoffset: length });
 
         const mm = gsap.matchMedia();
 
@@ -157,121 +194,96 @@ export default function Discovery() {
             { isDesktop: "(min-width: 768px)", isMobile: "(max-width: 767px)" },
             (ctx) => {
                 const { isMobile } = ctx.conditions as { isMobile: boolean };
-                const scrollDist = isMobile ? "+=200%" : "+=260%";
+                const scrollDist   = isMobile ? "+=200%" : "+=260%";
 
                 const tl = gsap.timeline({
                     scrollTrigger: {
                         trigger: sectionRef.current,
-                        start: "top top",
-                        end: scrollDist,
-                        pin: true,
-                        scrub: 1.2,
+                        start:   "top top",
+                        end:     scrollDist,
+                        pin:     true,
+                        scrub:   1.2,
                         anticipatePin: 1,
                         invalidateOnRefresh: true,
-
-
-                        onUpdate: (() => {
-                            let sizeFixed = false;
-                            return (self: ScrollTrigger) => {
-                                if (!sizeFixed && leafletMap.current) {
-                                    leafletMap.current.invalidateSize();
-                                    sizeFixed = true;
-                                }
-                                const pProg = self.progress * TOTAL_DURATION;
-                                let activeIndex = -1;
-                                for (let i = 0; i < PIN_TIMINGS.length; i++) {
-                                    if (pProg >= PIN_TIMINGS[i]) activeIndex = i;
-                                }
-                                if (!leafletMap.current) return;
-
-                                if (activeIndex >= 0) {
-                                    const lm = LANDMARKS[activeIndex];
-                                    leafletMap.current.setView(
-                                        [lm.lat, lm.lng],
-                                        lm.mapZoom,
-                                        { animate: true, duration: 0.9 },
-                                    );
-                                } else {
-                                    leafletMap.current.setView(
-                                        [41.01, 29.0], 12,
-                                        { animate: true, duration: 0.9 },
-                                    );
-                                }
-                            };
-                        })(),
                     },
                 });
 
-                tl.to(headlineRef.current, { opacity: 1, y: 0, duration: 0.6, ease: "power2.out" }, 0);
-                tl.to(subRef.current, { opacity: 1, duration: 0.5 }, 0.3);
-                tl.to(marti2Ref.current, { opacity: 1, y: 0, duration: 0.5 }, 0.1);
-                tl.to(marti1Ref.current, { opacity: 1, y: 0, duration: 0.5 }, 0.3);
-                tl.to(laleRef.current, { opacity: 1, y: 0, duration: 0.9, ease: "power2.out" }, 0.2);
+                /* 0 ── Headline */
+                tl.to(headlineRef.current,  { opacity: 1, y: 0, duration: 0.6, ease: "power2.out" }, 0);
+                tl.to(subRef.current,       { opacity: 1, duration: 0.5 }, 0.3);
 
+                /* 0 ── Lale corner decorations bloom in from top */
+                tl.to(laleLeftRef.current,  { opacity: 1, y: 0, duration: 0.9, ease: "power2.out" }, 0);
+                tl.to(laleRightRef.current, { opacity: 1, y: 0, duration: 0.9, ease: "power2.out" }, 0.15);
+
+                /* 0 ── Seagulls */
+                tl.to(marti2Ref.current,    { opacity: 0.75, y: 0, duration: 0.5 }, 0.1);
+                tl.to(marti1Ref.current,    { opacity: 0.55, y: 0, duration: 0.5 }, 0.3);
+
+                /* 0.5 ── Ferry */
                 tl.to(ferryRef.current, { x: "-50%", ease: "none", duration: 8 }, 0.5);
 
+                /* 0.8 ── Route draws itself */
                 tl.to(path, { strokeDashoffset: 0, ease: "none", duration: 5 }, 0.8);
 
+                /* ── Per-landmark reveals ──────────────────────────────── */
                 LANDMARKS.forEach((lm, i) => {
-                    const t = PIN_TIMINGS[i];
-                    const prev = i > 0 ? panelRefs.current[i - 1] : null;
-                    const prevAtm = i > 0 ? atmRefs.current[i - 1] : null;
-                    const prevLm = i > 0 ? LANDMARKS[i - 1] : null;
+                    const t      = PIN_TIMINGS[i];
+                    const prevCard = i > 0 ? cardRefs.current[i - 1] : null;
+                    const prevLm   = i > 0 ? LANDMARKS[i - 1] : null;
 
-                    tl.to(pinRefs.current[i], {
+                    /* Pin dot pop */
+                    tl.to(pinDotRefs.current[i], {
                         scale: 1, opacity: 1,
                         duration: 0.4, ease: "back.out(2.5)",
                     }, t);
+
+                    /* Expanding ring */
                     tl.fromTo(ringRefs.current[i],
-                        { scale: 1, opacity: 0.9 },
-                        { scale: 3, opacity: 0, duration: 0.6, ease: "power2.out" },
+                        { scale: 1, opacity: 0.8 },
+                        { scale: 3.5, opacity: 0, duration: 0.55, ease: "power2.out" },
                         t + 0.05,
                     );
+
+                    /* Label */
                     tl.to(labelRefs.current[i], {
-                        opacity: 1, y: 0, duration: 0.4, ease: "power2.out",
+                        opacity: 1, y: 0,
+                        duration: 0.4, ease: "power2.out",
                     }, t + 0.2);
-                    if (prev && prevLm) {
-                        tl.to(prev, {
+
+                    /* Previous card exits toward its own side */
+                    if (prevCard && prevLm) {
+                        tl.to(prevCard, {
                             opacity: 0,
-                            x: prevLm.panelSide === "right" ? 60 : -60,
-                            duration: 0.35, ease: "power2.in",
+                            x: prevLm.cardSide === "right" ? 16 : -16,
+                            duration: 0.3, ease: "power2.in",
                         }, t - 0.1);
                     }
-                    if (prevAtm && prevLm) {
-                        tl.to(prevAtm, {
-                            opacity: 0,
-                            x: prevLm.panelSide === "right" ? -60 : 60,
-                            duration: 0.35, ease: "power2.in",
-                        }, t - 0.1);
-                    }
-                    tl.to(panelRefs.current[i], {
+
+                    /* Current card slides in */
+                    tl.to(cardRefs.current[i], {
                         opacity: 1, x: 0,
                         duration: 0.55, ease: "power2.out",
                         pointerEvents: "auto",
-                    }, t + 0.15);
-                    tl.to(atmRefs.current[i], {
-                        opacity: 1, x: 0,
-                        duration: 0.65, ease: "power2.out",
-                    }, t + 0.1);
-                    tl.to(svgStageRef.current, {
-                        x: `${(50 - lm.cx) * 0.035}%`,
-                        y: `${(27 - lm.cy) * 0.05}%`,
-                        scale: 1 + (i + 1) * 0.006,
-                        duration: 0.6, ease: "power1.inOut",
-                    }, t);
+                    }, t + 0.2);
                 });
 
                 return () => ctx.revert();
             },
         );
 
-        /* ── Idle animations (non-scroll, loop forever) ─────────────────── */
-        gsap.to(marti2Ref.current, { y: "+=10", x: "+=6", duration: 3.5, repeat: -1, yoyo: true, ease: "sine.inOut" });
-        gsap.to(marti1Ref.current, { y: "-=4", rotate: 1.5, duration: 4, repeat: -1, yoyo: true, ease: "sine.inOut", delay: 0.8 });
-        gsap.to(laleRef.current, { rotate: 2, duration: 4.2, repeat: -1, yoyo: true, ease: "sine.inOut", transformOrigin: "bottom center" });
+        /* ── Idle / ambient animations ──────────────────────────────────── */
+        gsap.to(marti2Ref.current, { y: "+=10", x: "+=6",   duration: 3.5, repeat: -1, yoyo: true, ease: "sine.inOut" });
+        gsap.to(marti1Ref.current, { y: "-=4",  rotate: 1.5, duration: 4,  repeat: -1, yoyo: true, ease: "sine.inOut", delay: 0.8 });
+        // Lale sway — transformOrigin at the top so petals swing naturally
+        gsap.to(laleLeftRef.current,  { rotate: -1.8, scaleX: -1, duration: 4.5, repeat: -1, yoyo: true, ease: "sine.inOut", transformOrigin: "top right" });
+        gsap.to(laleRightRef.current, { rotate:  1.8, duration: 4.2, repeat: -1, yoyo: true, ease: "sine.inOut", transformOrigin: "top left", delay: 0.4 });
 
         return () => mm.revert();
-    }, { scope: sectionRef });
+
+    }, { scope: sectionRef, dependencies: [mapReady, pinPositions] });
+
+    const positionsReady = pinPositions.length === LANDMARKS.length;
 
     return (
         <section
@@ -279,34 +291,68 @@ export default function Discovery() {
             className="relative w-full min-h-screen overflow-hidden"
             style={{ background: "#020C1C" }}
         >
-            {/* ── z:1  Real Istanbul map (CartoDB dark tiles via Leaflet) ── */}
+            {/* ── z:1  Leaflet map — CartoDB dark tiles, fixed at zoom 13 ── */}
             <div className="absolute inset-0" style={{ zIndex: 1 }}>
                 <MapBackground onMapReady={handleMapReady} />
             </div>
 
-            {/* ── z:2  Atmospheric colour overlay on top of map tiles ─────── */}
+            {/* ── z:2  Light veil — preserves map readability ──────────────── */}
             <div
                 className="absolute inset-0 pointer-events-none"
                 style={{
                     zIndex: 2,
                     background: [
-                        "radial-gradient(ellipse 18% 80% at 51% 50%, rgba(0,100,210,0.12) 0%, transparent 70%)",
-                        "linear-gradient(108deg, rgba(12,32,24,0.72) 0%, rgba(10,27,46,0.62) 34%, rgba(4,14,29,0.48) 47%, rgba(4,14,29,0.48) 53%, rgba(28,21,5,0.68) 66%, rgba(16,12,4,0.74) 100%)",
+                        "radial-gradient(ellipse 60% 70% at 50% 50%, transparent 35%, rgba(2,12,28,0.42) 100%)",
+                        "linear-gradient(180deg, rgba(2,12,28,0.38) 0%, rgba(2,12,28,0.08) 35%, rgba(2,12,28,0.08) 65%, rgba(2,12,28,0.42) 100%)",
                     ].join(", "),
                 }}
             />
 
+            {/* ── z:10  lale-2 top-left (desktop — visible throughout scroll) */}
+            {/*
+                GSAP sets scaleX(-1) to flip; the outer div is positioned at
+                the corner. Stays visible the entire pinned scroll duration.
+            */}
+            <div
+                ref={laleLeftRef}
+                className="hidden md:block absolute top-0 left-0 pointer-events-none"
+                style={{
+                    zIndex: 10,
+                    width: "clamp(180px, 22vw, 300px)",
+                    mixBlendMode: "multiply",
+                }}
+            >
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src={`${CDN}/lale-2.webp`} alt="" className="w-full h-auto" />
+            </div>
+
+            {/* ── z:10  lale-2 top-right (desktop) ───────────────────────── */}
+            <div
+                ref={laleRightRef}
+                className="hidden md:block absolute top-0 right-0 pointer-events-none"
+                style={{
+                    zIndex: 10,
+                    width: "clamp(180px, 22vw, 300px)",
+                    mixBlendMode: "multiply",
+                }}
+            >
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src={`${CDN}/lale-2.webp`} alt="" className="w-full h-auto" />
+            </div>
+
             {/* ── z:20  Headline ──────────────────────────────────────────── */}
             <div
                 ref={headlineRef}
-                className="absolute top-[7%] left-1/2 -translate-x-1/2 text-center pointer-events-none w-full px-4"
+                className="absolute top-[6%] left-1/2 -translate-x-1/2 text-center pointer-events-none w-full px-4"
                 style={{ zIndex: 20 }}
             >
                 <h2
-                    className="font-bold leading-none tracking-tight text-white"
+                    className="font-bold leading-none tracking-tight"
                     style={{
                         fontFamily: "var(--font-kelson-sans), Arial, sans-serif",
-                        fontSize: "clamp(1.8rem, 5.5vw, 4.2rem)",
+                        fontSize:   "clamp(1.8rem, 5.5vw, 4.2rem)",
+                        color: "white",
+                        textShadow: "0 2px 20px rgba(0,0,0,0.75)",
                     }}
                 >
                     7 HILLS&nbsp;&middot;&nbsp;
@@ -314,258 +360,197 @@ export default function Discovery() {
                 </h2>
                 <p
                     ref={subRef}
-                    className="mt-3 text-white/45 tracking-[0.2em] uppercase font-light"
-                    style={{ fontSize: "clamp(0.65rem, 1.2vw, 0.82rem)" }}
+                    className="mt-3 tracking-[0.2em] uppercase font-light"
+                    style={{
+                        fontSize: "clamp(0.65rem, 1.2vw, 0.82rem)",
+                        color: "rgba(255,255,255,0.52)",
+                        textShadow: "0 1px 8px rgba(0,0,0,0.7)",
+                    }}
                 >
                     The Erasmus Route &mdash; Istanbul
                 </p>
             </div>
 
-            {/* ── z:8  Large atmospheric ghost images (scroll-animated) ────── */}
-            {/*
-                These are full-height cutout images of each landmark that slide
-                in from the opposite side of the info panel, creating a dramatic
-                split-screen cinematic feel.
-                – mask-image vignette fades the image into the dark background
-                – panelSide "right" → ghost on LEFT side; "left" → ghost on RIGHT
-            */}
-            {LANDMARKS.map((lm, i) => (
-                <div
-                    key={`atm-${lm.id}`}
-                    ref={el => { atmRefs.current[i] = el; }}
-                    className="absolute pointer-events-none"
-                    style={{
-                        top: "14%",
-                        bottom: "14%",
-                        zIndex: 8,
-                        width: "clamp(160px, 28vw, 360px)",
-                        ...(lm.panelSide === "right"
-                            ? { left: "3%", right: "auto" }
-                            : { right: "3%", left: "auto" }),
-                    }}
-                >
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img
-                        src={lm.image}
-                        alt=""
-                        aria-hidden="true"
-                        className="w-full h-full object-contain"
-                        style={{
-                            opacity: 0.28,
-                            // Radial vignette: image fades toward all edges
-                            WebkitMaskImage:
-                                lm.panelSide === "right"
-                                    ? "radial-gradient(ellipse 90% 80% at 60% 50%, black 35%, transparent 80%)"
-                                    : "radial-gradient(ellipse 90% 80% at 40% 50%, black 35%, transparent 80%)",
-                            maskImage:
-                                lm.panelSide === "right"
-                                    ? "radial-gradient(ellipse 90% 80% at 60% 50%, black 35%, transparent 80%)"
-                                    : "radial-gradient(ellipse 90% 80% at 40% 50%, black 35%, transparent 80%)",
-                            filter: `drop-shadow(0 0 30px ${lm.accent}60)`,
-                        }}
-                    />
-                    {/* Accent glow behind the image */}
-                    <div
-                        className="absolute inset-0 pointer-events-none"
-                        style={{
-                            background: `radial-gradient(ellipse 60% 50% at 50% 50%, ${lm.accent}18 0%, transparent 70%)`,
-                        }}
-                    />
-                </div>
-            ))}
-
-            {/* ── z:10  marti-2 – flying seagull, top-right corner ─────────── */}
+            {/* ── z:10  marti-2 flying seagull ────────────────────────────── */}
             <div
                 ref={marti2Ref}
-                className="absolute top-[11%] right-[5%] w-[7%] max-w-[90px] opacity-0 pointer-events-none"
+                className="absolute top-[11%] right-[5%] w-[7%] max-w-[88px] pointer-events-none"
                 style={{ zIndex: 10, mixBlendMode: "multiply" }}
             >
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img src={`${CDN}/marti-2.webp`} alt="" className="w-full h-auto" />
             </div>
 
-            {/* ── z:10  marti-1 – standing seagull, bottom-right corner ─────── */}
+            {/* ── z:10  marti-1 standing seagull, bottom-right ────────────── */}
             <div
                 ref={marti1Ref}
-                className="absolute bottom-[4%] right-[1.5%] w-[4%] max-w-[52px] opacity-0 pointer-events-none"
+                className="absolute bottom-[4%] right-[1.5%] w-[4%] max-w-[50px] pointer-events-none"
                 style={{ zIndex: 10, mixBlendMode: "multiply" }}
             >
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img src={`${CDN}/marti-1.webp`} alt="" className="w-full h-auto" />
             </div>
 
-            {/* ── z:10  lale-2 – golden tulip cluster, bottom-left corner ───── */}
-            <div
-                ref={laleRef}
-                className="absolute bottom-0 left-[0.5%] w-[11%] max-w-[138px] opacity-0 pointer-events-none"
-                style={{ zIndex: 10, mixBlendMode: "multiply" }}
-            >
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={`${CDN}/lale-2.webp`} alt="" className="w-full h-auto" />
-            </div>
-
-            {/* ── z:12  SVG route + pin markers (GSAP pan target) ─────────── */}
-            <div
-                ref={svgStageRef}
-                className="absolute inset-0 flex items-center justify-center"
-                style={{ zIndex: 12 }}
-            >
-                <div
-                    className="relative w-[96%] sm:w-[90%] max-w-[1160px]"
-                    style={{ aspectRatio: "100 / 55" }}
+            {/* ── z:12  SVG route — pixel-space coordinates from Leaflet ─────
+                No viewBox: SVG user units = CSS pixels, matching containerPoint.
+                overflow-visible allows the path to extend outside the rect.   */}
+            {routePath && (
+                <svg
+                    className="absolute inset-0 pointer-events-none"
+                    style={{ width: "100%", height: "100%", zIndex: 12, overflow: "visible" }}
+                    aria-hidden="true"
                 >
-                    <svg
-                        className="absolute inset-0 w-full h-full overflow-visible"
-                        viewBox="0 0 100 55"
-                        preserveAspectRatio="none"
-                        aria-hidden="true"
-                    >
-                        <defs>
-                            <filter id="disc-glow" x="-60%" y="-60%" width="220%" height="220%">
-                                <feGaussianBlur stdDeviation="0.5" result="blur" />
-                                <feMerge>
-                                    <feMergeNode in="blur" />
-                                    <feMergeNode in="SourceGraphic" />
-                                </feMerge>
-                            </filter>
-                            <linearGradient id="disc-route" x1="0%" y1="0%" x2="100%" y2="0%">
-                                <stop offset="0%" stopColor="#f47b20" stopOpacity="0.7" />
-                                <stop offset="50%" stopColor="#f47b20" />
-                                <stop offset="100%" stopColor="#f47b20" stopOpacity="0.6" />
-                            </linearGradient>
-                        </defs>
+                    <defs>
+                        <filter id="disc-glow" x="-60%" y="-60%" width="220%" height="220%">
+                            <feGaussianBlur stdDeviation="2" result="blur" />
+                            <feMerge>
+                                <feMergeNode in="blur" />
+                                <feMergeNode in="SourceGraphic" />
+                            </feMerge>
+                        </filter>
+                        <linearGradient id="disc-route" x1="0%" y1="0%" x2="100%" y2="0%">
+                            <stop offset="0%"   stopColor="#f47b20" stopOpacity="0.7" />
+                            <stop offset="50%"  stopColor="#f47b20" />
+                            <stop offset="100%" stopColor="#f47b20" stopOpacity="0.6" />
+                        </linearGradient>
+                    </defs>
+                    <path
+                        ref={routeRef}
+                        d={routePath}
+                        fill="none"
+                        stroke="url(#disc-route)"
+                        strokeWidth="3"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        filter="url(#disc-glow)"
+                    />
+                </svg>
+            )}
 
-                        {/* Animated route path */}
-                        <path
-                            ref={routeRef}
-                            d={ROUTE}
-                            fill="none"
-                            stroke="url(#disc-route)"
-                            strokeWidth="0.45"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            filter="url(#disc-glow)"
-                        />
-                    </svg>
+            {/* ── z:15/18  Pin markers + info cards ────────────────────────
+                All positioned using Leaflet's latLngToContainerPoint() values.
+                Pin dots are exactly over the correct geographic tile locations.  */}
+            {positionsReady && LANDMARKS.map((lm, i) => {
+                const pos  = pinPositions[i];
+                const card = cardPos(pos, lm);
 
-                    {/* ── Pin markers ─────────────────────────────────────── */}
-                    {LANDMARKS.map((lm, i) => (
+                return (
+                    <Fragment key={lm.id}>
+                        {/* Pin dot + ring + label */}
                         <div
-                            key={lm.id}
                             className="absolute"
                             style={{
-                                left: `${lm.cx}%`,
-                                top: `${(lm.cy / 55) * 100}%`,
+                                left:      pos.x,
+                                top:       pos.y,
                                 transform: "translate(-50%, -50%)",
-                                zIndex: 15,
+                                zIndex:    15,
                             }}
                         >
-                            {/* Pulse ring */}
+                            {/* Expanding ring (burst on reveal) */}
                             <div
                                 ref={el => { ringRefs.current[i] = el; }}
                                 className="absolute rounded-full"
                                 style={{
-                                    inset: "-10px",
-                                    border: `1px solid ${lm.accent}60`,
+                                    inset:  "-12px",
+                                    border: `1px solid ${lm.accent}70`,
                                 }}
                             />
-                            {/* Dot */}
+                            {/* Glowing dot */}
                             <div
-                                ref={el => { pinRefs.current[i] = el; }}
-                                className="w-3 h-3 md:w-[14px] md:h-[14px] rounded-full relative"
+                                ref={el => { pinDotRefs.current[i] = el; }}
+                                className="relative rounded-full"
                                 style={{
+                                    width:     13,
+                                    height:    13,
                                     background: lm.accent,
-                                    boxShadow: `0 0 16px 6px ${lm.accent}70`,
+                                    boxShadow: `0 0 14px 5px ${lm.accent}90`,
                                     zIndex: 2,
                                 }}
                             />
                             {/* Label above pin */}
                             <div
                                 ref={el => { labelRefs.current[i] = el; }}
-                                className="absolute bottom-full left-1/2 -translate-x-1/2 pb-2 text-center whitespace-nowrap"
+                                className="absolute bottom-full left-1/2 -translate-x-1/2 pb-[6px] whitespace-nowrap text-center"
                             >
-                                <div
-                                    className="text-white text-[0.65rem] sm:text-[0.75rem] font-bold leading-tight drop-shadow-lg"
-                                    style={{ fontFamily: "var(--font-kelson-sans), Arial, sans-serif" }}
+                                <span
+                                    className="font-bold leading-tight"
+                                    style={{
+                                        fontFamily:  "var(--font-kelson-sans), Arial, sans-serif",
+                                        fontSize:    "clamp(0.58rem, 0.85vw, 0.7rem)",
+                                        color:       "white",
+                                        textShadow:  "0 1px 6px rgba(0,0,0,1), 0 0 12px rgba(0,0,0,0.8)",
+                                    }}
                                 >
                                     {lm.label}
-                                </div>
-                                <div className="text-[0.55rem] sm:text-[0.65rem] font-medium leading-tight" style={{ color: lm.accent }}>
-                                    {lm.sublabel}
-                                </div>
+                                </span>
                             </div>
                         </div>
-                    ))}
-                </div>
-            </div>
 
-            {/* ── z:30  Landmark info panels ───────────────────────────────── */}
-            {/*
-                panelSide "right" → bottom-right, slides from right
-                panelSide "left"  → bottom-left,  slides from left
-                They are never shown simultaneously — GSAP hides prev before showing next.
-            */}
-            {LANDMARKS.map((lm, i) => (
-                <div
-                    key={`panel-${lm.id}`}
-                    ref={el => { panelRefs.current[i] = el; }}
-                    className="absolute pointer-events-none"
-                    style={{
-                        bottom: "6%",
-                        zIndex: 30,
-                        ...(lm.panelSide === "right"
-                            ? { right: "3%", left: "auto" }
-                            : { left: "3%", right: "auto" }),
-                        width: "clamp(170px, 22vw, 260px)",
-                    }}
-                >
-                    <div
-                        className="rounded-2xl overflow-hidden"
-                        style={{
-                            background: "rgba(2,12,28,0.72)",
-                            border: `1px solid ${lm.accent}40`,
-                            backdropFilter: "blur(14px)",
-                        }}
-                    >
-                        {/* Image */}
-                        <div className="w-full overflow-hidden" style={{ height: "clamp(90px, 13vw, 150px)" }}>
-                            {/* eslint-disable-next-line @next/next/no-img-element */}
-                            <img
-                                src={lm.image}
-                                alt={lm.imageAlt}
-                                className="w-full h-full object-contain object-bottom"
-                                style={{ filter: "drop-shadow(0 4px 12px rgba(0,0,0,0.6))" }}
-                            />
-                        </div>
-                        {/* Text */}
-                        <div className="px-4 pb-4 pt-2">
+                        {/* Info card — positioned next to the pin */}
+                        <div
+                            ref={el => { cardRefs.current[i] = el; }}
+                            className="absolute pointer-events-none"
+                            style={{
+                                left:   card.x,
+                                top:    card.y,
+                                width:  200,
+                                zIndex: 18,
+                            }}
+                        >
                             <div
-                                className="text-[0.58rem] font-semibold tracking-[0.24em] uppercase mb-1"
-                                style={{ color: lm.accent }}
-                            >
-                                {lm.sublabel}
-                            </div>
-                            <h3
-                                className="text-white font-bold leading-tight mb-1.5"
+                                className="rounded-xl overflow-hidden"
                                 style={{
-                                    fontFamily: "var(--font-kelson-sans), Arial, sans-serif",
-                                    fontSize: "clamp(0.82rem, 1.3vw, 1.0rem)",
+                                    background:     "rgba(2,10,24,0.85)",
+                                    border:         `1px solid ${lm.accent}55`,
+                                    backdropFilter: "blur(14px)",
+                                    boxShadow:      `0 4px 28px rgba(0,0,0,0.55), 0 0 0 1px ${lm.accent}22`,
                                 }}
                             >
-                                {lm.label}
-                            </h3>
-                            <p className="text-white/52 leading-snug" style={{ fontSize: "0.66rem" }}>
-                                {lm.description}
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            ))}
+                                {/* Accent stripe */}
+                                <div style={{ height: 3, background: lm.accent }} />
 
-            {/* ── z:10  Ferry crossing the Bosphorus ───────────────────────── */}
+                                {/* Landmark image */}
+                                <div className="w-full overflow-hidden" style={{ height: 100 }}>
+                                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                                    <img
+                                        src={lm.image}
+                                        alt={lm.imageAlt}
+                                        className="w-full h-full object-contain object-bottom"
+                                        style={{ filter: "drop-shadow(0 2px 8px rgba(0,0,0,0.6))" }}
+                                    />
+                                </div>
+
+                                {/* Text */}
+                                <div className="px-3 pb-3 pt-2">
+                                    <p
+                                        className="font-semibold tracking-[0.2em] uppercase mb-0.5"
+                                        style={{ color: lm.accent, fontSize: "0.52rem" }}
+                                    >
+                                        {lm.sublabel}
+                                    </p>
+                                    <h3
+                                        className="text-white font-bold leading-tight mb-1"
+                                        style={{
+                                            fontFamily: "var(--font-kelson-sans), Arial, sans-serif",
+                                            fontSize:   "clamp(0.78rem, 1.1vw, 0.9rem)",
+                                        }}
+                                    >
+                                        {lm.label}
+                                    </h3>
+                                    <p style={{ color: "rgba(255,255,255,0.52)", fontSize: "0.59rem", lineHeight: 1.4 }}>
+                                        {lm.description}
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </Fragment>
+                );
+            })}
+
+            {/* ── z:10  Ferry crossing the Bosphorus ──────────────────────── */}
             <div
                 ref={ferryRef}
-                className="absolute bottom-[7%] right-0 w-[36%] sm:w-[28%] max-w-[460px] opacity-60 pointer-events-none"
+                className="absolute bottom-[7%] right-0 w-[36%] sm:w-[28%] max-w-[460px] opacity-55 pointer-events-none"
                 style={{ zIndex: 10 }}
             >
                 {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -577,8 +562,11 @@ export default function Discovery() {
                 />
             </div>
 
-            {/* ── z:20  Scroll cue ─────────────────────────────────────────── */}
-            <div className="absolute bottom-[2%] left-1/2 -translate-x-1/2 pointer-events-none animate-scroll-cue" style={{ zIndex: 20 }}>
+            {/* ── z:20  Scroll cue ──────────────────────────────────────────── */}
+            <div
+                className="absolute bottom-[2%] left-1/2 -translate-x-1/2 pointer-events-none animate-scroll-cue"
+                style={{ zIndex: 20 }}
+            >
                 <svg width="24" height="36" viewBox="0 0 24 36" fill="none" aria-hidden="true">
                     <rect x="10" y="0" width="4" height="20" rx="2" fill="rgba(255,255,255,0.25)" />
                     <path d="M4 20 L12 32 L20 20" stroke="rgba(255,255,255,0.4)" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round" />

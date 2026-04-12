@@ -8,8 +8,9 @@ import "leaflet/dist/leaflet.css";
 const DARK_TILES =
     "https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png";
 
-const ISTANBUL_CENTER: LatLngExpression = [41.01, 29.0];
-const INITIAL_ZOOM = 12;
+// Centered on historical peninsula + Kadıköy at zoom 13
+const ISTANBUL_CENTER: LatLngExpression = [41.01, 29.003];
+const INITIAL_ZOOM = 13;
 
 function Controller({ onMapReady }: { onMapReady: (m: Map) => void }) {
     const map = useMap();
@@ -42,7 +43,7 @@ export default function MapBackground({ onMapReady }: Props) {
                 url={DARK_TILES}
                 subdomains="abcd"
                 maxZoom={19}
-                opacity={0.78}
+                opacity={0.92}
             />
             <Controller onMapReady={onMapReady} />
         </MapContainer>
