@@ -30,7 +30,6 @@ export default function Support() {
         gsap.fromTo(bullRef.current,     { opacity: 0, x: 60 }, { opacity: 1, x: 0, duration: 1.1, ease: "power2.out", scrollTrigger: st });
         gsap.fromTo(laleRef.current,     { opacity: 0, x: -40 },{ opacity: 1, x: 0, duration: 1,   ease: "power2.out", scrollTrigger: st });
 
-        // Idle float on bull statue
         gsap.to(bullRef.current, {
             y: "+=10",
             duration: 4,
@@ -47,7 +46,6 @@ export default function Support() {
             className="relative w-full min-h-screen overflow-hidden flex flex-col justify-center"
             style={{ background: "#0E0900" }}
         >
-            {/* ── Warm radial glow ── */}
             <div
                 className="absolute inset-0 pointer-events-none"
                 style={{
@@ -56,7 +54,6 @@ export default function Support() {
                 }}
             />
 
-            {/* ── Bull Statue (right, background deco) ── */}
             <div
                 ref={bullRef}
                 className="absolute right-0 bottom-0 w-[35%] sm:w-[28%] max-w-[400px] opacity-0 pointer-events-none"
@@ -66,7 +63,6 @@ export default function Support() {
                 <img src={`${CDN}/boga-heykeli.webp`} alt="Kadıköy Bull Statue" className="w-full h-auto" />
             </div>
 
-            {/* ── Tulip (left accent) ── */}
             <div
                 ref={laleRef}
                 className="absolute left-[1%] top-[12%] w-[10%] max-w-[120px] opacity-0 pointer-events-none"
@@ -76,9 +72,7 @@ export default function Support() {
                 <img src={`${CDN}/lale-1.webp`} alt="" className="w-full h-auto" />
             </div>
 
-            {/* ── Content ── */}
             <div className="relative z-10 flex flex-col w-full">
-                {/* Headline */}
                 <div ref={headlineRef} className="text-center px-6 pt-14 pb-8 opacity-0">
                     <p className="text-[#f47b20] text-[clamp(0.65rem,1vw,0.8rem)] tracking-[0.3em] uppercase font-medium mb-3">
                         Unity in Diversity
@@ -92,7 +86,6 @@ export default function Support() {
                     </p>
                 </div>
 
-                {/* Divider */}
                 <div
                     ref={dividerRef}
                     className="mx-auto mb-8 h-px w-[60%] max-w-[400px]"

@@ -2,6 +2,7 @@
 
 import { useRef } from "react";
 import { useGSAP } from "@gsap/react";
+import Link from "next/link";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
@@ -10,11 +11,11 @@ if (typeof window !== "undefined") {
 }
 
 const NAV_LINKS = [
-    { label: "Discover",  href: "#discovery" },
-    { label: "Network",   href: "#support"   },
-    { label: "Life",      href: "#reality"   },
-    { label: "Pride",     href: "#pride"     },
-    { label: "Vote",      href: "#action", highlight: true },
+    { label: "Discover", href: "#discovery"},
+    { label: "Network", href: "#support"},
+    { label: "Life", href: "#reality"},
+    { label: "Pride", href: "#pride"},
+    { label: "Vote", href: "#action", highlight: true },
 ];
 
 export default function Navigation() {
@@ -22,8 +23,6 @@ export default function Navigation() {
 
     useGSAP(() => {
         if (!navRef.current) return;
-
-        // Fade to dark bg on scroll
         gsap.to(navRef.current, {
             backdropFilter: "blur(12px)",
             backgroundColor: "rgba(0,0,0,0.55)",
@@ -56,7 +55,7 @@ export default function Navigation() {
             <ul className="hidden sm:flex items-center gap-1 md:gap-2">
                 {NAV_LINKS.map(link => (
                     <li key={link.href}>
-                        <a
+                        <Link
                             href={link.href}
                             className="relative px-3 py-1.5 text-[0.75rem] md:text-[0.8rem] tracking-wide font-medium rounded-full transition-colors duration-200"
                             style={
@@ -74,19 +73,19 @@ export default function Navigation() {
                             }}
                         >
                             {link.label}
-                        </a>
+                        </Link>
                     </li>
                 ))}
             </ul>
 
             {/* Mobile CTA */}
-            <a
+            <Link
                 href="#action"
                 className="sm:hidden px-4 py-1.5 rounded-full text-[0.75rem] font-bold text-white"
                 style={{ background: "#ec008c" }}
             >
                 Vote
-            </a>
+            </Link>
         </nav>
     );
 }

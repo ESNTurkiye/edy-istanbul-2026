@@ -31,7 +31,6 @@ export default function StatsCounter() {
     useGSAP(() => {
         if (!containerRef.current) return;
 
-        // Cards entrance
         gsap.fromTo(
             cardRefs.current.filter(Boolean),
             { opacity: 0, y: 40 },
@@ -48,7 +47,6 @@ export default function StatsCounter() {
             },
         );
 
-        // Counter animation for each number
         STATS.forEach((stat, i) => {
             const el = numRefs.current[i];
             if (!el) return;

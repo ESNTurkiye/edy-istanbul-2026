@@ -8,38 +8,30 @@ import { useHeroParallax } from "@/hooks/useScrollAnimation";
 import "./Hero.css";
 
 export default function Hero() {
-    const sectionRef      = useRef<HTMLElement>(null);
+    const sectionRef = useRef<HTMLElement>(null);
 
-    // Outer wrappers — GSAP moves these on the X axis (scroll-driven)
-    const cloudOneRef     = useRef<HTMLDivElement>(null);
-    const cloudTwoRef     = useRef<HTMLDivElement>(null);
-    const leftCloudRef    = useRef<HTMLDivElement>(null);
-    const rightCloudRef   = useRef<HTMLDivElement>(null);
-    const flowerLeftRef   = useRef<HTMLDivElement>(null);
-    const flowerRightRef  = useRef<HTMLDivElement>(null);
-    const centerFrameRef  = useRef<HTMLDivElement>(null);
+    const cloudOneRef = useRef<HTMLDivElement>(null);
+    const cloudTwoRef = useRef<HTMLDivElement>(null);
+    const leftCloudRef = useRef<HTMLDivElement>(null);
+    const rightCloudRef = useRef<HTMLDivElement>(null);
+    const flowerLeftRef = useRef<HTMLDivElement>(null);
+    const flowerRightRef = useRef<HTMLDivElement>(null);
+    const centerFrameRef = useRef<HTMLDivElement>(null);
 
-    // ── 1. Scroll-driven HORIZONTAL parallax (X-axis only) ──────────────
-    // speed: higher = faster drift = closer to viewer
-    // direction defaults alternate per index; override where needed for symmetry
     useHeroParallax(sectionRef, [
-        { ref: cloudOneRef,    speed: 0.5, direction: -1 }, // top-left cloud drifts left
-        { ref: cloudTwoRef,    speed: 0.5, direction:  1 }, // top-right cloud drifts right
-        { ref: leftCloudRef,   speed: 0.7, direction: -1 }, // bottom-left cloud drifts left
-        { ref: rightCloudRef,  speed: 0.7, direction:  1 }, // bottom-right cloud drifts right
-        { ref: flowerLeftRef,  speed: 1.1, direction: -1 }, // foreground flower drifts left fast
-        { ref: flowerRightRef, speed: 1.1, direction:  1 }, // foreground flower drifts right fast
-        { ref: centerFrameRef, speed: 0.2, direction: -1 }, // midground frame: slow subtle drift
+        { ref: cloudOneRef, speed: 0.5, direction: -1 },
+        { ref: cloudTwoRef, speed: 0.5, direction: 1 },
+        { ref: leftCloudRef, speed: 0.7, direction: -1 },
+        { ref: rightCloudRef, speed: 0.7, direction: 1 },
+        { ref: flowerLeftRef, speed: 1.1, direction: -1 },
+        { ref: flowerRightRef, speed: 1.1, direction: 1 },
+        { ref: centerFrameRef, speed: 0.2, direction: -1 },
     ]);
 
-    // ── 2. Idle cloud floating — targets the INNER sway div ─────────────
-    // The outer wrapper is moved by GSAP (X); the inner div has CSS sway (rotation).
-    // We add a gentle additional Y float here for cloud liveness only — not affecting
-    // overall parallax rules since clouds are atmospheric, not cutout elements.
-    const innerCloudOneRef  = useRef<HTMLDivElement>(null);
-    const innerCloudTwoRef  = useRef<HTMLDivElement>(null);
-    const innerLCRef        = useRef<HTMLDivElement>(null);
-    const innerRCRef        = useRef<HTMLDivElement>(null);
+    const innerCloudOneRef = useRef<HTMLDivElement>(null);
+    const innerCloudTwoRef = useRef<HTMLDivElement>(null);
+    const innerLCRef = useRef<HTMLDivElement>(null);
+    const innerRCRef = useRef<HTMLDivElement>(null);
 
     useGSAP(() => {
         const clouds = [innerCloudOneRef, innerCloudTwoRef, innerLCRef, innerRCRef];
@@ -61,7 +53,6 @@ export default function Hero() {
 
             {/* ── Top-left cloud ─────────────────────────────────────────── */}
             <div ref={cloudOneRef} className="absolute cloud-one z-20 pointer-events-none">
-                {/* Inner div carries CSS sway rotation (independent of GSAP X transform) */}
                 <div ref={innerCloudOneRef} className="sway-a w-full h-full relative">
                     <Image src="/images/cloud-one.png" alt="" fill priority className="object-contain" />
                 </div>

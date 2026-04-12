@@ -1,5 +1,7 @@
 "use client";
 
+import Link from "next/link";
+
 interface CtaButtonProps {
     href?: string;
     label?: string;
@@ -7,7 +9,7 @@ interface CtaButtonProps {
 
 export default function CtaButton({ href = "#vote", label = "VOTE FOR ISTANBUL" }: CtaButtonProps) {
     return (
-        <a
+        <Link
             href={href}
             target="_blank"
             rel="noopener noreferrer"
@@ -30,6 +32,6 @@ export default function CtaButton({ href = "#vote", label = "VOTE FOR ISTANBUL" 
             <svg className="relative z-10 w-5 h-5" viewBox="0 0 20 20" fill="none" aria-hidden="true">
                 <path d="M4 10h12M11 5l5 5-5 5" stroke="#ec008c" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
-        </a>
+        </Link>
     );
 }
