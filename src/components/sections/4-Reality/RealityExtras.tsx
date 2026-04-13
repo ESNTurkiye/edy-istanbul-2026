@@ -13,14 +13,14 @@ if (typeof window !== "undefined") {
 const SPORTS = [
     { label: "Running",    detail: "The Bosphorus shore paths stretch for miles. Sunrise jogs with seagulls as pace-setters.",           icon: "RUN",  accent: "#7ac143" },
     { label: "Football",   detail: "Galatasaray, Fenerbahçe, Beşiktaş — the city has three top-flight clubs and a legendary derby.",      icon: "FOOT", accent: "#f47b20" },
-    { label: "Hiking",     detail: "Belgrad Forest and the Princes' Islands offer trails within 30 minutes of the city centre.",           icon: "HIKE", accent: "#00a6ef" },
+    { label: "Hiking",     detail: "Belgrad Forest and the Princes' Islands offer trails within 30 minutes of the city centre.",           icon: "HIKE", accent: "#00aeef" },
     { label: "Swimming",   detail: "Black Sea beaches to the north, Marmara coves to the south — the city is surrounded by water.",       icon: "SWIM", accent: "#2e3192" },
     { label: "Cycling",    detail: "Dedicated bike lanes on Kadıköy's waterfront and the newly opened cycling routes along the Bosphorus.", icon: "BIKE", accent: "#ec008c" },
 ];
 
 /* ── Istanbul Playlist ─────────────────────────────────────────────────── */
 const PLAYLIST = [
-    { genre: "Bosphorus Jazz",   mood: "Slow morning",     tracks: "12 tracks · 52 min",  color: "#00a6ef" },
+    { genre: "Bosphorus Jazz",   mood: "Slow morning",     tracks: "12 tracks · 52 min",  color: "#00aeef" },
     { genre: "Indie İstanbul",   mood: "Afternoon wander",  tracks: "18 tracks · 1h 10m", color: "#7ac143" },
     { genre: "Arabesk Nights",   mood: "Late night Beyoğlu",tracks: "14 tracks · 58 min",  color: "#f47b20" },
     { genre: "Electronic Karaköy", mood: "Club energy",    tracks: "10 tracks · 1h 2m",  color: "#ec008c" },
@@ -50,7 +50,7 @@ const THREE_DAYS = [
         day: "Day 2",
         title: "Beyoğlu & Modern İstanbul",
         items: ["İstiklal Avenue", "Galata Tower", "Pera Museum", "Çukurcuma antiques", "Karaköy bars & galleries"],
-        accent: "#00a6ef",
+        accent: "#00aeef",
     },
     {
         day: "Day 3",
@@ -96,8 +96,8 @@ const DISTRICT_PROFILES: Record<string, { label: string; tagline: string; accent
     Kadıköy:      { label: "Kadıköy",      tagline: "You are the Asian soul of this city — creative, restless and fiercely local.",   accent: "#7ac143" },
     Beyoğlu:      { label: "Beyoğlu",      tagline: "Midnight is your timezone. You belong to the neon and the meyhane tables.",       accent: "#ec008c" },
     Beşiktaş:     { label: "Beşiktaş",     tagline: "You want modern comfort with a view. Ambitious, social and well-dressed.",        accent: "#2e3192" },
-    Karaköy:      { label: "Karaköy",      tagline: "Art, design and a good espresso are non-negotiable for you.",                    accent: "#00a6ef" },
-    Cihangir:     { label: "Cihangir",     tagline: "Literary, slightly melancholic, in love with cat-filled courtyards.",             accent: "#00a6ef" },
+    Karaköy:      { label: "Karaköy",      tagline: "Art, design and a good espresso are non-negotiable for you.",                    accent: "#00aeef" },
+    Cihangir:     { label: "Cihangir",     tagline: "Literary, slightly melancholic, in love with cat-filled courtyards.",             accent: "#00aeef" },
     Nişantaşı:    { label: "Nişantaşı",    tagline: "Chic, cosmopolitan — Istanbul's European heartbeat.",                            accent: "#7ac143" },
     Üsküdar:      { label: "Üsküdar",      tagline: "Contemplative and traditional. You feel most at home by the water at dusk.",     accent: "#f47b20" },
     Fatih:        { label: "Fatih",        tagline: "You seek authenticity above all. The unvarnished city is where you belong.",     accent: "#f47b20" },
@@ -158,14 +158,22 @@ export default function RealityExtras() {
         <div
             ref={containerRef}
             className="relative w-full"
-            style={{ background: "#080608" }}
+            style={{ background: "#1a1d5c" }}
         >
+            {/* ── Kahve cutout — bottom right decoration ─────────────────── */}
+            <div className="absolute bottom-0 right-[4%] w-[14%] max-w-[220px] pointer-events-none" style={{ zIndex: 1, opacity: 0.65 }}>
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                    src={`https://cdn.jsdelivr.net/gh/ESNTurkiye/esn-assets@main/istanbul/turk-kahvesi-2.webp`}
+                    alt="Turkish coffee"
+                    className="w-full h-auto"
+                    style={{ filter: "drop-shadow(0 -8px 24px rgba(0,0,0,0.45))" }}
+                />
+            </div>
+
             {/* ── SPORT IN ISTANBUL ─────────────────────────────────────── */}
             <div className="relative z-10 px-6 py-20 max-w-[1100px] mx-auto">
                 <div ref={sportHeadRef} className="text-center mb-12 opacity-0">
-                    <p className="tracking-[0.28em] uppercase font-medium mb-2" style={{ color: "#7ac143", fontSize: "0.72rem" }}>
-                        Active Istanbul
-                    </p>
                     <h2
                         className="font-bold text-white leading-tight"
                         style={{
@@ -185,19 +193,13 @@ export default function RealityExtras() {
                         <div
                             key={s.label}
                             ref={el => { sportItemRefs.current[i] = el; }}
-                            className="opacity-0 rounded-xl p-5 flex gap-4 items-start"
+                            className="opacity-0 rounded-xl p-5 flex gap-4 items-start transition-all duration-300 hover:-translate-y-1"
                             style={{
-                                background:   "rgba(255,255,255,0.04)",
-                                border:       `1px solid ${s.accent}28`,
-                                backdropFilter: "blur(6px)",
+                                background:     "rgba(255,255,255,0.05)",
+                                border:         "1.5px solid rgba(46,49,146,0.5)",
+                                backdropFilter: "blur(8px)",
                             }}
                         >
-                            <div
-                                className="shrink-0 w-10 h-10 rounded-lg flex items-center justify-center font-bold"
-                                style={{ background: `${s.accent}18`, color: s.accent, fontSize: "0.55rem", letterSpacing: "0.08em" }}
-                            >
-                                {s.icon}
-                            </div>
                             <div>
                                 <h3
                                     className="text-white font-bold mb-1"
@@ -217,13 +219,10 @@ export default function RealityExtras() {
             {/* ── ISTANBUL PLAYLIST ─────────────────────────────────────── */}
             <div
                 className="relative px-6 py-16"
-                style={{ background: "linear-gradient(to bottom, #080608, #0d0a12, #080608)" }}
+                style={{ background: "linear-gradient(to bottom, #1a1d5c, #13165a, #1a1d5c)" }}
             >
                 <div className="max-w-[1100px] mx-auto">
                     <div ref={playHeadRef} className="text-center mb-10 opacity-0">
-                        <p className="tracking-[0.28em] uppercase font-medium mb-2" style={{ color: "#ec008c", fontSize: "0.72rem" }}>
-                            Sound of the City
-                        </p>
                         <h2
                             className="font-bold text-white leading-tight"
                             style={{
@@ -243,11 +242,11 @@ export default function RealityExtras() {
                             <div
                                 key={p.genre}
                                 ref={el => { playItemRefs.current[i] = el; }}
-                                className="opacity-0 rounded-2xl p-5 flex flex-col justify-between"
+                                className="opacity-0 rounded-2xl p-5 flex flex-col justify-between transition-all duration-300 hover:-translate-y-1"
                                 style={{
-                                    background: `linear-gradient(135deg, ${p.color}18 0%, rgba(0,0,0,0.3) 100%)`,
-                                    border:     `1px solid ${p.color}30`,
-                                    minHeight:  "140px",
+                                    background:  `linear-gradient(135deg, ${p.color}18 0%, rgba(0,0,0,0.3) 100%)`,
+                                    border:      `1px solid ${p.color}30`,
+                                    minHeight:   "140px",
                                 }}
                             >
                                 {/* Play symbol */}
@@ -279,9 +278,6 @@ export default function RealityExtras() {
             <div className="relative z-10 px-6 py-20 max-w-[900px] mx-auto">
                 <div ref={oneDayRef} className="opacity-0">
                     <div className="text-center mb-12">
-                        <p className="tracking-[0.28em] uppercase font-medium mb-2" style={{ color: "#00a6ef", fontSize: "0.72rem" }}>
-                            Perfect Day Guide
-                        </p>
                         <h2
                             className="font-bold text-white leading-tight"
                             style={{
@@ -298,7 +294,7 @@ export default function RealityExtras() {
                         {/* Vertical line */}
                         <div
                             className="absolute left-[52px] sm:left-[64px] top-0 bottom-0 w-px"
-                            style={{ background: "linear-gradient(to bottom, transparent, rgba(0,166,239,0.3) 10%, rgba(0,166,239,0.3) 90%, transparent)" }}
+                            style={{ background: "linear-gradient(to bottom, transparent, rgba(0,174,239,0.3) 10%, rgba(0,174,239,0.3) 90%, transparent)" }}
                         />
 
                         <div className="flex flex-col gap-6">
@@ -306,14 +302,14 @@ export default function RealityExtras() {
                                 <div key={i} className="flex gap-4 sm:gap-6 items-start">
                                     <div
                                         className="shrink-0 font-bold text-right"
-                                        style={{ width: "44px", color: "#00a6ef", fontSize: "0.68rem", paddingTop: "2px" }}
+                                        style={{ width: "44px", color: "#00aeef", fontSize: "0.68rem", paddingTop: "2px" }}
                                     >
                                         {item.time}
                                     </div>
                                     {/* Dot on timeline */}
                                     <div
                                         className="shrink-0 w-3 h-3 rounded-full mt-[3px]"
-                                        style={{ background: "#00a6ef", boxShadow: "0 0 8px 3px rgba(0,166,239,0.4)" }}
+                                        style={{ background: "#00aeef", boxShadow: "0 0 8px 3px rgba(0,174,239,0.4)" }}
                                     />
                                     <div>
                                         <div
@@ -336,13 +332,10 @@ export default function RealityExtras() {
             {/* ── 3 DAYS IN ISTANBUL ────────────────────────────────────── */}
             <div
                 className="relative px-6 py-16"
-                style={{ background: "linear-gradient(to bottom, #080608, #0a0d0e)" }}
+                style={{ background: "linear-gradient(to bottom, #1a1d5c, #12154a)" }}
             >
                 <div ref={threeDayRef} className="max-w-[1100px] mx-auto opacity-0">
                     <div className="text-center mb-12">
-                        <p className="tracking-[0.28em] uppercase font-medium mb-2" style={{ color: "#f47b20", fontSize: "0.72rem" }}>
-                            Extended Guide
-                        </p>
                         <h2
                             className="font-bold text-white leading-tight"
                             style={{
@@ -363,8 +356,8 @@ export default function RealityExtras() {
                                 key={day.day}
                                 className="rounded-2xl p-6"
                                 style={{
-                                    background:     "rgba(255,255,255,0.04)",
-                                    border:         `1px solid ${day.accent}28`,
+                                    background:     "rgba(255,255,255,0.05)",
+                                    border:         `1px solid ${day.accent}30`,
                                     backdropFilter: "blur(6px)",
                                 }}
                             >
@@ -404,9 +397,6 @@ export default function RealityExtras() {
             <div className="relative z-10 px-6 py-20 max-w-[700px] mx-auto">
                 <div ref={quizRef} className="opacity-0">
                     <div className="text-center mb-10">
-                        <p className="tracking-[0.28em] uppercase font-medium mb-2" style={{ color: "#ec008c", fontSize: "0.72rem" }}>
-                            Find Your Match
-                        </p>
                         <h2
                             className="font-bold text-white leading-tight"
                             style={{

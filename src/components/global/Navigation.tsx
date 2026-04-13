@@ -46,7 +46,7 @@ export default function Navigation() {
                 <span
                     className="font-brand font-bold text-white text-sm md:text-base tracking-wide"
                 >
-                    ESN <span style={{ color: "#00a6ef", textShadow: "0 1px 6px rgba(0,0,0,0.55), 0 0 2px rgba(0,0,0,0.4)" }}>İstanbul</span>{" "}
+                    ESN <span style={{ color: "#00aeef", textShadow: "0 1px 6px rgba(0,0,0,0.55), 0 0 2px rgba(0,0,0,0.4)" }}>İstanbul</span>{" "}
                     <span className="text-white/50 font-normal">EDY 2026</span>
                 </span>
             </div>

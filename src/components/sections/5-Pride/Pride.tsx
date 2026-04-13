@@ -34,7 +34,7 @@ const INFO_CARDS = [
         title: "Accessibility",
         headline: "Hub of 3 Continents",
         body: "Direct flights to 300+ cities. The world's 6th busiest airport sits at the crossroads of Europe, Asia and the Middle East.",
-        accent: "#00a6ef",
+        accent: "#00aeef",
         tag: "300+ Direct Connections",
     },
 ];
@@ -70,11 +70,20 @@ export default function Pride() {
         <section
             ref={sectionRef}
             className="relative w-full overflow-hidden"
-            style={{ background: "#080400" }}
+            style={{ background: "#2a1200" }}
         >
+            {/* Ambient warm glow from top */}
+            <div
+                className="absolute top-0 left-0 right-0 pointer-events-none"
+                style={{
+                    height: "40%",
+                    background: "radial-gradient(ellipse at 50% -20%, rgba(244,123,32,0.28) 0%, transparent 70%)",
+                }}
+            />
+
             {/* ── Cistern background ── */}
             <div
-                className="absolute inset-0 opacity-30"
+                className="absolute inset-0 opacity-25"
                 style={{
                     backgroundImage:    `url(${CDN}/yerebatan-sarnici-yatay.webp)`,
                     backgroundSize:     "cover",
@@ -82,7 +91,7 @@ export default function Pride() {
                 }}
             />
             {/* Dark vignette over cistern */}
-            <div className="absolute inset-0" style={{ background: "linear-gradient(to bottom, rgba(8,4,0,0.92) 0%, rgba(8,4,0,0.7) 40%, rgba(8,4,0,0.85) 100%)" }} />
+            <div className="absolute inset-0" style={{ background: "linear-gradient(to bottom, rgba(42,18,0,0.88) 0%, rgba(42,18,0,0.65) 40%, rgba(42,18,0,0.82) 100%)" }} />
 
             {/* ── Iznik tile accent (top-right corner) ── */}
             <div
@@ -99,9 +108,6 @@ export default function Pride() {
 
                 {/* Headline */}
                 <div ref={headlineRef} className="text-center max-w-[700px] mb-12 opacity-0">
-                    <p className="text-[#f47b20] text-[clamp(0.65rem,1vw,0.8rem)] tracking-[0.3em] uppercase font-medium mb-3">
-                        Finalist Edge
-                    </p>
                     <h2 className="font-brand font-bold leading-tight text-white text-[clamp(2rem,5vw,3.8rem)]">
                         Istanbul Isn&apos;t Just a City —<br />
                         <span style={{ color: "#f47b20" }}>It&apos;s a Civilisation</span>
@@ -183,7 +189,7 @@ const QUOTES = [
         quote: "There is not a city in the world where East and West are so strangely blended, where life is at once so Oriental and so European.",
         author: "Pierre Loti",
         work: "Aziyadé",
-        accent: "#00a6ef",
+        accent: "#00aeef",
     },
     {
         quote: "Constantinople is all things to all men — it is impossible to live in it without loving it.",
@@ -222,12 +228,20 @@ function LiteratureStrip() {
             ref={stripRef}
             className="relative z-10 w-full max-w-[1100px] mx-auto px-6 py-12 mb-4"
         >
-            <p
-                className="text-center tracking-[0.28em] uppercase font-medium mb-8"
-                style={{ color: "#f47b20", fontSize: "clamp(0.6rem, 0.9vw, 0.75rem)" }}
-            >
-                Istanbul in Literature
-            </p>
+            <div className="text-center mb-8">
+                <span style={{
+                    display: "inline-block",
+                    background: "rgba(244,123,32,0.14)",
+                    color: "#f47b20",
+                    fontSize: "0.62rem",
+                    fontWeight: 700,
+                    letterSpacing: "0.18em",
+                    textTransform: "uppercase",
+                    padding: "5px 14px",
+                }}>
+                    Istanbul in Literature
+                </span>
+            </div>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 {QUOTES.map((q, i) => (

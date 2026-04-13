@@ -85,13 +85,6 @@ export default function SplitScreen() {
             >
                 {/* Day label */}
                 <div ref={leftTagRef} className="mb-8 opacity-0">
-                    <span
-                        className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-[0.7rem] tracking-widest uppercase font-semibold"
-                        style={{ background: "rgba(0,166,239,0.15)", color: "#00a6ef", border: "1px solid rgba(0,166,239,0.3)" }}
-                    >
-                        <span className="w-2 h-2 rounded-full bg-[#00a6ef] inline-block" />
-                        Daytime Istanbul
-                    </span>
                     <h3 className="font-brand font-bold text-white text-[clamp(1.6rem,3.5vw,2.8rem)] mt-3 leading-tight">
                         Where Knowledge<br />Meets Culture
                     </h3>
@@ -123,7 +116,7 @@ export default function SplitScreen() {
                 </div>
                 <div ref={cay1Ref} className="absolute bottom-[18%] left-[4%] w-[14%] max-w-[110px] opacity-0 pointer-events-none">
                     {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img src={`${CDN}/cay-1.jpg`} alt="Turkish tea" className="w-full h-auto drop-shadow-2xl rounded-full" />
+                    <img src={`${CDN}/cay-1.webp`} alt="Turkish tea" className="w-full h-auto drop-shadow-2xl rounded-full" />
                 </div>
             </div>
 
@@ -141,7 +134,7 @@ export default function SplitScreen() {
             <div
                 ref={rightRef}
                 className="relative w-full md:w-1/2 flex flex-col justify-center items-start px-8 md:px-12 lg:px-16 py-16 min-h-[50vh] md:min-h-screen overflow-hidden"
-                style={{ background: "#080608" }}
+                style={{ background: "#0c0e2a" }}
             >
                 {/* Bridge night photo as background */}
                 <div
@@ -152,17 +145,10 @@ export default function SplitScreen() {
                         backgroundPosition: "center",
                     }}
                 />
-                <div className="absolute inset-0" style={{ background: "linear-gradient(135deg, rgba(8,6,8,0.85) 0%, rgba(8,6,8,0.55) 100%)" }} />
+                <div className="absolute inset-0" style={{ background: "linear-gradient(135deg, rgba(12,14,42,0.88) 0%, rgba(12,14,42,0.55) 100%)" }} />
 
                 {/* Night label */}
                 <div ref={rightTagRef} className="relative z-10 mb-8 opacity-0">
-                    <span
-                        className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-[0.7rem] tracking-widest uppercase font-semibold"
-                        style={{ background: "rgba(244,123,32,0.15)", color: "#f47b20", border: "1px solid rgba(244,123,32,0.3)" }}
-                    >
-                        <span className="w-2 h-2 rounded-full bg-[#f47b20] inline-block animate-pulse" />
-                        Nightlife &amp; Culture
-                    </span>
                     <h3 className="font-brand font-bold text-white text-[clamp(1.6rem,3.5vw,2.8rem)] mt-3 leading-tight">
                         Where Friendships<br />Begin
                     </h3>

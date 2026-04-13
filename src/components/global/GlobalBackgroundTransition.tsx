@@ -9,7 +9,7 @@ if (typeof window !== "undefined") {
     gsap.registerPlugin(ScrollTrigger);
 }
 
-const START_COLOR = "#00A6EF";
+const START_COLOR = "#00aeef";
 const END_COLOR = "#F47B20";
 const FLUSH_COLOR = "#F9A33A";
 

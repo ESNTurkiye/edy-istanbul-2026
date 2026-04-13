@@ -63,7 +63,7 @@ export default function Action() {
         <section
             ref={sectionRef}
             className="relative w-full min-h-screen overflow-hidden flex items-center justify-center"
-            style={{ background: "#1A0010" }}
+            style={{ background: "#5c0038" }}
         >
             {/* ── Magenta wash ── */}
             <div
@@ -138,7 +138,7 @@ export default function Action() {
                 <div ref={ctaRef} className="opacity-0 flex flex-col items-center gap-4">
                     <CtaButton label="VOTE FOR ISTANBUL" href="https://vote.esn.org" />
                     <p className="text-white/35 text-[0.72rem] tracking-wide">
-                        EDY 2026 · ESN Turkey · Students Helping Students
+                        EDY 2026 · ESN Turkiye · Students Helping Students
                     </p>
                 </div>
             </div>

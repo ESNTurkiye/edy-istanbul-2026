@@ -44,16 +44,18 @@ export default function Support() {
         <section
             ref={sectionRef}
             className="relative w-full min-h-screen overflow-hidden flex flex-col justify-center"
-            style={{ background: "#0E0900" }}
+            style={{ background: "#1a3a0a" }}
         >
+            {/* Green ambient glow */}
             <div
                 className="absolute inset-0 pointer-events-none"
                 style={{
                     background:
-                        "radial-gradient(ellipse 70% 60% at 50% 50%, rgba(244,123,32,0.07) 0%, transparent 70%)",
+                        "radial-gradient(ellipse 70% 60% at 50% 0%, rgba(122,193,67,0.20) 0%, transparent 70%)",
                 }}
             />
 
+            {/* Bull cutout — bottom right */}
             <div
                 ref={bullRef}
                 className="absolute right-0 bottom-0 w-[35%] sm:w-[28%] max-w-[400px] opacity-0 pointer-events-none"
@@ -63,10 +65,11 @@ export default function Support() {
                 <img src={`${CDN}/boga-heykeli.webp`} alt="Kadıköy Bull Statue" className="w-full h-auto" />
             </div>
 
+            {/* Lale cutout — bottom left */}
             <div
                 ref={laleRef}
-                className="absolute left-[1%] top-[12%] w-[10%] max-w-[120px] opacity-0 pointer-events-none"
-                style={{ zIndex: 2 }}
+                className="absolute left-0 bottom-0 w-[16%] max-w-[200px] opacity-0 pointer-events-none"
+                style={{ zIndex: 2, opacity: 0.35 }}
             >
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img src={`${CDN}/lale-1.webp`} alt="" className="w-full h-auto" />
@@ -74,22 +77,19 @@ export default function Support() {
 
             <div className="relative z-10 flex flex-col w-full">
                 <div ref={headlineRef} className="text-center px-6 pt-14 pb-8 opacity-0">
-                    <p className="text-[#f47b20] text-[clamp(0.65rem,1vw,0.8rem)] tracking-[0.3em] uppercase font-medium mb-3">
-                        Unity in Diversity
-                    </p>
                     <h2 className="font-brand font-bold leading-tight text-white text-[clamp(2rem,5vw,3.8rem)]">
                         15 Sections.{" "}
-                        <span style={{ color: "#00a6ef" }}>One City.</span>
+                        <span style={{ color: "#7ac143" }}>One City.</span>
                     </h2>
-                    <p className="mt-4 text-white/50 text-[clamp(0.8rem,1.3vw,1rem)] max-w-[520px] mx-auto leading-relaxed">
-                        The largest ESN network density in Turkey — all under Istanbul&apos;s skyline.
+                    <p className="mt-4 text-white/60 text-[clamp(0.8rem,1.3vw,1rem)] max-w-[520px] mx-auto leading-relaxed">
+                        The largest ESN network density in Turkiye — all under Istanbul&apos;s skyline.
                     </p>
                 </div>
 
                 <div
                     ref={dividerRef}
                     className="mx-auto mb-8 h-px w-[60%] max-w-[400px]"
-                    style={{ background: "linear-gradient(to right, transparent, rgba(244,123,32,0.4), transparent)", transformOrigin: "left center" }}
+                    style={{ background: "linear-gradient(to right, transparent, rgba(122,193,67,0.45), transparent)", transformOrigin: "left center" }}
                 />
 
                 {/* Ticker rows */}

@@ -219,7 +219,7 @@ export default function IntroSplash({ onComplete }: IntroSplashProps) {
                         letterSpacing: "0.18em",
                         color: "white",
                         lineHeight: 1.0,
-                        textShadow: "0 0 60px rgba(0,166,239,0.4)",
+                        textShadow: "0 0 60px rgba(0,174,239,0.4)",
                     }}
                 >
                     ISTANBUL

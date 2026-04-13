@@ -5,8 +5,10 @@ import dynamic from "next/dynamic";
 
 const IntroSplash = dynamic(() => import("./IntroSplash"), { ssr: false });
 
+const INTRO_ENABLED = process.env.NEXT_PUBLIC_INTRO_SPLASH !== "false";
+
 export default function PageWrapper({ children }: { children: React.ReactNode }) {
-    const [introComplete, setIntroComplete] = useState(false);
+    const [introComplete, setIntroComplete] = useState(!INTRO_ENABLED);
     const [mounted, setMounted] = useState(false);
 
     useEffect(() => {
@@ -33,7 +35,7 @@ export default function PageWrapper({ children }: { children: React.ReactNode })
                 {children}
             </div>
 
-            {mounted && !introComplete && (
+            {INTRO_ENABLED && mounted && !introComplete && (
                 <IntroSplash onComplete={() => setIntroComplete(true)} />
             )}
         </>

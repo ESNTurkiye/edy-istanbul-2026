@@ -53,7 +53,7 @@ const LANDMARKS: Landmark[] = [
         label:       "Kapalıçarşı",
         sublabel:    "Grand Bazaar",
         description: "61 covered streets, 4,000 shops and the world's oldest scent of spice. Once you enter, the city will never fully let you leave.",
-        image:       `${CDN}/kapali-carsi-1.webp`,
+        image:       `${CDN}/kiz-kulesi-1.webp`,
         imageAlt:    "Grand Bazaar Istanbul",
         accent:      "#7ac143",
         lat: 41.0107, lng: 28.9681,
@@ -66,7 +66,7 @@ const LANDMARKS: Landmark[] = [
         description: "A medieval tower that watches over the city's most bohemian quarter. Coffee in the morning, jazz at midnight.",
         image:       `${CDN}/galata-kulesi.webp`,
         imageAlt:    "Galata Tower",
-        accent:      "#00a6ef",
+        accent:      "#00aeef",
         lat: 41.0256, lng: 28.9741,
         cardSide: "right",
     },
@@ -356,7 +356,7 @@ export default function Discovery() {
                     }}
                 >
                     7 HILLS&nbsp;&middot;&nbsp;
-                    <span style={{ color: "#00a6ef" }}>15 MILLION</span> STORIES
+                    <span style={{ color: "#00aeef" }}>15 MILLION</span> STORIES
                 </h2>
                 <p
                     ref={subRef}
@@ -503,11 +503,8 @@ export default function Discovery() {
                                     background:     "rgba(2,10,24,0.85)",
                                     border:         `1px solid ${lm.accent}55`,
                                     backdropFilter: "blur(14px)",
-                                    boxShadow:      `0 4px 28px rgba(0,0,0,0.55), 0 0 0 1px ${lm.accent}22`,
                                 }}
                             >
-                                {/* Accent stripe */}
-                                <div style={{ height: 3, background: lm.accent }} />
 
                                 {/* Landmark image */}
                                 <div className="w-full overflow-hidden" style={{ height: 100 }}>
