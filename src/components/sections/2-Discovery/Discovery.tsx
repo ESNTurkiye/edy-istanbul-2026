@@ -14,8 +14,6 @@ const MapBackground = dynamic(() => import("./MapBackground"), { ssr: false });
 
 const CDN = "https://cdn.jsdelivr.net/gh/ESNTurkiye/esn-assets@main/istanbul";
 
-const PIN_TIMINGS = [1.1, 2.0, 3.0, 4.0, 5.1] as const;
-
 /* ── Landmark data ─────────────────────────────────────────────────────── */
 interface Landmark {
     id: string;
@@ -94,29 +92,105 @@ const LANDMARKS: Landmark[] = [
     },
 ];
 
-/** Smooth quadratic-bezier path through pixel-coordinate points */
-function smoothPath(pts: { x: number; y: number }[]) {
+function cubicPoint(
+    p0: { x: number; y: number },
+    c1: { x: number; y: number },
+    c2: { x: number; y: number },
+    p3: { x: number; y: number },
+    t: number,
+) {
+    const mt = 1 - t;
+    const mt2 = mt * mt;
+    const t2 = t * t;
+    return {
+        x: mt2 * mt * p0.x + 3 * mt2 * t * c1.x + 3 * mt * t2 * c2.x + t2 * t * p3.x,
+        y: mt2 * mt * p0.y + 3 * mt2 * t * c1.y + 3 * mt * t2 * c2.y + t2 * t * p3.y,
+    };
+}
+
+function curveControls(pts: { x: number; y: number }[], i: number, tension = 1) {
+    const p0 = pts[Math.max(0, i - 1)];
+    const p1 = pts[i];
+    const p2 = pts[i + 1];
+    const p3 = pts[Math.min(pts.length - 1, i + 2)];
+
+    const c1 = {
+        x: p1.x + ((p2.x - p0.x) / 6) * tension,
+        y: p1.y + ((p2.y - p0.y) / 6) * tension,
+    };
+    const c2 = {
+        x: p2.x - ((p3.x - p1.x) / 6) * tension,
+        y: p2.y - ((p3.y - p1.y) / 6) * tension,
+    };
+
+    return { p1, c1, c2, p2 };
+}
+
+/** Smooth route that still passes exactly through every landmark point */
+function routePathThroughPoints(pts: { x: number; y: number }[]) {
     if (pts.length < 2) return "";
     let d = `M ${pts[0].x} ${pts[0].y}`;
-    for (let i = 1; i < pts.length - 1; i++) {
-        const mx = (pts[i].x + pts[i + 1].x) / 2;
-        const my = (pts[i].y + pts[i + 1].y) / 2;
-        d += ` Q ${pts[i].x} ${pts[i].y} ${mx} ${my}`;
+
+    for (let i = 0; i < pts.length - 1; i++) {
+        const { c1, c2, p2 } = curveControls(pts, i);
+        d += ` C ${c1.x} ${c1.y} ${c2.x} ${c2.y} ${p2.x} ${p2.y}`;
     }
-    const last = pts[pts.length - 1];
-    d += ` L ${last.x} ${last.y}`;
+
     return d;
 }
 
-/** Card position relative to the section, offset from the pin */
-function cardPos(pinPx: { x: number; y: number }, lm: Landmark) {
-    const W   = 200; // approx card width in px
-    const GAP = 20;
-    const Y   = -100; // card appears 100px above the pin centre
-    const x = lm.cardSide === "right"
-        ? pinPx.x + GAP
-        : Math.max(8, pinPx.x - W - GAP);
-    return { x, y: Math.max(68, pinPx.y + Y) };
+function pointTimingsFromSmoothCurve(pts: { x: number; y: number }[]) {
+    if (pts.length === 0) return [];
+    if (pts.length === 1) return [0];
+
+    const lengths: number[] = [0];
+    let total = 0;
+
+    for (let i = 0; i < pts.length - 1; i++) {
+        const { p1, c1, c2, p2 } = curveControls(pts, i);
+        let segLen = 0;
+        let prev = p1;
+
+        for (let s = 1; s <= 24; s++) {
+            const t = s / 24;
+            const curr = cubicPoint(p1, c1, c2, p2, t);
+            segLen += Math.hypot(curr.x - prev.x, curr.y - prev.y);
+            prev = curr;
+        }
+
+        total += segLen;
+        lengths.push(total);
+    }
+
+    if (total === 0) return lengths.map(() => 0);
+    return lengths.map(v => v / total);
+}
+
+function pointTimingsFromSegmentDurations(segmentDurations: number[]) {
+    const timings = [0];
+    const total = segmentDurations.reduce((acc, v) => acc + v, 0);
+    if (total === 0) return timings;
+
+    let accum = 0;
+    for (let i = 0; i < segmentDurations.length; i++) {
+        accum += segmentDurations[i];
+        timings.push(accum / total);
+    }
+    return timings;
+}
+
+function flowSide(index: number): "left" | "right" {
+    return index % 2 === 0 ? "right" : "left";
+}
+
+/** Fixed card slots for cleaner storytelling: right, left, right, left... */
+function cardPos(index: number) {
+    const side = flowSide(index);
+    return {
+        left: side === "right" ? "calc(100% - 410px)" : "110px",
+        top: "58%",
+        side,
+    };
 }
 
 export default function Discovery() {
@@ -153,7 +227,7 @@ export default function Discovery() {
         });
 
         setPinPositions(positions);
-        setRoutePath(smoothPath(positions));
+        setRoutePath(routePathThroughPoints(positions));
         setMapReady(true);
     }, []);
 
@@ -163,7 +237,7 @@ export default function Discovery() {
         /* ── Always hide decoratives / headline on first paint ──────────── */
         gsap.set(headlineRef.current,  { opacity: 0, y: 28 });
         gsap.set(subRef.current,       { opacity: 0 });
-        gsap.set(ferryRef.current,     { x: "115%" });
+        gsap.set(ferryRef.current,     { x: "140%" });
         gsap.set([marti2Ref.current, marti1Ref.current], { opacity: 0, y: -15 });
         // Left lale needs to be flipped via GSAP so rotation is also handled by GSAP
         gsap.set(laleLeftRef.current,  { scaleX: -1, opacity: 0, y: -30 });
@@ -174,9 +248,10 @@ export default function Discovery() {
         ringRefs.current.forEach(el   => { if (el) gsap.set(el, { scale: 1, opacity: 0 }); });
         labelRefs.current.forEach(el  => { if (el) gsap.set(el, { opacity: 0, y: 6 }); });
         cardRefs.current.forEach((el, i) => {
+            const side = flowSide(i);
             if (el) gsap.set(el, {
                 opacity: 0,
-                x: LANDMARKS[i].cardSide === "right" ? -20 : 20,
+                x: side === "right" ? 320 : -320,
                 pointerEvents: "none",
             });
         });
@@ -220,17 +295,32 @@ export default function Discovery() {
                 tl.to(marti2Ref.current,    { opacity: 0.75, y: 0, duration: 0.5 }, 0.1);
                 tl.to(marti1Ref.current,    { opacity: 0.55, y: 0, duration: 0.5 }, 0.3);
 
-                /* 0.5 ── Ferry */
-                tl.to(ferryRef.current, { x: "-50%", ease: "none", duration: 8 }, 0.5);
+                /* 0.5 ── Ferry: much slower pass, travels farther and disappears well past left edge */
+                tl.to(ferryRef.current, { x: "-420%", ease: "none", duration: 76 }, 0.5);
 
                 /* 0.8 ── Route draws itself */
-                tl.to(path, { strokeDashoffset: 0, ease: "none", duration: 5 }, 0.8);
+                const routeStart = 0.8;
+                const segmentDurations = [25, 25, 18, 15];
+                const pointProgress = pointTimingsFromSmoothCurve(pinPositions);
+                const pointTimeProgress = pointTimingsFromSegmentDurations(segmentDurations);
+
+                let segmentStart = routeStart;
+                for (let i = 0; i < segmentDurations.length; i++) {
+                    const toProgress = pointProgress[i + 1] ?? 1;
+                    tl.to(path, {
+                        strokeDashoffset: length * (1 - toProgress),
+                        ease: "none",
+                        duration: segmentDurations[i],
+                    }, segmentStart);
+                    segmentStart += segmentDurations[i];
+                }
 
                 /* ── Per-landmark reveals ──────────────────────────────── */
                 LANDMARKS.forEach((lm, i) => {
-                    const t      = PIN_TIMINGS[i];
+                    const timeProgress = pointTimeProgress[i] ?? 0;
+                    const t = routeStart + segmentDurations.reduce((acc, v) => acc + v, 0) * timeProgress;
                     const prevCard = i > 0 ? cardRefs.current[i - 1] : null;
-                    const prevLm   = i > 0 ? LANDMARKS[i - 1] : null;
+                    const prevSide = i > 0 ? flowSide(i - 1) : null;
 
                     /* Pin dot pop */
                     tl.to(pinDotRefs.current[i], {
@@ -249,24 +339,29 @@ export default function Discovery() {
                     tl.to(labelRefs.current[i], {
                         opacity: 1, y: 0,
                         duration: 0.4, ease: "power2.out",
-                    }, t + 0.2);
+                    }, t + 0.05);
 
                     /* Previous card exits toward its own side */
-                    if (prevCard && prevLm) {
+                    if (prevCard && prevSide) {
                         tl.to(prevCard, {
                             opacity: 0,
-                            x: prevLm.cardSide === "right" ? 16 : -16,
-                            duration: 0.3, ease: "power2.in",
-                        }, t - 0.1);
+                            x: prevSide === "right" ? 320 : -320,
+                            duration: 0.22, ease: "power2.in",
+                        }, t);
                     }
 
-                    /* Current card slides in */
-                    tl.to(cardRefs.current[i], {
+                    /* Current card appears exactly when route reaches this pin */
+                    tl.fromTo(cardRefs.current[i], {
+                        x: flowSide(i) === "right" ? 320 : -320,
+                    }, {
                         opacity: 1, x: 0,
-                        duration: 0.55, ease: "power2.out",
+                        duration: 0.3, ease: "power2.out",
                         pointerEvents: "auto",
-                    }, t + 0.2);
+                    }, t);
                 });
+
+                /* Extra scroll tail after Kadikoy so section does not end immediately */
+                tl.to({}, { duration: 14 });
 
                 return () => ctx.revert();
             },
@@ -432,7 +527,7 @@ export default function Discovery() {
                 Pin dots are exactly over the correct geographic tile locations.  */}
             {positionsReady && LANDMARKS.map((lm, i) => {
                 const pos  = pinPositions[i];
-                const card = cardPos(pos, lm);
+                const card = cardPos(i);
 
                 return (
                     <Fragment key={lm.id}>
@@ -491,10 +586,11 @@ export default function Discovery() {
                             ref={el => { cardRefs.current[i] = el; }}
                             className="absolute pointer-events-none"
                             style={{
-                                left:   card.x,
-                                top:    card.y,
-                                width:  200,
-                                zIndex: 18,
+                                left:   card.left,
+                                top:    card.top,
+                                width:  300,
+                                transform: "translateY(-50%)",
+                                zIndex: 40,
                             }}
                         >
                             <div
@@ -510,7 +606,7 @@ export default function Discovery() {
                                 <div style={{ height: 3, background: lm.accent }} />
 
                                 {/* Landmark image */}
-                                <div className="w-full overflow-hidden" style={{ height: 100 }}>
+                                <div className="w-full overflow-hidden" style={{ height: 150 }}>
                                     {/* eslint-disable-next-line @next/next/no-img-element */}
                                     <img
                                         src={lm.image}
@@ -524,7 +620,7 @@ export default function Discovery() {
                                 <div className="px-3 pb-3 pt-2">
                                     <p
                                         className="font-semibold tracking-[0.2em] uppercase mb-0.5"
-                                        style={{ color: lm.accent, fontSize: "0.52rem" }}
+                                        style={{ color: lm.accent, fontSize: "0.78rem" }}
                                     >
                                         {lm.sublabel}
                                     </p>
@@ -532,12 +628,12 @@ export default function Discovery() {
                                         className="text-white font-bold leading-tight mb-1"
                                         style={{
                                             fontFamily: "var(--font-kelson-sans), Arial, sans-serif",
-                                            fontSize:   "clamp(0.78rem, 1.1vw, 0.9rem)",
+                                            fontSize:   "clamp(1.05rem, 1.6vw, 1.35rem)",
                                         }}
                                     >
                                         {lm.label}
                                     </h3>
-                                    <p style={{ color: "rgba(255,255,255,0.84)", fontSize: "0.59rem", lineHeight: 1.4 }}>
+                                    <p style={{ color: "rgba(255,255,255,0.84)", fontSize: "0.88rem", lineHeight: 1.4 }}>
                                         {lm.description}
                                     </p>
                                 </div>
