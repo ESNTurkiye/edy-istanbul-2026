@@ -17,16 +17,16 @@ interface StatItem {
 }
 
 const STATS: StatItem[] = [
-    { value: 15,   suffix: "",  label: "Sections in one city",      color: "#f47b20" },
-    { value: 500,  suffix: "+", label: "Volunteers on call",        color: "#00aeef" },
-    { value: 18,   suffix: "",  label: "Languages spoken",          color: "#7ac143" },
+    { value: 15, suffix: "", label: "Sections in one city", color: "#f47b20" },
+    { value: 500, suffix: "+", label: "Volunteers on call", color: "#00aeef" },
+    { value: 18, suffix: "", label: "Languages spoken", color: "#7ac143" },
     { value: 2000, suffix: "+", label: "Students hosted last year", color: "#ec008c" },
 ];
 
 export default function StatsCounter() {
     const containerRef = useRef<HTMLDivElement>(null);
-    const numRefs      = useRef<(HTMLSpanElement | null)[]>([]);
-    const cardRefs     = useRef<(HTMLDivElement | null)[]>([]);
+    const numRefs = useRef<(HTMLSpanElement | null)[]>([]);
+    const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
 
     useGSAP(() => {
         if (!containerRef.current) return;
@@ -41,8 +41,8 @@ export default function StatsCounter() {
                 ease: "power2.out",
                 scrollTrigger: {
                     trigger: containerRef.current,
-                    start:   "top 80%",
-                    once:    true,
+                    start: "top 80%",
+                    once: true,
                 },
             },
         );
@@ -58,8 +58,8 @@ export default function StatsCounter() {
                 ease: "power2.out",
                 scrollTrigger: {
                     trigger: containerRef.current,
-                    start:   "top 80%",
-                    once:    true,
+                    start: "top 80%",
+                    once: true,
                 },
                 onUpdate() {
                     if (el) el.textContent = Math.round(counter.val).toLocaleString();

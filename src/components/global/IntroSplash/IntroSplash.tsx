@@ -25,9 +25,9 @@ interface IntroSplashProps {
 export default function IntroSplash({ onComplete }: IntroSplashProps) {
     const containerRef = useRef<HTMLDivElement>(null);
     const globeWrapRef = useRef<HTMLDivElement>(null);
-    const labelRef     = useRef<HTMLDivElement>(null);
-    const titleRef     = useRef<HTMLDivElement>(null);
-    const taglineRef   = useRef<HTMLDivElement>(null);
+    const labelRef = useRef<HTMLDivElement>(null);
+    const titleRef = useRef<HTMLDivElement>(null);
+    const taglineRef = useRef<HTMLDivElement>(null);
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const globeEl = useRef<any>(null);
 

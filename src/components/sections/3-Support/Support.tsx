@@ -14,10 +14,10 @@ if (typeof window !== "undefined") {
 const CDN = "https://cdn.jsdelivr.net/gh/ESNTurkiye/esn-assets@main/istanbul";
 
 export default function Support() {
-    const sectionRef  = useRef<HTMLElement>(null);
+    const sectionRef = useRef<HTMLElement>(null);
     const headlineRef = useRef<HTMLDivElement>(null);
-    const bullRef     = useRef<HTMLDivElement>(null);
-    const laleRef     = useRef<HTMLDivElement>(null);
+    const bullRef = useRef<HTMLDivElement>(null);
+    const laleRef = useRef<HTMLDivElement>(null);
 
     useGSAP(() => {
         if (!sectionRef.current) return;
@@ -25,8 +25,8 @@ export default function Support() {
         const st = { trigger: sectionRef.current, start: "top 70%", once: true };
 
         gsap.fromTo(headlineRef.current, { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.9, ease: "power2.out", scrollTrigger: st });
-        gsap.fromTo(bullRef.current,     { opacity: 0, x: 60 }, { opacity: 1, x: 0, duration: 1.1, ease: "power2.out", scrollTrigger: st });
-        gsap.fromTo(laleRef.current,     { opacity: 0, x: -40 },{ opacity: 0.35, x: 0, duration: 1, ease: "power2.out", scrollTrigger: st });
+        gsap.fromTo(bullRef.current, { opacity: 0, x: 60 }, { opacity: 1, x: 0, duration: 1.1, ease: "power2.out", scrollTrigger: st });
+        gsap.fromTo(laleRef.current, { opacity: 0, x: -40 }, { opacity: 0.35, x: 0, duration: 1, ease: "power2.out", scrollTrigger: st });
 
         gsap.to(bullRef.current, {
             y: "+=10",
@@ -88,7 +88,7 @@ export default function Support() {
                 {/* Ticker rows */}
                 <div className="flex flex-col gap-3 mb-2">
                     <LogoTicker reverse={false} speed={32} />
-                    <LogoTicker reverse={true}  speed={28} />
+                    <LogoTicker reverse={true} speed={28} />
                 </div>
 
                 {/* Stats */}

@@ -28,7 +28,7 @@ export default function PageWrapper({ children }: { children: React.ReactNode })
         <>
             <div
                 style={{
-                    visibility:    introComplete ? "visible" : "hidden",
+                    visibility: introComplete ? "visible" : "hidden",
                     pointerEvents: introComplete ? "auto" : "none",
                 }}
             >
