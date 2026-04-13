@@ -80,13 +80,6 @@ export default function SplitScreen() {
                 <div ref={leftContentRef} className="relative z-10 w-full max-w-[430px] opacity-100">
                 {/* Day label */}
                 <div ref={leftTagRef} className="mb-8 opacity-100">
-                    <span
-                        className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-[0.7rem] tracking-widest uppercase font-semibold"
-                        style={{ background: "rgba(0,166,239,0.15)", color: "#00a6ef", border: "1px solid rgba(0,166,239,0.3)" }}
-                    >
-                        <span className="w-2 h-2 rounded-full bg-[#00a6ef] inline-block" />
-                        Daytime Istanbul
-                    </span>
                     <h3 className="font-brand font-bold text-[#142844] text-[clamp(1.6rem,3.5vw,2.8rem)] mt-3 leading-tight">
                         Where Knowledge<br />Meets Culture
                     </h3>
@@ -166,13 +159,6 @@ export default function SplitScreen() {
                 {/* Night label */}
                 <div ref={rightContentRef} className="relative z-10 w-full max-w-[430px] ml-[4%] opacity-100">
                 <div ref={rightTagRef} className="relative z-10 mb-8 opacity-100">
-                    <span
-                        className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-[0.7rem] tracking-widest uppercase font-semibold"
-                        style={{ background: "rgba(244,123,32,0.15)", color: "#f47b20", border: "1px solid rgba(244,123,32,0.3)" }}
-                    >
-                        <span className="w-2 h-2 rounded-full bg-[#f47b20] inline-block" />
-                        Nightlife &amp; Culture
-                    </span>
                     <h3 className="font-brand font-bold text-[#3b2a20] text-[clamp(1.6rem,3.5vw,2.8rem)] mt-3 leading-tight">
                         Where Friendships<br />Begin
                     </h3>

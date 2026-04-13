@@ -175,6 +175,12 @@ body {
     background: #c8007a;
 }
 
+/* ── Shimmer keyframe ────────────────────────────────────── */
+@keyframes shimmer {
+    from { transform: translateX(-100%); }
+    to   { transform: translateX(200%); }
+}
+
 /* ── Reduced Motion ──────────────────────────────────────── */
 @media (prefers-reduced-motion: reduce) {
     *,
