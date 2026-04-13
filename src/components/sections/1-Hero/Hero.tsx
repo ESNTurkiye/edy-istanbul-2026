@@ -53,6 +53,7 @@ export default function Hero() {
             {/* ── Top-left cloud ─────────────────────────────────────────── */}
             <div ref={cloudOneRef} className="absolute cloud-one z-20 pointer-events-none">
                 <div ref={innerCloudOneRef} className="sway-a w-full h-full">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img src="/images/cloud-one.png" alt="" className="w-full h-full object-contain" />
                 </div>
             </div>
@@ -60,6 +61,7 @@ export default function Hero() {
             {/* ── Top-right cloud ────────────────────────────────────────── */}
             <div ref={cloudTwoRef} className="absolute cloud-two z-20 pointer-events-none">
                 <div ref={innerCloudTwoRef} className="sway-c w-full h-full">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img src="/images/cloud-one.png" alt="" className="w-full h-full object-contain" />
                 </div>
             </div>
@@ -67,6 +69,7 @@ export default function Hero() {
             {/* ── Bottom-left cloud ──────────────────────────────────────── */}
             <div ref={leftCloudRef} className="absolute left-cloud-bottom z-20 pointer-events-none">
                 <div ref={innerLCRef} className="sway-b w-full h-full">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img src="/images/cloud-two.png" alt="" className="w-full h-full object-contain" />
                 </div>
             </div>
@@ -74,6 +77,7 @@ export default function Hero() {
             {/* ── Bottom-right cloud ─────────────────────────────────────── */}
             <div ref={rightCloudRef} className="absolute right-cloud-bottom z-20 pointer-events-none">
                 <div ref={innerRCRef} className="sway-d w-full h-full">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img src="/images/cloud-two.png" alt="" className="w-full h-full object-contain -scale-x-100" />
                 </div>
             </div>
@@ -81,6 +85,7 @@ export default function Hero() {
             {/* ── Left flower bouquet (foreground) ───────────────────────── */}
             <div ref={flowerLeftRef} className="absolute flower-left z-20 pointer-events-none">
                 <div className="sway-b w-full h-full">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img src="/images/flower-bouquet.png" alt="" className="w-full h-full object-contain" />
                 </div>
             </div>
@@ -88,6 +93,7 @@ export default function Hero() {
             {/* ── Right flower bouquet (foreground) ──────────────────────── */}
             <div ref={flowerRightRef} className="absolute flower-right z-20 pointer-events-none">
                 <div className="sway-d w-full h-full">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img src="/images/flower-bouquet.png" alt="" className="w-full h-full object-contain" />
                 </div>
             </div>
@@ -110,6 +116,7 @@ export default function Hero() {
 
                 {/* Frame overlay (cutout photo) – sways gently as a single unit */}
                 <div className="sway-a w-full h-full z-10">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img
                         src="/images/frame.png"
                         alt="Hero frame — Bosphorus view"
@@ -124,7 +131,7 @@ export default function Hero() {
                     className="text-white/50 tracking-[0.3em] uppercase font-light mb-2"
                     style={{ fontSize: "clamp(0.6rem, 1.2vw, 0.78rem)" }}
                 >
-                    Finalist · EDY 2026
+                    Finalist · Erasmus Destination of the Year 2026
                 </p>
                 <h1
                     className="font-bold tracking-tighter leading-tight text-white"
@@ -140,7 +147,7 @@ export default function Hero() {
                     className="text-white/60 mt-2 font-light"
                     style={{ fontSize: "clamp(0.75rem, 1.5vw, 1rem)", letterSpacing: "0.1em" }}
                 >
-                    Where every street is a story.
+                    Two continents. One welcome.
                 </p>
             </div>
         </section>

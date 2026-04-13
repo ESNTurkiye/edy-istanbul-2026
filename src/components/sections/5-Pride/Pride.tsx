@@ -30,6 +30,14 @@ const INFO_CARDS = [
         tag: "Affordable & Incredible",
     },
     {
+        symbol: "IV",
+        title: "Belonging",
+        headline: "Home to Everyone",
+        body: "From the Syrian poet in Fatih to the Erasmus crew from Helsinki — every accent is already on this street. 80+ nationalities call our universities home.",
+        accent: "#ec008c",
+        tag: "80+ Nationalities",
+    },
+    {
         symbol: "I",
         title: "Accessibility",
         headline: "Hub of 3 Continents",
@@ -118,7 +126,7 @@ export default function Pride() {
                 </div>
 
                 {/* Info cards */}
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-5 w-full max-w-[1100px] mb-10">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 w-full max-w-[1200px] mb-10">
                     {INFO_CARDS.map((card, i) => (
                         <div
                             key={card.title}

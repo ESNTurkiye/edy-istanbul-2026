@@ -38,18 +38,19 @@ export default function Navigation() {
     return (
         <nav
             ref={navRef}
+            aria-label="Site navigation"
             className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-5 md:px-10 py-3"
             style={{ backgroundColor: "transparent", transition: "background-color 0.3s ease" }}
         >
             {/* Logo / Brand */}
-            <div className="flex items-center gap-2">
+            <Link href="#hero" className="flex items-center gap-2 hover:opacity-80 transition-opacity duration-200">
                 <span
                     className="font-brand font-bold text-white text-sm md:text-base tracking-wide"
                 >
                     ESN <span style={{ color: "#00aeef", textShadow: "0 1px 6px rgba(0,0,0,0.55), 0 0 2px rgba(0,0,0,0.4)" }}>İstanbul</span>{" "}
                     <span className="text-white/50 font-normal">EDY 2026</span>
                 </span>
-            </div>
+            </Link>
 
             {/* Links (hidden on small mobile) */}
             <ul className="hidden sm:flex items-center gap-1 md:gap-2">
@@ -57,20 +58,7 @@ export default function Navigation() {
                     <li key={link.href}>
                         <Link
                             href={link.href}
-                            className="relative px-3 py-1.5 text-[0.75rem] md:text-[0.8rem] tracking-wide font-medium rounded-full transition-colors duration-200"
-                            style={
-                                link.highlight
-                                    ? { background: "#ec008c", color: "#fff" }
-                                    : { color: "rgba(255,255,255,0.65)" }
-                            }
-                            onMouseEnter={e => {
-                                if (!link.highlight)
-                                    (e.currentTarget as HTMLElement).style.color = "rgba(255,255,255,0.95)";
-                            }}
-                            onMouseLeave={e => {
-                                if (!link.highlight)
-                                    (e.currentTarget as HTMLElement).style.color = "rgba(255,255,255,0.65)";
-                            }}
+                            className={`relative px-3 py-1.5 text-[0.75rem] md:text-[0.8rem] tracking-wide font-medium rounded-full transition-colors duration-200 ${link.highlight ? "nav-vote" : "nav-link"}`}
                         >
                             {link.label}
                         </Link>

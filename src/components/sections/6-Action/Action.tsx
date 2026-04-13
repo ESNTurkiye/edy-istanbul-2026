@@ -124,11 +124,10 @@ export default function Action() {
             <div className="relative z-10 flex flex-col items-center text-center px-6 py-20">
                 <div ref={headlineRef} className="opacity-0 mb-10">
                     <p className="text-white/60 text-[clamp(0.65rem,1vw,0.8rem)] tracking-[0.3em] uppercase font-medium mb-4">
-                        Support your future home
+                        EGM Split · 16–19 April 2026
                     </p>
                     <h2 className="font-brand font-bold text-white leading-tight text-[clamp(2.4rem,7vw,5.5rem)]">
-                        Your Vote Changes<br />
-                        A Student&apos;s Future
+                        One Vote. Ten Thousand<br />Students Finding Home.
                     </h2>
                     <p className="mt-5 text-white/65 text-[clamp(0.85rem,1.5vw,1.1rem)] max-w-[500px] mx-auto leading-relaxed">
                         Every year, one city earns the honour of hosting Europe&apos;s Erasmus community. Make it Istanbul. Make it unforgettable.
@@ -136,7 +135,7 @@ export default function Action() {
                 </div>
 
                 <div ref={ctaRef} className="opacity-0 flex flex-col items-center gap-4">
-                    <CtaButton label="VOTE FOR ISTANBUL" href="https://vote.esn.org" />
+                    <CtaButton label="VOTE FOR ISTANBUL" />
                     <p className="text-white/35 text-[0.72rem] tracking-wide">
                         EDY 2026 · ESN Turkiye · Students Helping Students
                     </p>

@@ -194,7 +194,7 @@ export default function Discovery() {
             { isDesktop: "(min-width: 768px)", isMobile: "(max-width: 767px)" },
             (ctx) => {
                 const { isMobile } = ctx.conditions as { isMobile: boolean };
-                const scrollDist   = isMobile ? "+=200%" : "+=260%";
+                const scrollDist   = isMobile ? "+=150%" : "+=180%";
 
                 const tl = gsap.timeline({
                     scrollTrigger: {
@@ -569,6 +569,15 @@ export default function Discovery() {
                     <path d="M4 20 L12 32 L20 20" stroke="rgba(255,255,255,0.4)" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
             </div>
+
+            {/* Screen-reader landmark list — visually hidden, a11y-accessible */}
+            <ul className="sr-only" aria-label="Istanbul landmarks">
+                {LANDMARKS.map(lm => (
+                    <li key={lm.id}>
+                        <strong>{lm.label}</strong> — {lm.sublabel}: {lm.description}
+                    </li>
+                ))}
+            </ul>
         </section>
     );
 }

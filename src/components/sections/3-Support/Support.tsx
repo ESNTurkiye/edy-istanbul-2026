@@ -28,7 +28,7 @@ export default function Support() {
         gsap.fromTo(headlineRef.current, { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.9, ease: "power2.out", scrollTrigger: st });
         gsap.fromTo(dividerRef.current,  { scaleX: 0 },         { scaleX: 1, duration: 1, ease: "power2.out", transformOrigin: "left center", scrollTrigger: st });
         gsap.fromTo(bullRef.current,     { opacity: 0, x: 60 }, { opacity: 1, x: 0, duration: 1.1, ease: "power2.out", scrollTrigger: st });
-        gsap.fromTo(laleRef.current,     { opacity: 0, x: -40 },{ opacity: 1, x: 0, duration: 1,   ease: "power2.out", scrollTrigger: st });
+        gsap.fromTo(laleRef.current,     { opacity: 0, x: -40 },{ opacity: 0.35, x: 0, duration: 1, ease: "power2.out", scrollTrigger: st });
 
         gsap.to(bullRef.current, {
             y: "+=10",
@@ -68,8 +68,8 @@ export default function Support() {
             {/* Lale cutout — bottom left */}
             <div
                 ref={laleRef}
-                className="absolute left-0 bottom-0 w-[16%] max-w-[200px] opacity-0 pointer-events-none"
-                style={{ zIndex: 2, opacity: 0.35 }}
+                className="absolute left-0 bottom-0 w-[16%] max-w-[200px] pointer-events-none"
+                style={{ zIndex: 2, opacity: 0 }}
             >
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img src={`${CDN}/lale-1.webp`} alt="" className="w-full h-auto" />
@@ -79,10 +79,10 @@ export default function Support() {
                 <div ref={headlineRef} className="text-center px-6 pt-14 pb-8 opacity-0">
                     <h2 className="font-brand font-bold leading-tight text-white text-[clamp(2rem,5vw,3.8rem)]">
                         15 Sections.{" "}
-                        <span style={{ color: "#7ac143" }}>One City.</span>
+                        <span style={{ color: "#7ac143" }}>One Welcome.</span>
                     </h2>
                     <p className="mt-4 text-white/60 text-[clamp(0.8rem,1.3vw,1rem)] max-w-[520px] mx-auto leading-relaxed">
-                        The largest ESN network density in Turkiye — all under Istanbul&apos;s skyline.
+                        From your first bus ride to your last goodbye, 500+ volunteers in 18 languages have your back — in your language, at your pace, on your terms.
                     </p>
                 </div>
 
@@ -100,6 +100,30 @@ export default function Support() {
 
                 {/* Stats */}
                 <StatsCounter />
+
+                {/* Inclusion promise strip */}
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-4 px-6 md:px-12 pb-16">
+                    {[
+                        { icon: "♿", text: "Accessible city tours every week — step-free routes, audio guides", accent: "#00aeef" },
+                        { icon: "🥗", text: "Dietary inclusion — halal, kosher, vegan buddies who know where", accent: "#ec008c" },
+                        { icon: "🏳️‍🌈", text: "LGBTQ+ welcome — Beyoğlu & Kadıköy have been home for decades", accent: "#7ac143" },
+                        { icon: "💬", text: "Mental-health peer support — in English, Turkish, and on demand", accent: "#f47b20" },
+                    ].map((item, i) => (
+                        <div
+                            key={i}
+                            className="rounded-xl p-4"
+                            style={{
+                                background: `${item.accent}12`,
+                                border: `1px solid ${item.accent}30`,
+                            }}
+                        >
+                            <div className="text-xl mb-2" aria-hidden="true">{item.icon}</div>
+                            <p className="text-white/70 leading-snug" style={{ fontSize: "clamp(0.7rem, 1vw, 0.82rem)" }}>
+                                {item.text}
+                            </p>
+                        </div>
+                    ))}
+                </div>
             </div>
         </section>
     );

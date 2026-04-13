@@ -91,7 +91,7 @@ export default function SplitScreen() {
                 </div>
 
                 {/* Day stats */}
-                <div className="flex flex-col gap-4 mb-8 w-full max-w-[360px]">
+                <div className="flex flex-col gap-4 mb-6 w-full max-w-[360px]">
                     {DAY_STATS.map(s => (
                         <div key={s.label} className="flex items-baseline gap-3">
                             <span className="font-brand font-bold text-[clamp(1.4rem,2.8vw,2rem)] leading-none" style={{ color: "#7ac143" }}>
@@ -103,6 +103,9 @@ export default function SplitScreen() {
                             </div>
                         </div>
                     ))}
+                    <p className="text-white/40 text-[0.72rem] leading-snug pt-1 border-t border-white/10">
+                        Accessible for every body, every budget, every background.
+                    </p>
                 </div>
 
                 {/* Floating assets */}
@@ -155,7 +158,7 @@ export default function SplitScreen() {
                 </div>
 
                 {/* Night stats */}
-                <div className="relative z-10 flex flex-col gap-4 mb-8 w-full max-w-[360px]">
+                <div className="relative z-10 flex flex-col gap-4 mb-6 w-full max-w-[360px]">
                     {NIGHT_STATS.map(s => (
                         <div key={s.label} className="flex items-baseline gap-3">
                             <span className="font-brand font-bold text-[clamp(1.4rem,2.8vw,2rem)] leading-none" style={{ color: "#f47b20" }}>
@@ -167,6 +170,9 @@ export default function SplitScreen() {
                             </div>
                         </div>
                     ))}
+                    <p className="text-white/40 text-[0.72rem] leading-snug pt-1 border-t border-white/10">
+                        Safe streets, safe friends, safe spaces — our volunteers see you home.
+                    </p>
                 </div>
 
                 {/* Floating assets */}

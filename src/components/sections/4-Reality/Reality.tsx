@@ -8,7 +8,7 @@ export default function Reality() {
         <section className="relative w-full overflow-hidden">
             {/* Day / Night split */}
             <SplitScreen />
-            {/* Long-form content: Sport, Playlist, Itineraries, Quiz */}
+            {/* Long-form extras: One Day itinerary + District Quiz */}
             <RealityExtras />
         </section>
     );

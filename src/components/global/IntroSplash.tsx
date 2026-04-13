@@ -24,9 +24,9 @@ interface IntroSplashProps {
 export default function IntroSplash({ onComplete }: IntroSplashProps) {
     const containerRef = useRef<HTMLDivElement>(null);
     const globeWrapRef = useRef<HTMLDivElement>(null);
-    const labelRef = useRef<HTMLDivElement>(null);
-    const titleRef = useRef<HTMLDivElement>(null);
-    const taglineRef = useRef<HTMLDivElement>(null);
+    const labelRef     = useRef<HTMLDivElement>(null);
+    const titleRef     = useRef<HTMLDivElement>(null);
+    const taglineRef   = useRef<HTMLDivElement>(null);
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const globeEl = useRef<any>(null);
 
@@ -42,10 +42,11 @@ export default function IntroSplash({ onComplete }: IntroSplashProps) {
 
         g.pointOfView({ lat: 20, lng: ISTANBUL_LNG, altitude: 2.5 }, 0);
 
+        // 800 ms of rotation, then fly to Istanbul in 900 ms → completes ~1.7 s
         setTimeout(() => {
             ctrl.autoRotate = false;
-            g.pointOfView({ lat: ISTANBUL_LAT, lng: ISTANBUL_LNG, altitude: 1.1 }, 1400);
-        }, 3150);
+            g.pointOfView({ lat: ISTANBUL_LAT, lng: ISTANBUL_LNG, altitude: 1.1 }, 900);
+        }, 800);
     }, []);
 
     useGSAP(() => {
@@ -59,77 +60,52 @@ export default function IntroSplash({ onComplete }: IntroSplashProps) {
             },
         });
 
-        // ── 0.0  Fade in overlay ─────────────────────────────────────────
+        // ── 0.0  Fade in overlay (0.3 s) ────────────────────────────────
         tl.fromTo(containerRef.current,
             { opacity: 0 },
-            { opacity: 1, duration: 0.6, ease: "power2.out" },
+            { opacity: 1, duration: 0.3, ease: "power2.out" },
         );
 
-        // ── 0.7  Headline ────────────────────────────────────────────────
+        // ── 0.2  Headline + tagline together ────────────────────────────
         tl.fromTo(titleRef.current,
             { opacity: 0, y: 16, letterSpacing: "0.55em" },
-            { opacity: 1, y: 0, letterSpacing: "0.18em", duration: 1.1, ease: "power2.out" },
-            0.7,
+            { opacity: 1, y: 0, letterSpacing: "0.18em", duration: 0.6, ease: "power2.out" },
+            0.2,
         );
-
-        // ── 1.1  Tagline ─────────────────────────────────────────────────
         tl.fromTo(taglineRef.current,
             { opacity: 0 },
-            { opacity: 1, duration: 0.7 },
-            1.1,
+            { opacity: 1, duration: 0.5 },
+            0.2,
         );
 
-        // ── 4.7  "Istanbul" label pops in (fly-to completes ~3.15+1.4 = 4.55 s)
+        // ── 1.8  "Istanbul" label pops in (fly-to completes ~1.7 s) ─────
         tl.fromTo(labelRef.current,
             { opacity: 0, scale: 0 },
-            { opacity: 1, scale: 1, duration: 0.45, ease: "back.out(2.8)" },
-            4.7,
+            { opacity: 1, scale: 1, duration: 0.3, ease: "back.out(2.8)" },
+            1.8,
         );
 
-        // ── 5.1  Texts fade out ──────────────────────────────────────────
+        // ── 2.1  Texts fade out ──────────────────────────────────────────
         tl.to(
             [titleRef.current, taglineRef.current],
-            { opacity: 0, duration: 0.45, ease: "power2.in" },
-            5.1,
+            { opacity: 0, duration: 0.3, ease: "power2.in" },
+            2.1,
         );
 
-        // ── 5.3  Zoom Phase 0 – Anticipation ────────────────────────────
+        // ── 2.1  Single cinematic zoom into Istanbul ─────────────────────
         tl.to(globeWrapRef.current, {
-            scale: 0.93,
-            duration: 0.28,
-            ease: "power2.in",
-        }, 5.3);
-
-        // ── 5.58  Zoom Phase 1 – Ease-In-Quart (fast acceleration) ───────
-        tl.to(globeWrapRef.current, {
-            scale: 2.1,
-            filter: "blur(2px)",
-            duration: 0.52,
-            ease: "power4.in",
-        }, 5.58);
-
-        // ── 6.1  Zoom Phase 2 – Linear peak velocity ─────────────────────
-        tl.to(globeWrapRef.current, {
-            scale: 4.6,
-            filter: "blur(5px)",
-            duration: 0.38,
-            ease: "none",
-        }, 6.1);
-
-        // ── 6.48  Zoom Phase 3 – Ease-Out-Expo (cinematic landing) ────────
-        tl.to(globeWrapRef.current, {
-            scale: 9,
+            scale: 7,
             filter: "blur(0px)",
-            duration: 1.5,
-            ease: "expo.out",
-        }, 6.48);
+            duration: 0.6,
+            ease: "expo.in",
+        }, 2.1);
 
-        // ── 7.6  Fade overlay away ────────────────────────────────────────
+        // ── 2.7  Fade overlay away ────────────────────────────────────────
         tl.to(containerRef.current, {
             opacity: 0,
-            duration: 0.7,
+            duration: 0.3,
             ease: "power2.in",
-        }, 7.6);
+        }, 2.7);
 
     }, { scope: containerRef });
 
@@ -153,8 +129,6 @@ export default function IntroSplash({ onComplete }: IntroSplashProps) {
                 className="relative mb-10 pointer-events-none"
                 style={{ willChange: "transform, filter" }}
             >
-
-                {/* Globe */}
                 <GlobeGL
                     ref={globeEl}
                     onGlobeReady={handleGlobeReady}
@@ -167,13 +141,11 @@ export default function IntroSplash({ onComplete }: IntroSplashProps) {
                     showAtmosphere
                     atmosphereColor="#4fa3f0"
                     atmosphereAltitude={0.22}
-                    // Istanbul dot
                     pointsData={GLOBE_POINTS}
                     pointColor="color"
                     pointAltitude={0.015}
                     pointRadius="radius"
                     pointResolution={16}
-                    // Istanbul pulsing ring
                     ringsData={GLOBE_RINGS}
                     ringColor={() => ["rgba(236,0,140,0.9)", "rgba(236,0,140,0)"]}
                     ringMaxRadius={3.5}
@@ -181,7 +153,7 @@ export default function IntroSplash({ onComplete }: IntroSplashProps) {
                     ringRepeatPeriod={1000}
                 />
 
-                {/* "Istanbul" text label – centered over globe after fly-to */}
+                {/* "Istanbul" text label — appears after fly-to */}
                 <div
                     ref={labelRef}
                     className="absolute pointer-events-none"
@@ -228,7 +200,6 @@ export default function IntroSplash({ onComplete }: IntroSplashProps) {
 
             {/* ── Tagline ───────────────────────────────────────────────── */}
             <div ref={taglineRef} className="mt-3 opacity-0 text-center">
-                {/* Poetic line — distilled from content themes */}
                 <p
                     style={{
                         color: "rgba(255,255,255,0.82)",
@@ -240,7 +211,6 @@ export default function IntroSplash({ onComplete }: IntroSplashProps) {
                 >
                     History.&nbsp; Culture.&nbsp; Home.
                 </p>
-                {/* Official branding line */}
                 <p
                     style={{
                         color: "rgba(255,255,255,0.38)",

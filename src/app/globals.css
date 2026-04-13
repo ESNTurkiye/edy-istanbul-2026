@@ -97,8 +97,54 @@ body {
     font-family: var(--font-kelson-sans), var(--font-lato), Arial, sans-serif;
 }
 
+/* ── Focus-visible — keyboard navigation baseline ───────────── */
+:where(a, button):focus-visible {
+    outline: 2px solid white;
+    outline-offset: 3px;
+    border-radius: 4px;
+}
+
+/* ── CTA vote button ────────────────────────────────────────── */
+.cta-button {
+    box-shadow: 0 0 0 0 rgba(255,255,255,0.4), 0 8px 32px rgba(0,0,0,0.25);
+    transition: box-shadow 0.4s ease, transform 0.3s ease;
+}
+.cta-button:hover {
+    box-shadow: 0 0 0 12px rgba(255,255,255,0.12), 0 16px 48px rgba(0,0,0,0.3);
+}
+.cta-button:focus-visible {
+    outline-offset: 5px;
+    border-radius: 9999px;
+}
+
+/* ── Quiz option hover ──────────────────────────────────────── */
+.quiz-option {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+}
+.quiz-option:hover {
+    background: rgba(236,0,140,0.12);
+    border-color: rgba(236,0,140,0.35);
+    color: white;
+}
+
 .font-brand {
     font-family: var(--font-kelson-sans), var(--font-lato), Arial, sans-serif;
+}
+
+/* ── Navigation links ────────────────────────────────── */
+.nav-link {
+    color: rgba(255,255,255,0.65);
+}
+.nav-link:hover {
+    color: rgba(255,255,255,0.95);
+}
+.nav-vote {
+    background: #ec008c;
+    color: #fff;
+}
+.nav-vote:hover {
+    background: #c8007a;
 }
 
 /* ── Reduced Motion ──────────────────────────────────────── */
