@@ -4,6 +4,7 @@ import { useRef, useCallback } from "react";
 import dynamic from "next/dynamic";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
+import Stars from "./Stars";
 
 const GlobeGL = dynamic(() => import("react-globe.gl"), { ssr: false });
 
@@ -30,7 +31,6 @@ export default function IntroSplash({ onComplete }: IntroSplashProps) {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const globeEl = useRef<any>(null);
 
-    // Called by Globe once the WebGL scene is ready
     const handleGlobeReady = useCallback(() => {
         const g = globeEl.current;
         if (!g) return;
@@ -115,15 +115,14 @@ export default function IntroSplash({ onComplete }: IntroSplashProps) {
             className="fixed inset-0 flex flex-col items-center justify-center select-none"
             style={{
                 zIndex: 9999,
-                background:
-                    "radial-gradient(ellipse 90% 100% at 50% 65%, #071d4a 0%, #030d1e 55%, #010810 100%)",
+                background: "radial-gradient(ellipse 90% 100% at 50% 65%, #071d4a 0%, #030d1e 55%, #010810 100%)",
             }}
             aria-hidden="true"
         >
-            {/* ── Starfield ──────────────────────────────────────────────── */}
+            {/* Starfield */}
             <Stars />
 
-            {/* ── Globe wrapper (zoom target) ─────────────────────────────── */}
+            {/* Globe wrapper (zoom target) */}
             <div
                 ref={globeWrapRef}
                 className="relative mb-10 pointer-events-none"
@@ -181,7 +180,7 @@ export default function IntroSplash({ onComplete }: IntroSplashProps) {
                 </div>
             </div>
 
-            {/* ── City title ────────────────────────────────────────────── */}
+            {/* City title */}
             <div ref={titleRef} className="opacity-0 text-center">
                 <h1
                     style={{
@@ -198,7 +197,7 @@ export default function IntroSplash({ onComplete }: IntroSplashProps) {
                 </h1>
             </div>
 
-            {/* ── Tagline ───────────────────────────────────────────────── */}
+            {/* Tagline */}
             <div ref={taglineRef} className="mt-3 opacity-0 text-center">
                 <p
                     style={{
@@ -223,29 +222,5 @@ export default function IntroSplash({ onComplete }: IntroSplashProps) {
                 </p>
             </div>
         </div>
-    );
-}
-
-/* ── Deterministic starfield (no hydration mismatch) ─────────────────────── */
-function Stars() {
-    const stars: { x: number; y: number; r: number; o: number }[] = [];
-    let seed = 0x8f3a;
-    const rand = () => {
-        seed = (seed * 1664525 + 1013904223) & 0xffffffff;
-        return (seed >>> 0) / 0x100000000;
-    };
-    for (let i = 0; i < 80; i++) {
-        stars.push({ x: rand() * 100, y: rand() * 100, r: rand() * 1.2 + 0.4, o: rand() * 0.5 + 0.15 });
-    }
-    return (
-        <svg
-            className="absolute inset-0 w-full h-full pointer-events-none"
-            aria-hidden="true"
-            xmlns="http://www.w3.org/2000/svg"
-        >
-            {stars.map((s, i) => (
-                <circle key={i} cx={`${s.x}%`} cy={`${s.y}%`} r={s.r} fill="white" opacity={s.o} />
-            ))}
-        </svg>
     );
 }
