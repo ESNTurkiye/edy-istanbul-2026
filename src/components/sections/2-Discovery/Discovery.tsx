@@ -88,7 +88,7 @@ export default function Discovery() {
             { isDesktop: "(min-width: 768px)", isMobile: "(max-width: 767px)" },
             (ctx) => {
                 const { isMobile } = ctx.conditions as { isMobile: boolean };
-                const scrollDist   = isMobile ? "+=150%" : "+=180%";
+                const scrollDist = isMobile ? "+=150%" : "+=180%";
 
                 const tl = gsap.timeline({
                     scrollTrigger: {

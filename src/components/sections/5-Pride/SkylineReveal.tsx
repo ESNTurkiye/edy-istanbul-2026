@@ -61,13 +61,13 @@ const MONUMENTS = [
 ] as const;
 
 export default function SkylineReveal() {
-    const wrapRef      = useRef<HTMLDivElement>(null);
+    const wrapRef = useRef<HTMLDivElement>(null);
     // Outer wrappers carry the scroll-parallax tween
     const parallaxRefs = useRef<(HTMLDivElement | null)[]>([]);
     // Inner wrappers carry the entry + idle-float tween
-    const entryRefs    = useRef<(HTMLDivElement | null)[]>([]);
-    const bird1Ref     = useRef<HTMLImageElement>(null);
-    const bird2Ref     = useRef<HTMLImageElement>(null);
+    const entryRefs = useRef<(HTMLDivElement | null)[]>([]);
+    const bird1Ref = useRef<HTMLImageElement>(null);
+    const bird2Ref = useRef<HTMLImageElement>(null);
 
     useGSAP(() => {
         if (!wrapRef.current) return;

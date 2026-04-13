@@ -24,12 +24,12 @@ export default function Home() {
 
             <Navigation />
             <main id="main-content" className="flex flex-col w-full relative overflow-x-hidden">
-                <section id="hero"      aria-label="Istanbul — Hero"><Hero /></section>
+                <section id="hero" aria-label="Istanbul — Hero"><Hero /></section>
                 <section id="discovery" aria-label="Discover Istanbul"><Discovery /></section>
-                <section id="support"   aria-label="ESN Network & Support"><Support /></section>
-                <section id="reality"   aria-label="Life in Istanbul"><Reality /></section>
-                <section id="pride"     aria-label="Why Istanbul"><Pride /></section>
-                <section id="action"    aria-label="Vote for Istanbul"><Action /></section>
+                <section id="support" aria-label="ESN Network & Support"><Support /></section>
+                <section id="reality" aria-label="Life in Istanbul"><Reality /></section>
+                <section id="pride" aria-label="Why Istanbul"><Pride /></section>
+                <section id="action" aria-label="Vote for Istanbul"><Action /></section>
             </main>
         </PageWrapper>
     );

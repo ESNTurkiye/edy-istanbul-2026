@@ -11,10 +11,10 @@ if (typeof window !== "undefined") {
 }
 
 const NAV_LINKS = [
-    { label: "Discover", href: "#discovery"},
-    { label: "Network", href: "#support"},
-    { label: "Life", href: "#reality"},
-    { label: "Pride", href: "#pride"},
+    { label: "Discover", href: "#discovery" },
+    { label: "Network", href: "#support" },
+    { label: "Life", href: "#reality" },
+    { label: "Pride", href: "#pride" },
     { label: "Vote", href: "#action", highlight: true },
 ];
 
@@ -29,7 +29,7 @@ export default function Navigation() {
             scrollTrigger: {
                 trigger: document.body,
                 start: "50px top",
-                end:   "200px top",
+                end: "200px top",
                 scrub: true,
             },
         });
