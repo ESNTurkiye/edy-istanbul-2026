@@ -2,7 +2,7 @@ export default function Footer() {
     return (
         <footer
             className="relative w-full overflow-hidden"
-            style={{ background: "#0a0a0a", borderTop: "1px solid rgba(255,255,255,0.06)" }}
+            style={{ background: "#0a0a0a" }}
         >
             <div className="max-w-[1100px] mx-auto px-6 py-12 flex flex-col md:flex-row items-center md:items-start justify-between gap-8">
 
@@ -31,17 +31,12 @@ export default function Footer() {
                         ))}
                     </div>
                     <p className="text-white/30 text-[0.65rem] leading-relaxed">
-                        Made with ♥ by the{" "}
+                        Built by the{" "}
                         <span className="text-white/55 font-medium">WebTeam of ESN Türkiye</span>
                     </p>
                 </div>
             </div>
 
-            {/* Bottom line */}
-            <div
-                className="w-full h-px"
-                style={{ background: "linear-gradient(to right, transparent, rgba(0,174,239,0.3) 30%, rgba(236,0,140,0.3) 70%, transparent)" }}
-            />
             <p className="text-center text-white/20 text-[0.6rem] py-3 tracking-wide">
                 © 2026 ESN Türkiye · Students Helping Students
             </p>

@@ -138,13 +138,7 @@ export default function Pride() {
                                 backdropFilter: "blur(8px)",
                             }}
                         >
-                            {/* Accent glow top */}
-                            <div
-                                className="absolute top-0 left-0 right-0 h-px"
-                                style={{ background: `linear-gradient(to right, transparent, ${card.accent}60, transparent)` }}
-                            />
-
-                            {/* Roman numeral accent instead of emoji */}
+                            {/* Roman numeral accent */}
                             <div
                                 className="font-bold mb-3 leading-none"
                                 style={{

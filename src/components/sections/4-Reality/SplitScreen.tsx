@@ -103,7 +103,7 @@ export default function SplitScreen() {
                             </div>
                         </div>
                     ))}
-                    <p className="text-white/40 text-[0.72rem] leading-snug pt-1 border-t border-white/10">
+                    <p className="text-white/40 text-[0.72rem] leading-snug mt-2">
                         Accessible for every body, every budget, every background.
                     </p>
                 </div>
@@ -170,7 +170,7 @@ export default function SplitScreen() {
                             </div>
                         </div>
                     ))}
-                    <p className="text-white/40 text-[0.72rem] leading-snug pt-1 border-t border-white/10">
+                    <p className="text-white/40 text-[0.72rem] leading-snug mt-2">
                         Safe streets, safe friends, safe spaces — our volunteers see you home.
                     </p>
                 </div>

@@ -18,7 +18,6 @@ export default function Support() {
     const headlineRef = useRef<HTMLDivElement>(null);
     const bullRef     = useRef<HTMLDivElement>(null);
     const laleRef     = useRef<HTMLDivElement>(null);
-    const dividerRef  = useRef<HTMLDivElement>(null);
 
     useGSAP(() => {
         if (!sectionRef.current) return;
@@ -26,7 +25,6 @@ export default function Support() {
         const st = { trigger: sectionRef.current, start: "top 70%", once: true };
 
         gsap.fromTo(headlineRef.current, { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.9, ease: "power2.out", scrollTrigger: st });
-        gsap.fromTo(dividerRef.current,  { scaleX: 0 },         { scaleX: 1, duration: 1, ease: "power2.out", transformOrigin: "left center", scrollTrigger: st });
         gsap.fromTo(bullRef.current,     { opacity: 0, x: 60 }, { opacity: 1, x: 0, duration: 1.1, ease: "power2.out", scrollTrigger: st });
         gsap.fromTo(laleRef.current,     { opacity: 0, x: -40 },{ opacity: 0.35, x: 0, duration: 1, ease: "power2.out", scrollTrigger: st });
 
@@ -86,11 +84,6 @@ export default function Support() {
                     </p>
                 </div>
 
-                <div
-                    ref={dividerRef}
-                    className="mx-auto mb-8 h-px w-[60%] max-w-[400px]"
-                    style={{ background: "linear-gradient(to right, transparent, rgba(122,193,67,0.45), transparent)", transformOrigin: "left center" }}
-                />
 
                 {/* Ticker rows */}
                 <div className="flex flex-col gap-3 mb-2">
@@ -101,28 +94,28 @@ export default function Support() {
                 {/* Stats */}
                 <StatsCounter />
 
-                {/* Inclusion promise strip */}
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-4 px-6 md:px-12 pb-16">
-                    {[
-                        { icon: "♿", text: "Accessible city tours every week — step-free routes, audio guides", accent: "#00aeef" },
-                        { icon: "🥗", text: "Dietary inclusion — halal, kosher, vegan buddies who know where", accent: "#ec008c" },
-                        { icon: "🏳️‍🌈", text: "LGBTQ+ welcome — Beyoğlu & Kadıköy have been home for decades", accent: "#7ac143" },
-                        { icon: "💬", text: "Mental-health peer support — in English, Turkish, and on demand", accent: "#f47b20" },
-                    ].map((item, i) => (
-                        <div
-                            key={i}
-                            className="rounded-xl p-4"
-                            style={{
-                                background: `${item.accent}12`,
-                                border: `1px solid ${item.accent}30`,
-                            }}
-                        >
-                            <div className="text-xl mb-2" aria-hidden="true">{item.icon}</div>
-                            <p className="text-white/70 leading-snug" style={{ fontSize: "clamp(0.7rem, 1vw, 0.82rem)" }}>
-                                {item.text}
-                            </p>
-                        </div>
-                    ))}
+                {/* Inclusion promise — compact text list */}
+                <div className="px-6 md:px-12 pb-16">
+                    <div className="flex flex-col sm:flex-row sm:flex-wrap gap-x-10 gap-y-3 max-w-[860px]">
+                        {[
+                            { label: "Accessible", detail: "step-free city tours, audio guides every week", accent: "#00aeef" },
+                            { label: "Every diet", detail: "halal, kosher, vegan — your buddy knows where", accent: "#ec008c" },
+                            { label: "LGBTQ+ home", detail: "Beyoğlu & Kadıköy have been home for decades", accent: "#7ac143" },
+                            { label: "Mental health", detail: "peer support in English, Turkish, on demand", accent: "#f47b20" },
+                        ].map((item, i) => (
+                            <div key={i} className="flex items-baseline gap-2">
+                                <span
+                                    className="shrink-0 font-bold"
+                                    style={{ color: item.accent, fontSize: "0.72rem", letterSpacing: "0.04em" }}
+                                >
+                                    {item.label}
+                                </span>
+                                <span className="text-white/40" style={{ fontSize: "0.72rem" }}>
+                                    {item.detail}
+                                </span>
+                            </div>
+                        ))}
+                    </div>
                 </div>
             </div>
         </section>

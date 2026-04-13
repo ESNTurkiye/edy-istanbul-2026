@@ -46,7 +46,17 @@ export default function LogoTicker({ reverse = false, speed = 30 }: LogoTickerPr
                             background: "rgba(122,193,67,0.10)",
                         }}
                     >
-                        <span style={{ color: "#7ac143", fontSize: "0.7rem" }}>✦</span>
+                        <span
+                            style={{
+                                display: "inline-block",
+                                width: "4px",
+                                height: "4px",
+                                borderRadius: "50%",
+                                background: "#7ac143",
+                                flexShrink: 0,
+                            }}
+                            aria-hidden="true"
+                        />
                         {section}
                     </div>
                 ))}
