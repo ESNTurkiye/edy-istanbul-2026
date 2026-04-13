@@ -70,11 +70,11 @@ export default function Pride() {
         <section
             ref={sectionRef}
             className="relative w-full overflow-hidden"
-            style={{ background: "#080400" }}
+            style={{ background: "linear-gradient(180deg, #fffaf3 0%, #f8f4ed 55%, #fdf9f1 100%)" }}
         >
             {/* ── Cistern background ── */}
             <div
-                className="absolute inset-0 opacity-30"
+                className="absolute inset-0 opacity-36"
                 style={{
                     backgroundImage:    `url(${CDN}/yerebatan-sarnici-yatay.webp)`,
                     backgroundSize:     "cover",
@@ -82,7 +82,7 @@ export default function Pride() {
                 }}
             />
             {/* Dark vignette over cistern */}
-            <div className="absolute inset-0" style={{ background: "linear-gradient(to bottom, rgba(8,4,0,0.92) 0%, rgba(8,4,0,0.7) 40%, rgba(8,4,0,0.85) 100%)" }} />
+            <div className="absolute inset-0" style={{ background: "linear-gradient(to bottom, rgba(255,250,243,0.68) 0%, rgba(248,244,237,0.5) 40%, rgba(253,249,241,0.72) 100%)" }} />
 
             {/* ── Iznik tile accent (top-right corner) ── */}
             <div
@@ -102,11 +102,11 @@ export default function Pride() {
                     <p className="text-[#f47b20] text-[clamp(0.65rem,1vw,0.8rem)] tracking-[0.3em] uppercase font-medium mb-3">
                         Finalist Edge
                     </p>
-                    <h2 className="font-brand font-bold leading-tight text-white text-[clamp(2rem,5vw,3.8rem)]">
+                    <h2 className="font-brand font-bold leading-tight text-[#2c2418] text-[clamp(2rem,5vw,3.8rem)]">
                         Istanbul Isn&apos;t Just a City —<br />
                         <span style={{ color: "#f47b20" }}>It&apos;s a Civilisation</span>
                     </h2>
-                    <p className="mt-4 text-white/50 text-[clamp(0.8rem,1.3vw,1rem)] leading-relaxed">
+                    <p className="mt-4 text-[clamp(0.8rem,1.3vw,1rem)] leading-relaxed" style={{ color: "#5f4f3f" }}>
                         Three empires called it home. One generation of Erasmus students is about to discover why.
                     </p>
                 </div>
@@ -119,7 +119,7 @@ export default function Pride() {
                             ref={el => { cardsRef.current[i] = el; }}
                             className="relative rounded-2xl p-6 overflow-hidden opacity-0"
                             style={{
-                                background:  "rgba(255,255,255,0.04)",
+                                background:  "rgba(255,255,255,0.78)",
                                 border:      `1px solid ${card.accent}30`,
                                 backdropFilter: "blur(8px)",
                             }}
@@ -147,10 +147,10 @@ export default function Pride() {
                             >
                                 {card.tag}
                             </div>
-                            <h3 className="font-brand font-bold text-white text-[clamp(1.2rem,2.2vw,1.6rem)] leading-tight mb-2">
+                            <h3 className="font-brand font-bold text-[#2c2418] text-[clamp(1.2rem,2.2vw,1.6rem)] leading-tight mb-2">
                                 {card.headline}
                             </h3>
-                            <p className="text-white/55 text-[clamp(0.75rem,1.1vw,0.9rem)] leading-relaxed">
+                            <p className="text-[clamp(0.75rem,1.1vw,0.9rem)] leading-relaxed" style={{ color: "#5d4f43" }}>
                                 {card.body}
                             </p>
                         </div>
@@ -236,7 +236,7 @@ function LiteratureStrip() {
                         ref={el => { quoteRefs.current[i] = el; }}
                         className="relative opacity-0 rounded-xl p-5"
                         style={{
-                            background:     "rgba(255,255,255,0.03)",
+                            background:     "rgba(255,255,255,0.72)",
                             border:         `1px solid ${q.accent}25`,
                             backdropFilter: "blur(6px)",
                         }}
@@ -254,14 +254,14 @@ function LiteratureStrip() {
                             &ldquo;
                         </div>
                         <p
-                            className="text-white/70 leading-relaxed pt-5 mb-4"
-                            style={{ fontSize: "clamp(0.78rem, 1vw, 0.88rem)" }}
+                            className="leading-relaxed pt-5 mb-4"
+                            style={{ color: "#4f4337", fontSize: "clamp(0.78rem, 1vw, 0.88rem)" }}
                         >
                             {q.quote}
                         </p>
                         <div>
                             <div
-                                className="font-semibold text-white"
+                                className="font-semibold text-[#2e2418]"
                                 style={{ fontSize: "0.7rem", letterSpacing: "0.08em" }}
                             >
                                 {q.author}

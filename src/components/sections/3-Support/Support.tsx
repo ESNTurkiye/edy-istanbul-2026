@@ -44,13 +44,13 @@ export default function Support() {
         <section
             ref={sectionRef}
             className="relative w-full min-h-screen overflow-hidden flex flex-col justify-center"
-            style={{ background: "#0E0900" }}
+            style={{ background: "linear-gradient(180deg, #f7fbff 0%, #eef5ff 55%, #fdf9f2 100%)" }}
         >
             <div
                 className="absolute inset-0 pointer-events-none"
                 style={{
                     background:
-                        "radial-gradient(ellipse 70% 60% at 50% 50%, rgba(244,123,32,0.07) 0%, transparent 70%)",
+                        "radial-gradient(ellipse 70% 60% at 50% 50%, rgba(244,123,32,0.14) 0%, transparent 72%)",
                 }}
             />
 
@@ -77,11 +77,11 @@ export default function Support() {
                     <p className="text-[#f47b20] text-[clamp(0.65rem,1vw,0.8rem)] tracking-[0.3em] uppercase font-medium mb-3">
                         Unity in Diversity
                     </p>
-                    <h2 className="font-brand font-bold leading-tight text-white text-[clamp(2rem,5vw,3.8rem)]">
+                    <h2 className="font-brand font-bold leading-tight text-[#112643] text-[clamp(2rem,5vw,3.8rem)]">
                         15 Sections.{" "}
                         <span style={{ color: "#00a6ef" }}>One City.</span>
                     </h2>
-                    <p className="mt-4 text-white/50 text-[clamp(0.8rem,1.3vw,1rem)] max-w-[520px] mx-auto leading-relaxed">
+                    <p className="mt-4 text-[clamp(0.8rem,1.3vw,1rem)] max-w-[520px] mx-auto leading-relaxed" style={{ color: "#3d5572" }}>
                         The largest ESN network density in Turkey — all under Istanbul&apos;s skyline.
                     </p>
                 </div>

@@ -87,7 +87,7 @@ export default function StatsCounter() {
                         <span ref={el => { numRefs.current[i] = el; }}>0</span>
                         <span>{stat.suffix}</span>
                     </div>
-                    <div className="mt-2 text-white/60 text-[clamp(0.7rem,1.1vw,0.85rem)] tracking-widest uppercase">
+                    <div className="mt-2 text-[clamp(0.7rem,1.1vw,0.85rem)] tracking-widest uppercase" style={{ color: "#4a627f" }}>
                         {stat.label}
                     </div>
                 </div>

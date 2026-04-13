@@ -39,11 +39,11 @@ export default function LogoTicker({ reverse = false, speed = 30 }: LogoTickerPr
                 {items.map((section, i) => (
                     <div
                         key={i}
-                        className="flex items-center gap-2 px-4 py-[6px] rounded-full whitespace-nowrap text-sm font-medium"
+                        className="flex items-center gap-2 px-4 py-[6px] rounded-full whitespace-nowrap text-sm font-semibold"
                         style={{
-                            border: "1px solid rgba(244,123,32,0.28)",
-                            color: "rgba(255,255,255,0.75)",
-                            background: "rgba(244,123,32,0.06)",
+                            border: "1px solid rgba(244,123,32,0.45)",
+                            color: "#16324f",
+                            background: "rgba(255,255,255,0.78)",
                         }}
                     >
                         <span style={{ color: "#f47b20", fontSize: "0.7rem" }}>✦</span>

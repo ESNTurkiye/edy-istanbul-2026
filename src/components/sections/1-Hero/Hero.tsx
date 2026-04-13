@@ -121,7 +121,7 @@ export default function Hero() {
             {/* ── Headline ──────────────────────────────────────────────── */}
             <div className="z-20 relative hero-text-content text-center pointer-events-none drop-shadow-xl p-4">
                 <p
-                    className="text-white/50 tracking-[0.3em] uppercase font-light mb-2"
+                    className="text-white/90 tracking-[0.3em] uppercase font-light mb-2"
                     style={{ fontSize: "clamp(0.6rem, 1.2vw, 0.78rem)" }}
                 >
                     Finalist · EDY 2026
@@ -137,7 +137,7 @@ export default function Hero() {
                     Istanbul
                 </h1>
                 <p
-                    className="text-white/60 mt-2 font-light"
+                    className="text-white/95 mt-2 font-light"
                     style={{ fontSize: "clamp(0.75rem, 1.5vw, 1rem)", letterSpacing: "0.1em" }}
                 >
                     Where every street is a story.

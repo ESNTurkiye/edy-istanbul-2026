@@ -158,7 +158,7 @@ export default function RealityExtras() {
         <div
             ref={containerRef}
             className="relative w-full"
-            style={{ background: "#080608" }}
+            style={{ background: "linear-gradient(180deg, #f4f9ff 0%, #eef5ff 45%, #f8fbff 100%)" }}
         >
             {/* ── SPORT IN ISTANBUL ─────────────────────────────────────── */}
             <div className="relative z-10 px-6 py-20 max-w-[1100px] mx-auto">
@@ -167,7 +167,7 @@ export default function RealityExtras() {
                         Active Istanbul
                     </p>
                     <h2
-                        className="font-bold text-white leading-tight"
+                        className="font-bold text-[#142844] leading-tight"
                         style={{
                             fontFamily: "var(--font-kelson-sans), Arial, sans-serif",
                             fontSize:   "clamp(1.8rem, 4vw, 3rem)",
@@ -175,7 +175,7 @@ export default function RealityExtras() {
                     >
                         Sport in Istanbul
                     </h2>
-                    <p className="mt-3 text-white/45 max-w-[480px] mx-auto leading-relaxed" style={{ fontSize: "clamp(0.8rem, 1.2vw, 0.92rem)" }}>
+                    <p className="mt-3 max-w-[480px] mx-auto leading-relaxed" style={{ color: "#3a5574", fontSize: "clamp(0.8rem, 1.2vw, 0.92rem)" }}>
                         A city of 15 million that never stops moving. Find your pace.
                     </p>
                 </div>
@@ -187,8 +187,8 @@ export default function RealityExtras() {
                             ref={el => { sportItemRefs.current[i] = el; }}
                             className="opacity-0 rounded-xl p-5 flex gap-4 items-start"
                             style={{
-                                background:   "rgba(255,255,255,0.04)",
-                                border:       `1px solid ${s.accent}28`,
+                                background:   "rgba(255,255,255,0.88)",
+                                border:       `1px solid ${s.accent}38`,
                                 backdropFilter: "blur(6px)",
                             }}
                         >
@@ -200,12 +200,12 @@ export default function RealityExtras() {
                             </div>
                             <div>
                                 <h3
-                                    className="text-white font-bold mb-1"
+                                    className="text-[#1d3554] font-bold mb-1"
                                     style={{ fontFamily: "var(--font-kelson-sans), Arial, sans-serif", fontSize: "1rem" }}
                                 >
                                     {s.label}
                                 </h3>
-                                <p className="text-white/50 leading-snug" style={{ fontSize: "0.78rem" }}>
+                                <p className="leading-snug" style={{ color: "#415f80", fontSize: "0.78rem" }}>
                                     {s.detail}
                                 </p>
                             </div>
@@ -217,7 +217,7 @@ export default function RealityExtras() {
             {/* ── ISTANBUL PLAYLIST ─────────────────────────────────────── */}
             <div
                 className="relative px-6 py-16"
-                style={{ background: "linear-gradient(to bottom, #080608, #0d0a12, #080608)" }}
+                style={{ background: "linear-gradient(to bottom, #f7f4ff, #f4efff, #f8f5ff)" }}
             >
                 <div className="max-w-[1100px] mx-auto">
                     <div ref={playHeadRef} className="text-center mb-10 opacity-0">
@@ -225,7 +225,7 @@ export default function RealityExtras() {
                             Sound of the City
                         </p>
                         <h2
-                            className="font-bold text-white leading-tight"
+                            className="font-bold text-[#2a274d] leading-tight"
                             style={{
                                 fontFamily: "var(--font-kelson-sans), Arial, sans-serif",
                                 fontSize:   "clamp(1.8rem, 4vw, 3rem)",
@@ -233,7 +233,7 @@ export default function RealityExtras() {
                         >
                             Istanbul Playlist
                         </h2>
-                        <p className="mt-3 text-white/45 max-w-[440px] mx-auto leading-relaxed" style={{ fontSize: "clamp(0.8rem, 1.2vw, 0.92rem)" }}>
+                        <p className="mt-3 max-w-[440px] mx-auto leading-relaxed" style={{ color: "#4f4b77", fontSize: "clamp(0.8rem, 1.2vw, 0.92rem)" }}>
                             Every district has its own soundtrack. What will yours be?
                         </p>
                     </div>
@@ -245,8 +245,8 @@ export default function RealityExtras() {
                                 ref={el => { playItemRefs.current[i] = el; }}
                                 className="opacity-0 rounded-2xl p-5 flex flex-col justify-between"
                                 style={{
-                                    background: `linear-gradient(135deg, ${p.color}18 0%, rgba(0,0,0,0.3) 100%)`,
-                                    border:     `1px solid ${p.color}30`,
+                                    background: `linear-gradient(135deg, ${p.color}14 0%, rgba(255,255,255,0.92) 100%)`,
+                                    border:     `1px solid ${p.color}40`,
                                     minHeight:  "140px",
                                 }}
                             >
@@ -260,16 +260,16 @@ export default function RealityExtras() {
                                     </svg>
                                 </div>
                                 <div>
-                                    <div className="text-white font-bold mb-0.5" style={{ fontFamily: "var(--font-kelson-sans), Arial, sans-serif", fontSize: "0.95rem" }}>
+                                    <div className="font-bold mb-0.5" style={{ color: "#25324a", fontFamily: "var(--font-kelson-sans), Arial, sans-serif", fontSize: "0.95rem" }}>
                                         {p.genre}
                                     </div>
-                                    <div className="text-white/45 mb-1" style={{ fontSize: "0.68rem" }}>{p.mood}</div>
+                                    <div className="mb-1" style={{ color: "#5a6b86", fontSize: "0.68rem" }}>{p.mood}</div>
                                     <div style={{ color: p.color, fontSize: "0.62rem", letterSpacing: "0.05em" }}>{p.tracks}</div>
                                 </div>
                             </div>
                         ))}
                     </div>
-                    <p className="text-center text-white/20 mt-4" style={{ fontSize: "0.62rem", letterSpacing: "0.12em" }}>
+                    <p className="text-center mt-4" style={{ color: "#60607d", fontSize: "0.62rem", letterSpacing: "0.12em" }}>
                         Full playlists available on Spotify and Apple Music
                     </p>
                 </div>
@@ -283,7 +283,7 @@ export default function RealityExtras() {
                             Perfect Day Guide
                         </p>
                         <h2
-                            className="font-bold text-white leading-tight"
+                            className="font-bold text-[#15355a] leading-tight"
                             style={{
                                 fontFamily: "var(--font-kelson-sans), Arial, sans-serif",
                                 fontSize:   "clamp(1.8rem, 4vw, 3rem)",
@@ -317,12 +317,12 @@ export default function RealityExtras() {
                                     />
                                     <div>
                                         <div
-                                            className="text-white font-semibold mb-0.5"
+                                            className="text-[#1a3f67] font-semibold mb-0.5"
                                             style={{ fontFamily: "var(--font-kelson-sans), Arial, sans-serif", fontSize: "0.95rem" }}
                                         >
                                             {item.label}
                                         </div>
-                                        <div className="text-white/45 leading-snug" style={{ fontSize: "0.78rem" }}>
+                                        <div className="leading-snug" style={{ color: "#496b90", fontSize: "0.78rem" }}>
                                             {item.note}
                                         </div>
                                     </div>
@@ -336,7 +336,7 @@ export default function RealityExtras() {
             {/* ── 3 DAYS IN ISTANBUL ────────────────────────────────────── */}
             <div
                 className="relative px-6 py-16"
-                style={{ background: "linear-gradient(to bottom, #080608, #0a0d0e)" }}
+                style={{ background: "linear-gradient(to bottom, #f7faff, #eef4ff)" }}
             >
                 <div ref={threeDayRef} className="max-w-[1100px] mx-auto opacity-0">
                     <div className="text-center mb-12">
@@ -344,7 +344,7 @@ export default function RealityExtras() {
                             Extended Guide
                         </p>
                         <h2
-                            className="font-bold text-white leading-tight"
+                            className="font-bold text-[#1a3558] leading-tight"
                             style={{
                                 fontFamily: "var(--font-kelson-sans), Arial, sans-serif",
                                 fontSize:   "clamp(1.8rem, 4vw, 3rem)",
@@ -352,7 +352,7 @@ export default function RealityExtras() {
                         >
                             3 Days in Istanbul
                         </h2>
-                        <p className="mt-3 text-white/45 max-w-[440px] mx-auto" style={{ fontSize: "clamp(0.8rem, 1.2vw, 0.92rem)" }}>
+                        <p className="mt-3 max-w-[440px] mx-auto" style={{ color: "#4a6586", fontSize: "clamp(0.8rem, 1.2vw, 0.92rem)" }}>
                             Three days. Three personalities. One city that still won&apos;t feel finished.
                         </p>
                     </div>
@@ -363,8 +363,8 @@ export default function RealityExtras() {
                                 key={day.day}
                                 className="rounded-2xl p-6"
                                 style={{
-                                    background:     "rgba(255,255,255,0.04)",
-                                    border:         `1px solid ${day.accent}28`,
+                                    background:     "rgba(255,255,255,0.88)",
+                                    border:         `1px solid ${day.accent}38`,
                                     backdropFilter: "blur(6px)",
                                 }}
                             >
@@ -375,7 +375,7 @@ export default function RealityExtras() {
                                     {day.day}
                                 </div>
                                 <h3
-                                    className="text-white font-bold mb-4 leading-tight"
+                                    className="text-[#1f3b5f] font-bold mb-4 leading-tight"
                                     style={{
                                         fontFamily: "var(--font-kelson-sans), Arial, sans-serif",
                                         fontSize:   "1.05rem",
@@ -385,7 +385,7 @@ export default function RealityExtras() {
                                 </h3>
                                 <ul className="flex flex-col gap-2">
                                     {day.items.map((item) => (
-                                        <li key={item} className="flex items-center gap-2 text-white/55" style={{ fontSize: "0.8rem" }}>
+                                        <li key={item} className="flex items-center gap-2" style={{ color: "#4f6e91", fontSize: "0.8rem" }}>
                                             <span
                                                 className="w-1.5 h-1.5 rounded-full shrink-0"
                                                 style={{ background: day.accent }}
@@ -408,10 +408,11 @@ export default function RealityExtras() {
                             Find Your Match
                         </p>
                         <h2
-                            className="font-bold text-white leading-tight"
+                            className="font-bold leading-tight"
                             style={{
                                 fontFamily: "var(--font-kelson-sans), Arial, sans-serif",
                                 fontSize:   "clamp(1.6rem, 3.5vw, 2.6rem)",
+                                color: "#1a3354",
                             }}
                         >
                             Which Istanbul District<br />Are You?
@@ -422,8 +423,8 @@ export default function RealityExtras() {
                         <div
                             className="rounded-2xl p-8"
                             style={{
-                                background:     "rgba(255,255,255,0.04)",
-                                border:         "1px solid rgba(236,0,140,0.2)",
+                                background:     "rgba(255,255,255,0.92)",
+                                border:         "1px solid rgba(236,0,140,0.28)",
                                 backdropFilter: "blur(10px)",
                             }}
                         >
@@ -433,12 +434,12 @@ export default function RealityExtras() {
                                     <div
                                         key={i}
                                         className="w-2 h-2 rounded-full transition-all duration-300"
-                                        style={{ background: i <= quizStep ? "#ec008c" : "rgba(255,255,255,0.15)" }}
+                                        style={{ background: i <= quizStep ? "#ec008c" : "rgba(26,51,84,0.2)" }}
                                     />
                                 ))}
                             </div>
 
-                            <p className="text-white font-semibold text-center mb-6" style={{ fontSize: "clamp(0.9rem, 1.5vw, 1.1rem)" }}>
+                            <p className="font-semibold text-center mb-6" style={{ color: "#213f66", fontSize: "clamp(0.9rem, 1.5vw, 1.1rem)" }}>
                                 {QUIZ_QUESTIONS[quizStep].q}
                             </p>
 
@@ -447,21 +448,22 @@ export default function RealityExtras() {
                                     <button
                                         key={i}
                                         onClick={() => handleAnswer(opt.districts)}
-                                        className="text-left rounded-xl px-5 py-4 text-white/70 transition-all duration-200 hover:text-white"
+                                        className="text-left rounded-xl px-5 py-4 transition-all duration-200"
                                         style={{
-                                            background:   "rgba(255,255,255,0.05)",
-                                            border:       "1px solid rgba(255,255,255,0.1)",
+                                            color:        "#2b466a",
+                                            background:   "rgba(239,245,255,0.95)",
+                                            border:       "1px solid rgba(26,51,84,0.16)",
                                             fontSize:     "0.85rem",
                                             lineHeight:   "1.4",
                                             cursor:       "pointer",
                                         }}
                                         onMouseEnter={e => {
-                                            (e.currentTarget as HTMLButtonElement).style.background = "rgba(236,0,140,0.12)";
+                                            (e.currentTarget as HTMLButtonElement).style.background = "rgba(236,0,140,0.1)";
                                             (e.currentTarget as HTMLButtonElement).style.borderColor = "rgba(236,0,140,0.35)";
                                         }}
                                         onMouseLeave={e => {
-                                            (e.currentTarget as HTMLButtonElement).style.background = "rgba(255,255,255,0.05)";
-                                            (e.currentTarget as HTMLButtonElement).style.borderColor = "rgba(255,255,255,0.1)";
+                                            (e.currentTarget as HTMLButtonElement).style.background = "rgba(239,245,255,0.95)";
+                                            (e.currentTarget as HTMLButtonElement).style.borderColor = "rgba(26,51,84,0.16)";
                                         }}
                                     >
                                         {opt.label}
@@ -474,16 +476,16 @@ export default function RealityExtras() {
                         <div
                             className="rounded-2xl p-8 text-center"
                             style={{
-                                background:     `linear-gradient(135deg, ${DISTRICT_PROFILES[topDistrict].accent}18 0%, rgba(0,0,0,0.4) 100%)`,
+                                background:     `linear-gradient(135deg, ${DISTRICT_PROFILES[topDistrict].accent}16 0%, rgba(255,255,255,0.94) 100%)`,
                                 border:         `1px solid ${DISTRICT_PROFILES[topDistrict].accent}40`,
                                 backdropFilter: "blur(10px)",
                             }}
                         >
-                            <p className="text-white/50 tracking-[0.2em] uppercase mb-3" style={{ fontSize: "0.65rem" }}>
+                            <p className="tracking-[0.2em] uppercase mb-3" style={{ color: "#3d5572", fontSize: "0.65rem" }}>
                                 Your Istanbul district
                             </p>
                             <h3
-                                className="font-bold text-white mb-4"
+                                className="font-bold mb-4"
                                 style={{
                                     fontFamily: "var(--font-kelson-sans), Arial, sans-serif",
                                     fontSize:   "clamp(2rem, 5vw, 3rem)",
@@ -492,12 +494,13 @@ export default function RealityExtras() {
                             >
                                 {DISTRICT_PROFILES[topDistrict].label}
                             </h3>
-                            <p className="text-white/70 leading-relaxed mb-6 max-w-[420px] mx-auto" style={{ fontSize: "0.88rem" }}>
+                            <p className="leading-relaxed mb-6 max-w-[420px] mx-auto" style={{ color: "#2f4c72", fontSize: "0.88rem" }}>
                                 {DISTRICT_PROFILES[topDistrict].tagline}
                             </p>
                             <button
                                 onClick={() => { setQuizStep(0); setVotes({}); setQuizDone(false); }}
-                                className="text-white/50 hover:text-white transition-colors text-[0.7rem] tracking-widest uppercase"
+                                className="transition-colors text-[0.7rem] tracking-widest uppercase"
+                                style={{ color: "#446286" }}
                             >
                                 Try again
                             </button>
