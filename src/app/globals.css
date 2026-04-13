@@ -3,8 +3,15 @@
 :root {
     --background: #ffffff;
     --foreground: #171717;
-  --nav-bg: #2e3192;
-  --nav-shadow: 0 10px 15px -3px rgb(0 0 0 / 50%);
+    --nav-bg: #2e3192;
+    --nav-shadow: 0 10px 15px -3px rgb(0 0 0 / 50%);
+
+    /* ESN Brand Palette */
+    --esn-cyan:    #00aeef;
+    --esn-orange:  #f47b20;
+    --esn-green:   #7ac143;
+    --esn-blue:    #2e3192;
+    --esn-magenta: #ec008c;
 }
 
 @theme inline {
@@ -22,12 +29,65 @@
     --breakpoint-lg: 1024px;
     --breakpoint-xl: 1280px;
     --breakpoint-2xl: 1536px;
+
+    /* Ticker animations */
+    --animate-ticker:         ticker 28s linear infinite;
+    --animate-ticker-reverse: ticker-reverse 28s linear infinite;
+    --animate-float-slow:     float-slow 6s ease-in-out infinite;
+    --animate-float-medium:   float-medium 4s ease-in-out infinite;
+    --animate-pulse-ring:     pulse-ring 2.5s ease-out infinite;
+    --animate-scroll-cue:     scroll-cue 1.8s ease-in-out infinite;
 }
+
+@keyframes ticker {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+}
+
+@keyframes ticker-reverse {
+    from { transform: translateX(-50%); }
+    to   { transform: translateX(0); }
+}
+
+@keyframes float-slow {
+    0%, 100% { transform: translateY(0px); }
+    50%       { transform: translateY(-12px); }
+}
+
+@keyframes float-medium {
+    0%, 100% { transform: translateY(0px); }
+    50%       { transform: translateY(-8px); }
+}
+
+@keyframes pulse-ring {
+    0%   { transform: scale(0.9); opacity: 0.7; }
+    50%  { transform: scale(1.15); opacity: 0.3; }
+    100% { transform: scale(0.9); opacity: 0.7; }
+}
+
+@keyframes scroll-cue {
+    0%, 100% { transform: translateY(0) scaleY(1); opacity: 0.8; }
+    50%       { transform: translateY(6px) scaleY(0.85); opacity: 0.4; }
+}
+
+/* ── Cutout element idle sway (continuous, even while scrolling) ── */
+@keyframes sway-idle {
+    0%, 100% { rotate: -3deg; }
+    50%       { rotate:  3deg; }
+}
+
+/* Variant durations for natural staggering — applied as className */
+.sway-a { animation: sway-idle 11s ease-in-out infinite; }
+.sway-b { animation: sway-idle  9s ease-in-out infinite 0.7s; }
+.sway-c { animation: sway-idle 13s ease-in-out infinite 1.4s; }
+.sway-d { animation: sway-idle  8s ease-in-out infinite 2.2s; }
+
+/* Globe intro styles removed – now handled by react-globe.gl */
 
 @media (prefers-color-scheme: dark) {
     :root {
-        --background: #0a0a0a;
-        --foreground: #ededed;
+        --background: #0d1d35;
+        --foreground: #f3f7ff;
     }
 }
 
@@ -37,6 +97,68 @@ body {
     font-family: var(--font-kelson-sans), var(--font-lato), Arial, sans-serif;
 }
 
+/* ── Focus-visible — keyboard navigation baseline ───────────── */
+:where(a, button):focus-visible {
+    outline: 2px solid white;
+    outline-offset: 3px;
+    border-radius: 4px;
+}
+
+/* ── CTA vote button ────────────────────────────────────────── */
+.cta-button {
+    box-shadow: 0 0 0 0 rgba(255,255,255,0.4), 0 8px 32px rgba(0,0,0,0.25);
+    transition: box-shadow 0.4s ease, transform 0.3s ease;
+}
+.cta-button:hover {
+    box-shadow: 0 0 0 12px rgba(255,255,255,0.12), 0 16px 48px rgba(0,0,0,0.3);
+}
+.cta-button:focus-visible {
+    outline-offset: 5px;
+    border-radius: 9999px;
+}
+
+/* ── Quiz option hover ──────────────────────────────────────── */
+.quiz-option {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+}
+.quiz-option:hover {
+    background: rgba(236,0,140,0.12);
+    border-color: rgba(236,0,140,0.35);
+    color: white;
+}
+
 .font-brand {
     font-family: var(--font-kelson-sans), var(--font-lato), Arial, sans-serif;
+}
+
+/* ── Navigation links ────────────────────────────────── */
+.nav-link {
+    color: rgba(255,255,255,0.65);
+}
+.nav-link:hover {
+    color: rgba(255,255,255,0.95);
+}
+.nav-vote {
+    background: #ec008c;
+    color: #fff;
+}
+.nav-vote:hover {
+    background: #c8007a;
+}
+
+/* ── Reduced Motion ──────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+
+    /* Keep scroll-snap so layout stays intact */
+    html {
+        scroll-behavior: auto;
+    }
 }

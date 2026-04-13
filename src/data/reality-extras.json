@@ -1,0 +1,36 @@
+{
+  "_note": "Content archived 2026-04-13: Sport, Playlist and 3 Days cut from the 90-second core journey for pacing. One Day and District Quiz kept in RealityExtras.tsx. Re-introduce here if a deep-dive section is added later.",
+  "sports": [
+    { "label": "Running",  "detail": "The Bosphorus shore paths stretch for miles. Sunrise jogs with seagulls as pace-setters.",            "accent": "#7ac143" },
+    { "label": "Football", "detail": "Galatasaray, Fenerbahçe, Beşiktaş — the city has three top-flight clubs and a legendary derby.",       "accent": "#f47b20" },
+    { "label": "Hiking",   "detail": "Belgrad Forest and the Princes' Islands offer trails within 30 minutes of the city centre.",            "accent": "#00aeef" },
+    { "label": "Swimming", "detail": "Black Sea beaches to the north, Marmara coves to the south — the city is surrounded by water.",        "accent": "#2e3192" },
+    { "label": "Cycling",  "detail": "Dedicated bike lanes on Kadıköy's waterfront and the newly opened cycling routes along the Bosphorus.", "accent": "#ec008c" }
+  ],
+  "playlist": [
+    { "genre": "Bosphorus Jazz",     "mood": "Slow morning",       "tracks": "12 tracks · 52 min", "color": "#00aeef" },
+    { "genre": "Indie İstanbul",     "mood": "Afternoon wander",   "tracks": "18 tracks · 1h 10m", "color": "#7ac143" },
+    { "genre": "Arabesk Nights",     "mood": "Late night Beyoğlu", "tracks": "14 tracks · 58 min", "color": "#f47b20" },
+    { "genre": "Electronic Karaköy", "mood": "Club energy",        "tracks": "10 tracks · 1h 2m",  "color": "#ec008c" }
+  ],
+  "threeDays": [
+    {
+      "day": "Day 1",
+      "title": "The Historic Peninsula",
+      "items": ["Topkapı Palace", "Sultanahmet Mosque", "Basilica Cistern", "Egyptian Bazaar", "Bosphorus sunset cruise"],
+      "accent": "#f47b20"
+    },
+    {
+      "day": "Day 2",
+      "title": "Beyoğlu & Modern İstanbul",
+      "items": ["İstiklal Avenue", "Galata Tower", "Pera Museum", "Çukurcuma antiques", "Karaköy bars & galleries"],
+      "accent": "#00aeef"
+    },
+    {
+      "day": "Day 3",
+      "title": "Asian Soul",
+      "items": ["Kadıköy breakfast", "Moda waterfront", "Haydarpaşa Station", "Princes' Island ferry", "Return via Bosphorus at dusk"],
+      "accent": "#ec008c"
+    }
+  ]
+}

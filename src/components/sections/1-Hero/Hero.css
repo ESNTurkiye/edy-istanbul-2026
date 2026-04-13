@@ -1,14 +1,3 @@
-/* ============================================================
-   HERO PARALLAX LAYERS - BREAKPOINT CENTRAL
-   ============================================================ 
-   Bu dosya, her cihaz boyutu için tüm katmanların değerlerini 
-   bir arada tutar. Tık tık tık girip düzenleyebilirsin.
-*/
-
-/* ------------------------------------------------------------
-   1. BASE MOBILE (370px ve altı)
-   En küçük cihazlar için ana tasarımın burası.
-   ------------------------------------------------------------ */
 .hero-section {
     position: relative;
     z-index: 10;
@@ -339,8 +328,8 @@
     }
 
     .center-frame {
-        top: 100%;
-        width: 20%;
+        top: 50%;
+        width: 42%;
     }
 
     .cloud-two {

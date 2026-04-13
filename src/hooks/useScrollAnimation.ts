@@ -5,60 +5,78 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { RefObject } from "react";
 
-// Register ScrollTrigger
 if (typeof window !== "undefined") {
     gsap.registerPlugin(ScrollTrigger);
 }
 
 export interface ParallaxItem {
     ref: RefObject<HTMLDivElement | null>;
-    speed: number; 
-    rotation?: number; // Optional scroll-triggered rotation in degrees.
-    // Positive speed moves the item UP faster than the scroll (foreground).
-    // Negative speed moves the item DOWN/slower relative to scroll (background).
+    /**
+     * Horizontal drift speed multiplier.
+     * Higher value = faster drift = appears closer to the viewer.
+     */
+    speed: number;
+    /**
+     * Direction of horizontal drift.
+     *  1 = drift right,  -1 = drift left.
+     * Default: alternates based on index (elements alternate direction for depth).
+     */
+    direction?: 1 | -1;
 }
 
+/**
+ * Scroll-driven HORIZONTAL parallax (X-axis only).
+ *
+ * Per the animation rules:
+ *   - Elements drift LEFT or RIGHT at different speeds to suggest depth.
+ *   - NO vertical (Y-axis) translation during scroll.
+ *   - The continuous idle rotation (-3°→+3°) is handled via CSS `.sway-*` classes,
+ *     so it runs independently even while scrolling.
+ *   - `scrub: true` makes every animation bidirectional — scrolling back replays it.
+ */
 export function useHeroParallax(
     containerRef: RefObject<HTMLElement | null>,
-    items: ParallaxItem[]
+    items: ParallaxItem[],
 ) {
     useGSAP(() => {
         if (!containerRef.current) return;
 
-        // Use matchMedia to handle responsive scroll distances
         const mm = gsap.matchMedia();
 
-        mm.add({
-            isDesktop: "(min-width: 768px)",
-            isMobile: "(max-width: 767px)"
-        }, (context) => {
-            const { isMobile } = context.conditions as { isMobile: boolean };
-            
-            // Dampen travel distance for mobile so items don't fly off screen
-            const depthMultiplier = isMobile ? 0.4 : 1;
-            const scrubValue = isMobile ? 1.5 : 1; // Smoother scrub on mobile touch
+        mm.add(
+            { isDesktop: "(min-width: 768px)", isMobile: "(max-width: 767px)" },
+            (context) => {
+                const { isMobile } = context.conditions as { isMobile: boolean };
 
-            items.forEach((item) => {
-                if (!item.ref.current) return;
-                
-                // Animate Y position relative to the window height
-                gsap.to(item.ref.current, {
-                    y: () => -window.innerHeight * item.speed * depthMultiplier,
-                    // If rotation is specified, animate it relatively to start from CSS position
-                    rotation: item.rotation ? `+=${item.rotation * depthMultiplier}` : undefined,
-                    ease: "none",
-                    scrollTrigger: {
-                        trigger: containerRef.current,
-                        start: "top top",
-                        end: "bottom top", // Animates while container scrolls out of view
-                        scrub: scrubValue,
-                        invalidateOnRefresh: true, // Recalculates speeds if window is resized
-                    }
+                // Dampen travel on touch screens so elements don't overshoot
+                const depthMul  = isMobile ? 0.35 : 1;
+                const scrubVal  = isMobile ? 1.8 : 1.2;
+
+                // Maximum horizontal travel in viewport-widths
+                const BASE_VW = 0.12; // 12% of viewport width per speed unit
+
+                items.forEach((item, idx) => {
+                    if (!item.ref.current) return;
+
+                    // Alternate direction by default so opposing layers create depth
+                    const dir = item.direction ?? (idx % 2 === 0 ? -1 : 1);
+                    const travel = window.innerWidth * BASE_VW * item.speed * depthMul * dir;
+
+                    gsap.to(item.ref.current, {
+                        x: travel,
+                        ease: "none",
+                        scrollTrigger: {
+                            trigger: containerRef.current,
+                            start:   "top top",
+                            end:     "bottom top",
+                            scrub:   scrubVal,
+                            invalidateOnRefresh: true,
+                        },
+                    });
                 });
-            });
-        });
+            },
+        );
 
-        // Cleanup
         return () => mm.revert();
     }, { scope: containerRef });
 }
