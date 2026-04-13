@@ -15,11 +15,18 @@ export default function CtaButton({ label = "VOTE FOR ISTANBUL" }: CtaButtonProp
         return (
             <button
                 disabled
-                className="inline-flex items-center justify-center gap-3 px-10 py-5 rounded-full font-brand font-bold tracking-wider text-[clamp(1rem,2vw,1.3rem)] select-none opacity-40 cursor-not-allowed"
+                className="relative overflow-hidden inline-flex items-center justify-center gap-3 px-10 py-5 rounded-full font-brand font-bold tracking-wider text-[clamp(1rem,2vw,1.3rem)] select-none opacity-60 cursor-default"
                 style={{ color: "#ec008c", background: "white" }}
                 aria-label={`${label} — vote link coming soon`}
             >
-                <span>{label}</span>
+                {/* shimmer sweep */}
+                <span
+                    className="absolute inset-0 -translate-x-full animate-[shimmer_2.2s_linear_infinite]"
+                    style={{
+                        background: "linear-gradient(105deg, transparent 40%, rgba(236,0,140,0.12) 50%, transparent 60%)",
+                    }}
+                />
+                <span className="relative z-10">{label}</span>
                 <Arrow />
             </button>
         );
@@ -31,8 +38,15 @@ export default function CtaButton({ label = "VOTE FOR ISTANBUL" }: CtaButtonProp
             target="_blank"
             rel="noopener noreferrer"
             onClick={trackVote}
-            className="cta-button group inline-flex items-center justify-center gap-3 px-10 py-5 rounded-full font-brand font-bold tracking-wider text-[clamp(1rem,2vw,1.3rem)] text-[#ec008c] bg-white select-none"
+            className="cta-button group relative overflow-hidden inline-flex items-center justify-center gap-3 px-10 py-5 rounded-full font-brand font-bold tracking-wider text-[clamp(1rem,2vw,1.3rem)] text-[#ec008c] bg-white select-none transition-all duration-200 hover:scale-105 hover:shadow-[0_0_40px_rgba(236,0,140,0.45)] active:scale-95"
         >
+            {/* shimmer sweep */}
+            <span
+                className="absolute inset-0 -translate-x-full animate-[shimmer_2.2s_linear_infinite]"
+                style={{
+                    background: "linear-gradient(105deg, transparent 40%, rgba(236,0,140,0.1) 50%, transparent 60%)",
+                }}
+            />
             <span className="relative z-10">{label}</span>
             <Arrow />
         </Link>

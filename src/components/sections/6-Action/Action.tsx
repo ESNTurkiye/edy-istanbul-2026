@@ -126,9 +126,6 @@ export default function Action() {
                     <p className="text-white/60 text-[clamp(0.65rem,1vw,0.8rem)] tracking-[0.3em] uppercase font-medium mb-4">
                         EGM Split · 16–19 April 2026
                     </p>
-                    <p className="text-white/90 text-[clamp(0.65rem,1vw,0.8rem)] tracking-[0.3em] uppercase font-medium mb-4">
-                        Support your future home
-                    </p>
                     <h2 className="font-brand font-bold text-white leading-tight text-[clamp(2.4rem,7vw,5.5rem)]">
                         One Vote. Ten Thousand<br />Students Finding Home.
                     </h2>
@@ -139,9 +136,6 @@ export default function Action() {
 
                 <div ref={ctaRef} className="opacity-0 flex flex-col items-center gap-4">
                     <CtaButton label="VOTE FOR ISTANBUL" />
-                    <p className="text-white/35 text-[0.72rem] tracking-wide">
-                        EDY 2026 · ESN Turkiye · Students Helping Students
-                    </p>
                 </div>
             </div>
 
