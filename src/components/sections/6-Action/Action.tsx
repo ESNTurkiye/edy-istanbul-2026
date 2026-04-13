@@ -126,10 +126,13 @@ export default function Action() {
                     <p className="text-white/60 text-[clamp(0.65rem,1vw,0.8rem)] tracking-[0.3em] uppercase font-medium mb-4">
                         EGM Split · 16–19 April 2026
                     </p>
+                    <p className="text-white/90 text-[clamp(0.65rem,1vw,0.8rem)] tracking-[0.3em] uppercase font-medium mb-4">
+                        Support your future home
+                    </p>
                     <h2 className="font-brand font-bold text-white leading-tight text-[clamp(2.4rem,7vw,5.5rem)]">
                         One Vote. Ten Thousand<br />Students Finding Home.
                     </h2>
-                    <p className="mt-5 text-white/65 text-[clamp(0.85rem,1.5vw,1.1rem)] max-w-[500px] mx-auto leading-relaxed">
+                    <p className="mt-5 text-white/95 text-[clamp(0.85rem,1.5vw,1.1rem)] max-w-[500px] mx-auto leading-relaxed">
                         Every year, one city earns the honour of hosting Europe&apos;s Erasmus community. Make it Istanbul. Make it unforgettable.
                     </p>
                 </div>

@@ -183,7 +183,7 @@ export default function Discovery() {
         <section
             ref={sectionRef}
             className="relative w-full min-h-screen overflow-hidden"
-            style={{ background: "#020C1C" }}
+            style={{ background: "#07213b" }}
         >
             {/* ── z:1  Leaflet map — CartoDB dark tiles, fixed at zoom 13 ── */}
             <div className="absolute inset-0" style={{ zIndex: 1 }}>
@@ -196,8 +196,8 @@ export default function Discovery() {
                 style={{
                     zIndex: 2,
                     background: [
-                        "radial-gradient(ellipse 60% 70% at 50% 50%, transparent 35%, rgba(2,12,28,0.42) 100%)",
-                        "linear-gradient(180deg, rgba(2,12,28,0.38) 0%, rgba(2,12,28,0.08) 35%, rgba(2,12,28,0.08) 65%, rgba(2,12,28,0.42) 100%)",
+                        "radial-gradient(ellipse 60% 70% at 50% 50%, rgba(255,255,255,0.04) 0%, rgba(5,24,45,0.3) 100%)",
+                        "linear-gradient(180deg, rgba(4,18,34,0.26) 0%, rgba(4,18,34,0.06) 35%, rgba(4,18,34,0.06) 65%, rgba(4,18,34,0.3) 100%)",
                     ].join(", "),
                 }}
             />
@@ -257,7 +257,7 @@ export default function Discovery() {
                     className="mt-3 tracking-[0.2em] uppercase font-light"
                     style={{
                         fontSize: "clamp(0.65rem, 1.2vw, 0.82rem)",
-                        color: "rgba(255,255,255,0.52)",
+                        color: "rgba(255,255,255,0.82)",
                         textShadow: "0 1px 8px rgba(0,0,0,0.7)",
                     }}
                 >
@@ -428,7 +428,7 @@ export default function Discovery() {
                                     >
                                         {lm.label}
                                     </h3>
-                                    <p style={{ color: "rgba(255,255,255,0.52)", fontSize: "0.59rem", lineHeight: 1.4 }}>
+                                    <p style={{ color: "rgba(255,255,255,0.84)", fontSize: "0.59rem", lineHeight: 1.4 }}>
                                         {lm.description}
                                     </p>
                                 </div>

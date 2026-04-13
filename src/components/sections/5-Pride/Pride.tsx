@@ -84,7 +84,7 @@ export default function Pride() {
                         Istanbul Isn&apos;t Just a City —<br />
                         <span style={{ color: "#f47b20" }}>It&apos;s a Civilisation</span>
                     </h2>
-                    <p className="mt-4 text-white/50 text-[clamp(0.8rem,1.3vw,1rem)] leading-relaxed">
+                    <p className="mt-4 text-[clamp(0.8rem,1.3vw,1rem)] leading-relaxed" style={{ color: "#5f4f3f" }}>
                         Three empires called it home. One generation of Erasmus students is about to discover why.
                     </p>
                 </div>
@@ -122,10 +122,10 @@ export default function Pride() {
                             >
                                 {card.tag}
                             </div>
-                            <h3 className="font-brand font-bold text-white text-[clamp(1.2rem,2.2vw,1.6rem)] leading-tight mb-2">
+                            <h3 className="font-brand font-bold text-[#2c2418] text-[clamp(1.2rem,2.2vw,1.6rem)] leading-tight mb-2">
                                 {card.headline}
                             </h3>
-                            <p className="text-white/55 text-[clamp(0.75rem,1.1vw,0.9rem)] leading-relaxed">
+                            <p className="text-[clamp(0.75rem,1.1vw,0.9rem)] leading-relaxed" style={{ color: "#5d4f43" }}>
                                 {card.body}
                             </p>
                         </div>
