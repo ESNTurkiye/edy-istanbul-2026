@@ -150,7 +150,6 @@ export default function SplitScreen() {
                             backgroundPosition: "center",
                             backgroundRepeat: "no-repeat",
                             filter: "contrast(1.07) saturate(1.08)",
-                            mixBlendMode: "multiply",
                         }}
                     />
                     <div className="absolute inset-0" style={{ background: "linear-gradient(135deg, rgba(255,248,241,0.56) 0%, rgba(255,248,241,0.28) 100%)" }} />

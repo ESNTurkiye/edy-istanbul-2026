@@ -213,7 +213,6 @@ export default function Discovery() {
                 style={{
                     zIndex: 10,
                     width: "clamp(180px, 22vw, 300px)",
-                    mixBlendMode: "multiply",
                 }}
             >
                 {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -227,7 +226,6 @@ export default function Discovery() {
                 style={{
                     zIndex: 10,
                     width: "clamp(180px, 22vw, 300px)",
-                    mixBlendMode: "multiply",
                 }}
             >
                 {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -269,7 +267,7 @@ export default function Discovery() {
             <div
                 ref={marti2Ref}
                 className="absolute top-[11%] right-[5%] w-[7%] max-w-[88px] pointer-events-none"
-                style={{ zIndex: 10, mixBlendMode: "multiply" }}
+                style={{ zIndex: 10 }}
             >
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img src={`${CDN}/marti-2.webp`} alt="" className="w-full h-auto" />
@@ -279,7 +277,7 @@ export default function Discovery() {
             <div
                 ref={marti1Ref}
                 className="absolute bottom-[4%] right-[1.5%] w-[4%] max-w-[50px] pointer-events-none"
-                style={{ zIndex: 10, mixBlendMode: "multiply" }}
+                style={{ zIndex: 10 }}
             >
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img src={`${CDN}/marti-1.webp`} alt="" className="w-full h-auto" />

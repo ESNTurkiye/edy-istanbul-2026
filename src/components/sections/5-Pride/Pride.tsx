@@ -69,7 +69,7 @@ export default function Pride() {
             <div
                 ref={tileRef}
                 className="absolute top-0 right-0 w-[25%] max-w-[300px] opacity-0 pointer-events-none"
-                style={{ zIndex: 2, mixBlendMode: "screen" }}
+                style={{ zIndex: 2 }}
             >
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img src={`${CDN}/mermer-deseni1.webp`} alt="" className="w-full h-auto opacity-30" />
