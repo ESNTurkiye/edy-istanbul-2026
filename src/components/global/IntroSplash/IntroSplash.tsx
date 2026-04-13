@@ -4,6 +4,7 @@ import { useRef, useCallback } from "react";
 import dynamic from "next/dynamic";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
+import Stars from "./Stars";
 
 const GlobeGL = dynamic(() => import("react-globe.gl"), { ssr: false });
 
@@ -30,7 +31,6 @@ export default function IntroSplash({ onComplete }: IntroSplashProps) {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const globeEl = useRef<any>(null);
 
-    // Called by Globe once the WebGL scene is ready
     const handleGlobeReady = useCallback(() => {
         const g = globeEl.current;
         if (!g) return;
@@ -59,77 +59,54 @@ export default function IntroSplash({ onComplete }: IntroSplashProps) {
             },
         });
 
-        // ── 0.0  Fade in overlay ─────────────────────────────────────────
+        // 0.0  Fade in overlay
         tl.fromTo(containerRef.current,
             { opacity: 0 },
             { opacity: 1, duration: 0.6, ease: "power2.out" },
         );
 
-        // ── 0.7  Headline ────────────────────────────────────────────────
+        // 0.7  Headline
         tl.fromTo(titleRef.current,
             { opacity: 0, y: 16, letterSpacing: "0.55em" },
             { opacity: 1, y: 0, letterSpacing: "0.18em", duration: 1.1, ease: "power2.out" },
             0.7,
         );
 
-        // ── 1.1  Tagline ─────────────────────────────────────────────────
+        // 1.1  Tagline
         tl.fromTo(taglineRef.current,
             { opacity: 0 },
             { opacity: 1, duration: 0.7 },
             1.1,
         );
 
-        // ── 4.7  "Istanbul" label pops in (fly-to completes ~3.15+1.4 = 4.55 s)
+        // 4.7  "Istanbul" label pops in (fly-to completes ~3.15+1.4 = 4.55 s)
         tl.fromTo(labelRef.current,
             { opacity: 0, scale: 0 },
             { opacity: 1, scale: 1, duration: 0.45, ease: "back.out(2.8)" },
             4.7,
         );
 
-        // ── 5.1  Texts fade out ──────────────────────────────────────────
+        // 5.1  Texts fade out
         tl.to(
             [titleRef.current, taglineRef.current],
             { opacity: 0, duration: 0.45, ease: "power2.in" },
             5.1,
         );
 
-        // ── 5.3  Zoom Phase 0 – Anticipation ────────────────────────────
-        tl.to(globeWrapRef.current, {
-            scale: 0.93,
-            duration: 0.28,
-            ease: "power2.in",
-        }, 5.3);
+        // 5.3  Zoom Phase 0 – Anticipation
+        tl.to(globeWrapRef.current, { scale: 0.93, duration: 0.28, ease: "power2.in" }, 5.3);
 
-        // ── 5.58  Zoom Phase 1 – Ease-In-Quart (fast acceleration) ───────
-        tl.to(globeWrapRef.current, {
-            scale: 2.1,
-            filter: "blur(2px)",
-            duration: 0.52,
-            ease: "power4.in",
-        }, 5.58);
+        // 5.58  Zoom Phase 1 – Ease-In-Quart
+        tl.to(globeWrapRef.current, { scale: 2.1, filter: "blur(2px)", duration: 0.52, ease: "power4.in" }, 5.58);
 
-        // ── 6.1  Zoom Phase 2 – Linear peak velocity ─────────────────────
-        tl.to(globeWrapRef.current, {
-            scale: 4.6,
-            filter: "blur(5px)",
-            duration: 0.38,
-            ease: "none",
-        }, 6.1);
+        // 6.1  Zoom Phase 2 – Linear peak velocity
+        tl.to(globeWrapRef.current, { scale: 4.6, filter: "blur(5px)", duration: 0.38, ease: "none" }, 6.1);
 
-        // ── 6.48  Zoom Phase 3 – Ease-Out-Expo (cinematic landing) ────────
-        tl.to(globeWrapRef.current, {
-            scale: 9,
-            filter: "blur(0px)",
-            duration: 1.5,
-            ease: "expo.out",
-        }, 6.48);
+        // 6.48  Zoom Phase 3 – Ease-Out-Expo (cinematic landing)
+        tl.to(globeWrapRef.current, { scale: 9, filter: "blur(0px)", duration: 1.5, ease: "expo.out" }, 6.48);
 
-        // ── 7.6  Fade overlay away ────────────────────────────────────────
-        tl.to(containerRef.current, {
-            opacity: 0,
-            duration: 0.7,
-            ease: "power2.in",
-        }, 7.6);
+        // 7.6  Fade overlay away
+        tl.to(containerRef.current, { opacity: 0, duration: 0.7, ease: "power2.in" }, 7.6);
 
     }, { scope: containerRef });
 
@@ -139,22 +116,19 @@ export default function IntroSplash({ onComplete }: IntroSplashProps) {
             className="fixed inset-0 flex flex-col items-center justify-center select-none"
             style={{
                 zIndex: 9999,
-                background:
-                    "radial-gradient(ellipse 90% 100% at 50% 65%, #071d4a 0%, #030d1e 55%, #010810 100%)",
+                background: "radial-gradient(ellipse 90% 100% at 50% 65%, #071d4a 0%, #030d1e 55%, #010810 100%)",
             }}
             aria-hidden="true"
         >
-            {/* ── Starfield ──────────────────────────────────────────────── */}
+            {/* Starfield */}
             <Stars />
 
-            {/* ── Globe wrapper (zoom target) ─────────────────────────────── */}
+            {/* Globe wrapper (zoom target) */}
             <div
                 ref={globeWrapRef}
                 className="relative mb-10 pointer-events-none"
                 style={{ willChange: "transform, filter" }}
             >
-
-                {/* Globe */}
                 <GlobeGL
                     ref={globeEl}
                     onGlobeReady={handleGlobeReady}
@@ -167,13 +141,11 @@ export default function IntroSplash({ onComplete }: IntroSplashProps) {
                     showAtmosphere
                     atmosphereColor="#4fa3f0"
                     atmosphereAltitude={0.22}
-                    // Istanbul dot
                     pointsData={GLOBE_POINTS}
                     pointColor="color"
                     pointAltitude={0.015}
                     pointRadius="radius"
                     pointResolution={16}
-                    // Istanbul pulsing ring
                     ringsData={GLOBE_RINGS}
                     ringColor={() => ["rgba(236,0,140,0.9)", "rgba(236,0,140,0)"]}
                     ringMaxRadius={3.5}
@@ -181,7 +153,7 @@ export default function IntroSplash({ onComplete }: IntroSplashProps) {
                     ringRepeatPeriod={1000}
                 />
 
-                {/* "Istanbul" text label – centered over globe after fly-to */}
+                {/* "Istanbul" label — centered over globe after fly-to */}
                 <div
                     ref={labelRef}
                     className="absolute pointer-events-none"
@@ -209,7 +181,7 @@ export default function IntroSplash({ onComplete }: IntroSplashProps) {
                 </div>
             </div>
 
-            {/* ── City title ────────────────────────────────────────────── */}
+            {/* City title */}
             <div ref={titleRef} className="opacity-0 text-center">
                 <h1
                     style={{
@@ -226,9 +198,8 @@ export default function IntroSplash({ onComplete }: IntroSplashProps) {
                 </h1>
             </div>
 
-            {/* ── Tagline ───────────────────────────────────────────────── */}
+            {/* Tagline */}
             <div ref={taglineRef} className="mt-3 opacity-0 text-center">
-                {/* Poetic line — distilled from content themes */}
                 <p
                     style={{
                         color: "rgba(255,255,255,0.82)",
@@ -240,7 +211,6 @@ export default function IntroSplash({ onComplete }: IntroSplashProps) {
                 >
                     History.&nbsp; Culture.&nbsp; Home.
                 </p>
-                {/* Official branding line */}
                 <p
                     style={{
                         color: "rgba(255,255,255,0.38)",
@@ -253,29 +223,5 @@ export default function IntroSplash({ onComplete }: IntroSplashProps) {
                 </p>
             </div>
         </div>
-    );
-}
-
-/* ── Deterministic starfield (no hydration mismatch) ─────────────────────── */
-function Stars() {
-    const stars: { x: number; y: number; r: number; o: number }[] = [];
-    let seed = 0x8f3a;
-    const rand = () => {
-        seed = (seed * 1664525 + 1013904223) & 0xffffffff;
-        return (seed >>> 0) / 0x100000000;
-    };
-    for (let i = 0; i < 80; i++) {
-        stars.push({ x: rand() * 100, y: rand() * 100, r: rand() * 1.2 + 0.4, o: rand() * 0.5 + 0.15 });
-    }
-    return (
-        <svg
-            className="absolute inset-0 w-full h-full pointer-events-none"
-            aria-hidden="true"
-            xmlns="http://www.w3.org/2000/svg"
-        >
-            {stars.map((s, i) => (
-                <circle key={i} cx={`${s.x}%`} cy={`${s.y}%`} r={s.r} fill="white" opacity={s.o} />
-            ))}
-        </svg>
     );
 }

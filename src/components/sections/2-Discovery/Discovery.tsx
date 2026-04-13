@@ -5,6 +5,7 @@ import dynamic from "next/dynamic";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { CDN, PIN_TIMINGS, LANDMARKS, smoothPath, cardPos } from "./landmarks";
 
 if (typeof window !== "undefined") {
     gsap.registerPlugin(ScrollTrigger);
@@ -12,133 +13,26 @@ if (typeof window !== "undefined") {
 
 const MapBackground = dynamic(() => import("./MapBackground"), { ssr: false });
 
-const CDN = "https://cdn.jsdelivr.net/gh/ESNTurkiye/esn-assets@main/istanbul";
-
-const PIN_TIMINGS = [1.1, 2.0, 3.0, 4.0, 5.1] as const;
-
-/* ── Landmark data ─────────────────────────────────────────────────────── */
-interface Landmark {
-    id: string;
-    label: string;
-    sublabel: string;
-    description: string;
-    image: string;
-    imageAlt: string;
-    accent: string;
-    /** Real GPS coordinates — used by Leaflet for exact pin placement */
-    lat: number;
-    lng: number;
-    /**
-     * Which side the info card appears on relative to the pin.
-     * right → card to the right; left → card to the left.
-     * Right-of-center (Taksim, Kadıköy) use left so card doesn't overflow screen.
-     */
-    cardSide: "left" | "right";
-}
-
-const LANDMARKS: Landmark[] = [
-    {
-        id:          "sultanahmet",
-        label:       "Sultanahmet",
-        sublabel:    "Historic Heart",
-        description: "Six minarets, two millennia of empire. The Blue Mosque and Hagia Sophia face each other across a silence that hums with history.",
-        image:       `${CDN}/ayasofya.webp`,
-        imageAlt:    "Hagia Sophia",
-        accent:      "#f47b20",
-        lat: 41.0054, lng: 28.9768,
-        cardSide: "right",
-    },
-    {
-        id:          "bazaar",
-        label:       "Kapalıçarşı",
-        sublabel:    "Grand Bazaar",
-        description: "61 covered streets, 4,000 shops and the world's oldest scent of spice. Once you enter, the city will never fully let you leave.",
-        image:       `${CDN}/kiz-kulesi-1.webp`,
-        imageAlt:    "Grand Bazaar Istanbul",
-        accent:      "#7ac143",
-        lat: 41.0107, lng: 28.9681,
-        cardSide: "right",
-    },
-    {
-        id:          "galata",
-        label:       "Galata",
-        sublabel:    "Beyoğlu Nights",
-        description: "A medieval tower that watches over the city's most bohemian quarter. Coffee in the morning, jazz at midnight.",
-        image:       `${CDN}/galata-kulesi.webp`,
-        imageAlt:    "Galata Tower",
-        accent:      "#00aeef",
-        lat: 41.0256, lng: 28.9741,
-        cardSide: "right",
-    },
-    {
-        id:          "taksim",
-        label:       "Taksim",
-        sublabel:    "İstiklal Avenue",
-        description: "Three kilometres of bookshops, galleries and street music. The nostalgic red tram still runs through the crowd.",
-        image:       `${CDN}/taksim-tramvay.webp`,
-        imageAlt:    "İstiklal tram Taksim",
-        accent:      "#2e3192",
-        lat: 41.0370, lng: 28.9851,
-        cardSide: "left",
-    },
-    {
-        id:          "kadikoy",
-        label:       "Kadıköy",
-        sublabel:    "Asian Soul",
-        description: "The Bosphorus crossing takes 20 minutes and delivers you to another world. Markets, murals and the bull that became a symbol.",
-        image:       `${CDN}/boga-heykeli.webp`,
-        imageAlt:    "Kadıköy Bull Statue",
-        accent:      "#ec008c",
-        lat: 40.9904, lng: 29.0292,
-        cardSide: "left",
-    },
-];
-
-/** Smooth quadratic-bezier path through pixel-coordinate points */
-function smoothPath(pts: { x: number; y: number }[]) {
-    if (pts.length < 2) return "";
-    let d = `M ${pts[0].x} ${pts[0].y}`;
-    for (let i = 1; i < pts.length - 1; i++) {
-        const mx = (pts[i].x + pts[i + 1].x) / 2;
-        const my = (pts[i].y + pts[i + 1].y) / 2;
-        d += ` Q ${pts[i].x} ${pts[i].y} ${mx} ${my}`;
-    }
-    const last = pts[pts.length - 1];
-    d += ` L ${last.x} ${last.y}`;
-    return d;
-}
-
-/** Card position relative to the section, offset from the pin */
-function cardPos(pinPx: { x: number; y: number }, lm: Landmark) {
-    const W   = 200; // approx card width in px
-    const GAP = 20;
-    const Y   = -100; // card appears 100px above the pin centre
-    const x = lm.cardSide === "right"
-        ? pinPx.x + GAP
-        : Math.max(8, pinPx.x - W - GAP);
-    return { x, y: Math.max(68, pinPx.y + Y) };
-}
-
 export default function Discovery() {
-    const sectionRef   = useRef<HTMLElement>(null);
-    const routeRef     = useRef<SVGPathElement>(null);
-    const ferryRef     = useRef<HTMLDivElement>(null);
-    const headlineRef  = useRef<HTMLDivElement>(null);
-    const subRef       = useRef<HTMLParagraphElement>(null);
-    const pinDotRefs   = useRef<(HTMLDivElement | null)[]>([]);
-    const ringRefs     = useRef<(HTMLDivElement | null)[]>([]);
-    const labelRefs    = useRef<(HTMLDivElement | null)[]>([]);
-    const cardRefs     = useRef<(HTMLDivElement | null)[]>([]);
-    const marti2Ref    = useRef<HTMLDivElement>(null);
-    const marti1Ref    = useRef<HTMLDivElement>(null);
-    const laleLeftRef  = useRef<HTMLDivElement>(null);
+    const sectionRef = useRef<HTMLElement>(null);
+    const routeRef = useRef<SVGPathElement>(null);
+    const ferryRef = useRef<HTMLDivElement>(null);
+    const headlineRef = useRef<HTMLDivElement>(null);
+    const subRef = useRef<HTMLParagraphElement>(null);
+    const pinDotRefs = useRef<(HTMLDivElement | null)[]>([]);
+    const ringRefs = useRef<(HTMLDivElement | null)[]>([]);
+    const labelRefs = useRef<(HTMLDivElement | null)[]>([]);
+    const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
+    const marti2Ref = useRef<HTMLDivElement>(null);
+    const marti1Ref = useRef<HTMLDivElement>(null);
+    const laleLeftRef = useRef<HTMLDivElement>(null);
     const laleRightRef = useRef<HTMLDivElement>(null);
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const leafletMap = useRef<any>(null);
-    const [mapReady,      setMapReady]      = useState(false);
-    const [pinPositions,  setPinPositions]  = useState<{ x: number; y: number }[]>([]);
-    const [routePath,     setRoutePath]     = useState("");
+    const [mapReady, setMapReady] = useState(false);
+    const [pinPositions, setPinPositions] = useState<{ x: number; y: number }[]>([]);
+    const [routePath, setRoutePath] = useState("");
 
     const handleMapReady = useCallback((m: unknown) => {
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -161,18 +55,18 @@ export default function Discovery() {
         if (!sectionRef.current) return;
 
         /* ── Always hide decoratives / headline on first paint ──────────── */
-        gsap.set(headlineRef.current,  { opacity: 0, y: 28 });
-        gsap.set(subRef.current,       { opacity: 0 });
-        gsap.set(ferryRef.current,     { x: "115%" });
+        gsap.set(headlineRef.current, { opacity: 0, y: 28 });
+        gsap.set(subRef.current, { opacity: 0 });
+        gsap.set(ferryRef.current, { x: "115%" });
         gsap.set([marti2Ref.current, marti1Ref.current], { opacity: 0, y: -15 });
         // Left lale needs to be flipped via GSAP so rotation is also handled by GSAP
-        gsap.set(laleLeftRef.current,  { scaleX: -1, opacity: 0, y: -30 });
+        gsap.set(laleLeftRef.current, { scaleX: -1, opacity: 0, y: -30 });
         gsap.set(laleRightRef.current, { opacity: 0, y: -30 });
 
         /* Hide pins/cards — refs may still be null before mapReady */
         pinDotRefs.current.forEach(el => { if (el) gsap.set(el, { scale: 0, opacity: 0 }); });
-        ringRefs.current.forEach(el   => { if (el) gsap.set(el, { scale: 1, opacity: 0 }); });
-        labelRefs.current.forEach(el  => { if (el) gsap.set(el, { opacity: 0, y: 6 }); });
+        ringRefs.current.forEach(el => { if (el) gsap.set(el, { scale: 1, opacity: 0 }); });
+        labelRefs.current.forEach(el => { if (el) gsap.set(el, { opacity: 0, y: 6 }); });
         cardRefs.current.forEach((el, i) => {
             if (el) gsap.set(el, {
                 opacity: 0,
@@ -184,7 +78,7 @@ export default function Discovery() {
         /* ── Bail until Leaflet has calculated real pixel positions ─────── */
         if (!mapReady || pinPositions.length === 0 || !routeRef.current) return;
 
-        const path   = routeRef.current;
+        const path = routeRef.current;
         const length = path.getTotalLength();
         gsap.set(path, { strokeDasharray: length, strokeDashoffset: length });
 
@@ -194,31 +88,31 @@ export default function Discovery() {
             { isDesktop: "(min-width: 768px)", isMobile: "(max-width: 767px)" },
             (ctx) => {
                 const { isMobile } = ctx.conditions as { isMobile: boolean };
-                const scrollDist   = isMobile ? "+=200%" : "+=260%";
+                const scrollDist = isMobile ? "+=200%" : "+=260%";
 
                 const tl = gsap.timeline({
                     scrollTrigger: {
                         trigger: sectionRef.current,
-                        start:   "top top",
-                        end:     scrollDist,
-                        pin:     true,
-                        scrub:   1.2,
+                        start: "top top",
+                        end: scrollDist,
+                        pin: true,
+                        scrub: 1.2,
                         anticipatePin: 1,
                         invalidateOnRefresh: true,
                     },
                 });
 
                 /* 0 ── Headline */
-                tl.to(headlineRef.current,  { opacity: 1, y: 0, duration: 0.6, ease: "power2.out" }, 0);
-                tl.to(subRef.current,       { opacity: 1, duration: 0.5 }, 0.3);
+                tl.to(headlineRef.current, { opacity: 1, y: 0, duration: 0.6, ease: "power2.out" }, 0);
+                tl.to(subRef.current, { opacity: 1, duration: 0.5 }, 0.3);
 
                 /* 0 ── Lale corner decorations bloom in from top */
-                tl.to(laleLeftRef.current,  { opacity: 1, y: 0, duration: 0.9, ease: "power2.out" }, 0);
+                tl.to(laleLeftRef.current, { opacity: 1, y: 0, duration: 0.9, ease: "power2.out" }, 0);
                 tl.to(laleRightRef.current, { opacity: 1, y: 0, duration: 0.9, ease: "power2.out" }, 0.15);
 
                 /* 0 ── Seagulls */
-                tl.to(marti2Ref.current,    { opacity: 0.75, y: 0, duration: 0.5 }, 0.1);
-                tl.to(marti1Ref.current,    { opacity: 0.55, y: 0, duration: 0.5 }, 0.3);
+                tl.to(marti2Ref.current, { opacity: 0.75, y: 0, duration: 0.5 }, 0.1);
+                tl.to(marti1Ref.current, { opacity: 0.55, y: 0, duration: 0.5 }, 0.3);
 
                 /* 0.5 ── Ferry */
                 tl.to(ferryRef.current, { x: "-50%", ease: "none", duration: 8 }, 0.5);
@@ -228,9 +122,9 @@ export default function Discovery() {
 
                 /* ── Per-landmark reveals ──────────────────────────────── */
                 LANDMARKS.forEach((lm, i) => {
-                    const t      = PIN_TIMINGS[i];
+                    const t = PIN_TIMINGS[i];
                     const prevCard = i > 0 ? cardRefs.current[i - 1] : null;
-                    const prevLm   = i > 0 ? LANDMARKS[i - 1] : null;
+                    const prevLm = i > 0 ? LANDMARKS[i - 1] : null;
 
                     /* Pin dot pop */
                     tl.to(pinDotRefs.current[i], {
@@ -273,11 +167,11 @@ export default function Discovery() {
         );
 
         /* ── Idle / ambient animations ──────────────────────────────────── */
-        gsap.to(marti2Ref.current, { y: "+=10", x: "+=6",   duration: 3.5, repeat: -1, yoyo: true, ease: "sine.inOut" });
-        gsap.to(marti1Ref.current, { y: "-=4",  rotate: 1.5, duration: 4,  repeat: -1, yoyo: true, ease: "sine.inOut", delay: 0.8 });
+        gsap.to(marti2Ref.current, { y: "+=10", x: "+=6", duration: 3.5, repeat: -1, yoyo: true, ease: "sine.inOut" });
+        gsap.to(marti1Ref.current, { y: "-=4", rotate: 1.5, duration: 4, repeat: -1, yoyo: true, ease: "sine.inOut", delay: 0.8 });
         // Lale sway — transformOrigin at the top so petals swing naturally
-        gsap.to(laleLeftRef.current,  { rotate: -1.8, scaleX: -1, duration: 4.5, repeat: -1, yoyo: true, ease: "sine.inOut", transformOrigin: "top right" });
-        gsap.to(laleRightRef.current, { rotate:  1.8, duration: 4.2, repeat: -1, yoyo: true, ease: "sine.inOut", transformOrigin: "top left", delay: 0.4 });
+        gsap.to(laleLeftRef.current, { rotate: -1.8, scaleX: -1, duration: 4.5, repeat: -1, yoyo: true, ease: "sine.inOut", transformOrigin: "top right" });
+        gsap.to(laleRightRef.current, { rotate: 1.8, duration: 4.2, repeat: -1, yoyo: true, ease: "sine.inOut", transformOrigin: "top left", delay: 0.4 });
 
         return () => mm.revert();
 
@@ -350,7 +244,7 @@ export default function Discovery() {
                     className="font-bold leading-none tracking-tight"
                     style={{
                         fontFamily: "var(--font-kelson-sans), Arial, sans-serif",
-                        fontSize:   "clamp(1.8rem, 5.5vw, 4.2rem)",
+                        fontSize: "clamp(1.8rem, 5.5vw, 4.2rem)",
                         color: "white",
                         textShadow: "0 2px 20px rgba(0,0,0,0.75)",
                     }}
@@ -409,8 +303,8 @@ export default function Discovery() {
                             </feMerge>
                         </filter>
                         <linearGradient id="disc-route" x1="0%" y1="0%" x2="100%" y2="0%">
-                            <stop offset="0%"   stopColor="#f47b20" stopOpacity="0.7" />
-                            <stop offset="50%"  stopColor="#f47b20" />
+                            <stop offset="0%" stopColor="#f47b20" stopOpacity="0.7" />
+                            <stop offset="50%" stopColor="#f47b20" />
                             <stop offset="100%" stopColor="#f47b20" stopOpacity="0.6" />
                         </linearGradient>
                     </defs>
@@ -431,7 +325,7 @@ export default function Discovery() {
                 All positioned using Leaflet's latLngToContainerPoint() values.
                 Pin dots are exactly over the correct geographic tile locations.  */}
             {positionsReady && LANDMARKS.map((lm, i) => {
-                const pos  = pinPositions[i];
+                const pos = pinPositions[i];
                 const card = cardPos(pos, lm);
 
                 return (
@@ -440,10 +334,10 @@ export default function Discovery() {
                         <div
                             className="absolute"
                             style={{
-                                left:      pos.x,
-                                top:       pos.y,
+                                left: pos.x,
+                                top: pos.y,
                                 transform: "translate(-50%, -50%)",
-                                zIndex:    15,
+                                zIndex: 15,
                             }}
                         >
                             {/* Expanding ring (burst on reveal) */}
@@ -451,7 +345,7 @@ export default function Discovery() {
                                 ref={el => { ringRefs.current[i] = el; }}
                                 className="absolute rounded-full"
                                 style={{
-                                    inset:  "-12px",
+                                    inset: "-12px",
                                     border: `1px solid ${lm.accent}70`,
                                 }}
                             />
@@ -460,8 +354,8 @@ export default function Discovery() {
                                 ref={el => { pinDotRefs.current[i] = el; }}
                                 className="relative rounded-full"
                                 style={{
-                                    width:     13,
-                                    height:    13,
+                                    width: 13,
+                                    height: 13,
                                     background: lm.accent,
                                     boxShadow: `0 0 14px 5px ${lm.accent}90`,
                                     zIndex: 2,
@@ -475,10 +369,10 @@ export default function Discovery() {
                                 <span
                                     className="font-bold leading-tight"
                                     style={{
-                                        fontFamily:  "var(--font-kelson-sans), Arial, sans-serif",
-                                        fontSize:    "clamp(0.58rem, 0.85vw, 0.7rem)",
-                                        color:       "white",
-                                        textShadow:  "0 1px 6px rgba(0,0,0,1), 0 0 12px rgba(0,0,0,0.8)",
+                                        fontFamily: "var(--font-kelson-sans), Arial, sans-serif",
+                                        fontSize: "clamp(0.58rem, 0.85vw, 0.7rem)",
+                                        color: "white",
+                                        textShadow: "0 1px 6px rgba(0,0,0,1), 0 0 12px rgba(0,0,0,0.8)",
                                     }}
                                 >
                                     {lm.label}
@@ -491,17 +385,17 @@ export default function Discovery() {
                             ref={el => { cardRefs.current[i] = el; }}
                             className="absolute pointer-events-none"
                             style={{
-                                left:   card.x,
-                                top:    card.y,
-                                width:  200,
+                                left: card.x,
+                                top: card.y,
+                                width: 200,
                                 zIndex: 18,
                             }}
                         >
                             <div
                                 className="rounded-xl overflow-hidden"
                                 style={{
-                                    background:     "rgba(2,10,24,0.85)",
-                                    border:         `1px solid ${lm.accent}55`,
+                                    background: "rgba(2,10,24,0.85)",
+                                    border: `1px solid ${lm.accent}55`,
                                     backdropFilter: "blur(14px)",
                                 }}
                             >
@@ -529,7 +423,7 @@ export default function Discovery() {
                                         className="text-white font-bold leading-tight mb-1"
                                         style={{
                                             fontFamily: "var(--font-kelson-sans), Arial, sans-serif",
-                                            fontSize:   "clamp(0.78rem, 1.1vw, 0.9rem)",
+                                            fontSize: "clamp(0.78rem, 1.1vw, 0.9rem)",
                                         }}
                                     >
                                         {lm.label}
