@@ -107,15 +107,15 @@ export default function SplitScreen() {
                 {/* Floating assets */}
                 <div ref={simitRef} className="absolute bottom-[8%] right-[14%] w-[22%] max-w-[180px] opacity-0 pointer-events-none">
                     {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img src={`${CDN}/Simit-1.webp`} alt="Simit" className="w-full h-auto drop-shadow-2xl" />
+                    <img src={`${CDN}/Simit-1.webp`} alt="Simit" className="w-full h-auto drop-shadow-2xl" loading="lazy" width={400} height={400} />
                 </div>
                 <div ref={catDayRef} className="absolute top-[9%] right-[20%] w-[16%] max-w-[130px] opacity-0 pointer-events-none">
                     {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img src={`${CDN}/kedi-1.webp`} alt="Istanbul cat" className="w-full h-auto drop-shadow-2xl" />
+                    <img src={`${CDN}/kedi-1.webp`} alt="Istanbul cat" className="w-full h-auto drop-shadow-2xl" loading="lazy" width={400} height={500} />
                 </div>
                 <div ref={cay1Ref} className="absolute bottom-[18%] left-[4%] w-[14%] max-w-[110px] opacity-0 pointer-events-none">
                     {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img src={`${CDN}/cay-1.webp`} alt="Turkish tea" className="w-full h-auto drop-shadow-2xl rounded-full" />
+                    <img src={`${CDN}/cay-1.webp`} alt="Turkish tea" className="w-full h-auto drop-shadow-2xl rounded-full" loading="lazy" width={300} height={500} />
                 </div>
             </div>
 
@@ -186,15 +186,15 @@ export default function SplitScreen() {
                 {/* Floating assets */}
                 <div ref={burgerRef} className="absolute bottom-[10%] left-[5%] w-[22%] max-w-[180px] opacity-0 pointer-events-none z-10">
                     {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img src={`${CDN}/islak-hamburger.webp`} alt="Islak hamburger" className="w-full h-auto drop-shadow-2xl" />
+                    <img src={`${CDN}/islak-hamburger.webp`} alt="Islak hamburger" className="w-full h-auto drop-shadow-2xl" loading="lazy" width={400} height={400} />
                 </div>
                 <div ref={catNightRef} className="absolute top-[10%] left-[8%] w-[18%] max-w-[140px] opacity-0 pointer-events-none z-10">
                     {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img src={`${CDN}/kedi-2.webp`} alt="Istanbul cat" className="w-full h-auto drop-shadow-2xl" />
+                    <img src={`${CDN}/kedi-2.webp`} alt="Istanbul cat" className="w-full h-auto drop-shadow-2xl" loading="lazy" width={400} height={500} />
                 </div>
                 <div ref={coffeeRef} className="absolute bottom-[18%] right-[4%] w-[14%] max-w-[110px] opacity-0 pointer-events-none z-10">
                     {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img src={`${CDN}/turk-kahvesi-1.webp`} alt="Turkish coffee" className="w-full h-auto drop-shadow-2xl rounded-full" />
+                    <img src={`${CDN}/turk-kahvesi-1.webp`} alt="Turkish coffee" className="w-full h-auto drop-shadow-2xl rounded-full" loading="lazy" width={300} height={400} />
                 </div>
             </div>
         </div>

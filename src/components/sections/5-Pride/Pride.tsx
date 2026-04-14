@@ -72,7 +72,7 @@ export default function Pride() {
                 style={{ zIndex: 2, mixBlendMode: "screen" }}
             >
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={`${CDN}/mermer-deseni1.webp`} alt="" className="w-full h-auto opacity-30" />
+                <img src={`${CDN}/mermer-deseni1.webp`} alt="" className="w-full h-auto opacity-30" loading="lazy" width={600} height={600} />
             </div>
 
             {/* Content */}

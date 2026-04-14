@@ -60,7 +60,7 @@ export default function Support() {
                 style={{ zIndex: 2 }}
             >
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={`${CDN}/boga-heykeli.webp`} alt="Kadıköy Bull Statue" className="w-full h-auto" />
+                <img src={`${CDN}/boga-heykeli.webp`} alt="Kadıköy Bull Statue" className="w-full h-auto" loading="lazy" width={400} height={480} />
             </div>
 
             {/* Lale cutout — bottom left */}
@@ -70,7 +70,7 @@ export default function Support() {
                 style={{ zIndex: 2, opacity: 0 }}
             >
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={`${CDN}/lale-1.webp`} alt="" className="w-full h-auto" />
+                <img src={`${CDN}/lale-1.webp`} alt="" className="w-full h-auto" loading="lazy" width={400} height={600} />
             </div>
 
             <div className="relative z-10 flex flex-col w-full">

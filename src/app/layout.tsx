@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Lato } from "next/font/google";
+import localFont from "next/font/local";
 import "./globals.css";
 import Footer from "@/components/global/Footer";
 import SmoothScroll from "@/context/SmoothScroll";
@@ -8,6 +9,16 @@ const lato = Lato({
     variable: "--font-lato",
     subsets: ["latin"],
     weight: ["400", "700"],
+});
+
+const kelsonSans = localFont({
+    src: [
+        { path: "../../public/fonts/KelsonSans-Light.woff2",  weight: "300", style: "normal" },
+        { path: "../../public/fonts/KelsonSans-Normal.woff2", weight: "400", style: "normal" },
+        { path: "../../public/fonts/KelsonSans-Bold.woff2",   weight: "700", style: "normal" },
+    ],
+    variable: "--font-kelson-sans",
+    display: "swap",
 });
 
 export const metadata: Metadata = {
@@ -36,7 +47,7 @@ export default function RootLayout({
     return (
         <html
             lang="en"
-            className={`${lato.variable} h-full antialiased`}
+            className={`${lato.variable} ${kelsonSans.variable} h-full antialiased`}
         >
             <head>
                 {/* Preconnect to external asset origins */}

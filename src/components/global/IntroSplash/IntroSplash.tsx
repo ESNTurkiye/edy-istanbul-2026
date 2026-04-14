@@ -1,12 +1,23 @@
 "use client";
 
-import { useRef, useCallback } from "react";
+import { useRef, useCallback, useSyncExternalStore } from "react";
 import dynamic from "next/dynamic";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import Stars from "./Stars";
 
 const GlobeGL = dynamic(() => import("react-globe.gl"), { ssr: false });
+
+// useSyncExternalStore helpers — defined outside the component so their
+// references are stable and never recreated on re-renders.
+const mobileQuery = "(max-width: 767px)";
+const subscribeMobile = (cb: () => void) => {
+    const mql = window.matchMedia(mobileQuery);
+    mql.addEventListener("change", cb);
+    return () => mql.removeEventListener("change", cb);
+};
+const getMobileSnapshot    = () => window.matchMedia(mobileQuery).matches;
+const getMobileServerSnap  = () => false;
 
 const ISTANBUL_LAT = 41.0082;
 const ISTANBUL_LNG = 28.9784;
@@ -30,6 +41,9 @@ export default function IntroSplash({ onComplete }: IntroSplashProps) {
     const taglineRef = useRef<HTMLDivElement>(null);
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const globeEl = useRef<any>(null);
+    const tlRef = useRef<gsap.core.Timeline | null>(null);
+
+    const isMobile = useSyncExternalStore(subscribeMobile, getMobileSnapshot, getMobileServerSnap);
 
     const handleGlobeReady = useCallback(() => {
         const g = globeEl.current;
@@ -46,6 +60,10 @@ export default function IntroSplash({ onComplete }: IntroSplashProps) {
         setTimeout(() => {
             ctrl.autoRotate = false;
             g.pointOfView({ lat: ISTANBUL_LAT, lng: ISTANBUL_LNG, altitude: 1.1 }, 900);
+            // Resume timeline after fly-to completes (900 ms)
+            setTimeout(() => {
+                tlRef.current?.play();
+            }, 900);
         }, 800);
     }, []);
 
@@ -54,6 +72,7 @@ export default function IntroSplash({ onComplete }: IntroSplashProps) {
         document.body.style.overflow = "hidden";
 
         const tl = gsap.timeline({
+            paused: true,
             onComplete: () => {
                 document.body.style.overflow = "";
                 onComplete();
@@ -107,7 +126,19 @@ export default function IntroSplash({ onComplete }: IntroSplashProps) {
             ease: "power2.in",
         }, 2.7);
 
-    }, { scope: containerRef });
+        tlRef.current = tl;
+        tl.play();
+        // On desktop, hold just before the label pop-in until onGlobeReady
+        // fires and the fly-to completes. On mobile there is no globe,
+        // so the timeline runs straight through.
+        if (!isMobile) tl.pause(1.7);
+
+        return () => {
+            document.body.style.overflow = "";
+            tl.kill();
+        };
+
+    }, { scope: containerRef, dependencies: [isMobile] });
 
     return (
         <div
@@ -126,31 +157,42 @@ export default function IntroSplash({ onComplete }: IntroSplashProps) {
             <div
                 ref={globeWrapRef}
                 className="relative mb-10 pointer-events-none"
-                style={{ willChange: "transform, filter" }}
+                style={{ width: 280, height: 280, willChange: "transform, filter" }}
             >
-                <GlobeGL
-                    ref={globeEl}
-                    onGlobeReady={handleGlobeReady}
-                    width={460}
-                    height={460}
-                    backgroundColor="rgba(0,0,0,0)"
-                    rendererConfig={{ alpha: true, antialias: true }}
-                    globeImageUrl="//unpkg.com/three-globe/example/img/earth-blue-marble.jpg"
-                    bumpImageUrl="//unpkg.com/three-globe/example/img/earth-topology.png"
-                    showAtmosphere
-                    atmosphereColor="#4fa3f0"
-                    atmosphereAltitude={0.22}
-                    pointsData={GLOBE_POINTS}
-                    pointColor="color"
-                    pointAltitude={0.015}
-                    pointRadius="radius"
-                    pointResolution={16}
-                    ringsData={GLOBE_RINGS}
-                    ringColor={() => ["rgba(236,0,140,0.9)", "rgba(236,0,140,0)"]}
-                    ringMaxRadius={3.5}
-                    ringPropagationSpeed={2.5}
-                    ringRepeatPeriod={1000}
-                />
+                {isMobile ? (
+                    <div style={{
+                        width: 280,
+                        height: 280,
+                        borderRadius: "50%",
+                        background: "radial-gradient(circle at 35% 35%, #1a4a8a, #030d1e)",
+                        boxShadow: "0 0 60px rgba(79,163,240,0.3), inset 0 0 40px rgba(0,0,0,0.5)",
+                        animation: "pulse 2s ease-in-out infinite",
+                    }} />
+                ) : (
+                    <GlobeGL
+                        ref={globeEl}
+                        onGlobeReady={handleGlobeReady}
+                        width={460}
+                        height={460}
+                        backgroundColor="rgba(0,0,0,0)"
+                        rendererConfig={{ alpha: true, antialias: true }}
+                        globeImageUrl="//unpkg.com/three-globe/example/img/earth-blue-marble.jpg"
+                        bumpImageUrl="//unpkg.com/three-globe/example/img/earth-topology.png"
+                        showAtmosphere
+                        atmosphereColor="#4fa3f0"
+                        atmosphereAltitude={0.22}
+                        pointsData={GLOBE_POINTS}
+                        pointColor="color"
+                        pointAltitude={0.015}
+                        pointRadius="radius"
+                        pointResolution={16}
+                        ringsData={GLOBE_RINGS}
+                        ringColor={() => ["rgba(236,0,140,0.9)", "rgba(236,0,140,0)"]}
+                        ringMaxRadius={3.5}
+                        ringPropagationSpeed={2.5}
+                        ringRepeatPeriod={1000}
+                    />
+                )}
 
                 {/* "Istanbul" text label — appears after fly-to */}
                 <div

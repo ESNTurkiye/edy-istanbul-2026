@@ -19,6 +19,9 @@ export default function RealityExtras() {
                     src="https://cdn.jsdelivr.net/gh/ESNTurkiye/esn-assets@main/istanbul/turk-kahvesi-2.webp"
                     alt="Turkish coffee"
                     className="w-full h-auto"
+                    loading="lazy"
+                    width={300}
+                    height={400}
                     style={{ filter: "drop-shadow(0 -8px 24px rgba(0,0,0,0.45))" }}
                 />
             </div>
