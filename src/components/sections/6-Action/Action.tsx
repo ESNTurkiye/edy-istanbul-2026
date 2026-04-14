@@ -91,7 +91,7 @@ export default function Action() {
                 style={{ zIndex: 3, mixBlendMode: "luminosity" }}
             >
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={`${CDN}/galata-kulesi.webp`} alt="Galata Tower" className="w-full h-auto" style={{ filter: "brightness(0.35) sepia(0) saturate(0)" }} />
+                <img src={`${CDN}/galata-kulesi.webp`} alt="Galata Tower" className="w-full h-auto" loading="lazy" width={520} height={900} style={{ filter: "brightness(0.35) sepia(0) saturate(0)" }} />
             </div>
 
             {/* ── Maiden's Tower silhouette (left) ── */}
@@ -101,7 +101,7 @@ export default function Action() {
                 style={{ zIndex: 3 }}
             >
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={`${CDN}/kiz-kulesi-1.webp`} alt="" className="w-full h-auto" style={{ filter: "brightness(0.3) saturate(0)" }} />
+                <img src={`${CDN}/kiz-kulesi-1.webp`} alt="" className="w-full h-auto" loading="lazy" width={400} height={600} style={{ filter: "brightness(0.3) saturate(0)" }} />
             </div>
 
             <div
@@ -110,7 +110,7 @@ export default function Action() {
                 style={{ zIndex: 5 }}
             >
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={`${CDN}/lale-1.webp`} alt="" className="w-full h-auto" />
+                <img src={`${CDN}/lale-1.webp`} alt="" className="w-full h-auto" loading="lazy" width={400} height={600} />
             </div>
             <div
                 ref={lale2Ref}
@@ -118,7 +118,7 @@ export default function Action() {
                 style={{ zIndex: 5 }}
             >
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={`${CDN}/lale-2.webp`} alt="" className="w-full h-auto" />
+                <img src={`${CDN}/lale-2.webp`} alt="" className="w-full h-auto" loading="lazy" width={600} height={900} />
             </div>
 
             <div className="relative z-10 flex flex-col items-center text-center px-6 py-20">

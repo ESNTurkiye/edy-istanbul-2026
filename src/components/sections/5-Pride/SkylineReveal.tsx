@@ -31,6 +31,7 @@ const MONUMENTS = [
         yScroll: 18,   // almost stationary — far-background feel
         delay: 0.12,
         floatAmp: 5,
+        natW: 860, natH: 580,
     },
     // Left foreground — Galata Tower, very fast parallax
     {
@@ -44,6 +45,7 @@ const MONUMENTS = [
         yScroll: 210,  // shoots upward — close foreground
         delay: 0,
         floatAmp: 11,
+        natW: 520, natH: 900,
     },
     // Right mid — Maiden's Tower, fast parallax
     {
@@ -57,6 +59,7 @@ const MONUMENTS = [
         yScroll: 170,  // fast — mid-foreground
         delay: 0.2,
         floatAmp: 9,
+        natW: 460, natH: 700,
     },
 ] as const;
 
@@ -270,6 +273,9 @@ export default function SkylineReveal() {
                             src={`${CDN}/${m.src}`}
                             alt={m.alt}
                             className="relative w-full h-auto"
+                            loading="lazy"
+                            width={m.natW}
+                            height={m.natH}
                             style={{
                                 filter: "drop-shadow(0 28px 52px rgba(0,0,0,0.65))",
                             }}
@@ -286,6 +292,9 @@ export default function SkylineReveal() {
                 alt=""
                 aria-hidden="true"
                 className="absolute pointer-events-none select-none"
+                loading="lazy"
+                width={300}
+                height={180}
                 style={{
                     width: "clamp(58px, 7vw, 100px)",
                     top: "18%",
@@ -304,6 +313,9 @@ export default function SkylineReveal() {
                 alt=""
                 aria-hidden="true"
                 className="absolute pointer-events-none select-none"
+                loading="lazy"
+                width={300}
+                height={180}
                 style={{
                     width: "clamp(36px, 4vw, 62px)",
                     top: "28%",

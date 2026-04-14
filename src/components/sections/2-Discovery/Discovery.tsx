@@ -217,7 +217,7 @@ export default function Discovery() {
                 }}
             >
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={`${CDN}/lale-2.webp`} alt="" className="w-full h-auto" />
+                <img src={`${CDN}/lale-2.webp`} alt="" className="w-full h-auto" loading="lazy" width={600} height={900} />
             </div>
 
             {/* ── z:10  lale-2 top-right (desktop) ───────────────────────── */}
@@ -231,7 +231,7 @@ export default function Discovery() {
                 }}
             >
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={`${CDN}/lale-2.webp`} alt="" className="w-full h-auto" />
+                <img src={`${CDN}/lale-2.webp`} alt="" className="w-full h-auto" loading="lazy" width={600} height={900} />
             </div>
 
             {/* ── z:20  Headline ──────────────────────────────────────────── */}
@@ -272,7 +272,7 @@ export default function Discovery() {
                 style={{ zIndex: 10, mixBlendMode: "multiply" }}
             >
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={`${CDN}/marti-2.webp`} alt="" className="w-full h-auto" />
+                <img src={`${CDN}/marti-2.webp`} alt="" className="w-full h-auto" loading="lazy" width={300} height={180} />
             </div>
 
             {/* ── z:10  marti-1 standing seagull, bottom-right ────────────── */}
@@ -282,7 +282,7 @@ export default function Discovery() {
                 style={{ zIndex: 10, mixBlendMode: "multiply" }}
             >
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={`${CDN}/marti-1.webp`} alt="" className="w-full h-auto" />
+                <img src={`${CDN}/marti-1.webp`} alt="" className="w-full h-auto" loading="lazy" width={200} height={160} />
             </div>
 
             {/* ── z:12  SVG route — pixel-space coordinates from Leaflet ─────
@@ -407,6 +407,9 @@ export default function Discovery() {
                                         src={lm.image}
                                         alt={lm.imageAlt}
                                         className="w-full h-full object-contain object-bottom"
+                                        loading="lazy"
+                                        width={200}
+                                        height={100}
                                         style={{ filter: "drop-shadow(0 2px 8px rgba(0,0,0,0.6))" }}
                                     />
                                 </div>
@@ -449,6 +452,9 @@ export default function Discovery() {
                     src={`${CDN}/feribot-yatay.webp`}
                     alt="Istanbul ferry"
                     className="w-full h-auto"
+                    loading="lazy"
+                    width={600}
+                    height={200}
                     style={{ transform: "scaleX(-1)" }}
                 />
             </div>

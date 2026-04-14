@@ -2,7 +2,7 @@
 
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import { useHeroParallax } from "@/hooks/useScrollAnimation";
 import "./Hero.css";
 
@@ -16,6 +16,26 @@ export default function Hero() {
     const flowerLeftRef = useRef<HTMLDivElement>(null);
     const flowerRightRef = useRef<HTMLDivElement>(null);
     const centerFrameRef = useRef<HTMLDivElement>(null);
+    const videoRef = useRef<HTMLVideoElement>(null);
+
+    useEffect(() => {
+        const video = videoRef.current;
+        if (!video) return;
+
+        const observer = new IntersectionObserver(
+            ([entry]) => {
+                if (entry.isIntersecting) {
+                    video.load();
+                    video.play().catch(() => {});
+                    observer.disconnect();
+                }
+            },
+            { threshold: 0.1 }
+        );
+
+        if (sectionRef.current) observer.observe(sectionRef.current);
+        return () => observer.disconnect();
+    }, []);
 
     useHeroParallax(sectionRef, [
         { ref: cloudOneRef, speed: 0.5, direction: -1 },
@@ -86,7 +106,7 @@ export default function Hero() {
             <div ref={flowerLeftRef} className="absolute flower-left z-20 pointer-events-none">
                 <div className="sway-b w-full h-full">
                     {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img src="/images/flower-bouquet.png" alt="" className="w-full h-full object-contain" />
+                    <img src="/images/flower-bouquet.webp" alt="" className="w-full h-full object-contain" loading="lazy" width={1380} height={752} />
                 </div>
             </div>
 
@@ -94,7 +114,7 @@ export default function Hero() {
             <div ref={flowerRightRef} className="absolute flower-right z-20 pointer-events-none">
                 <div className="sway-d w-full h-full">
                     {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img src="/images/flower-bouquet.png" alt="" className="w-full h-full object-contain" />
+                    <img src="/images/flower-bouquet.webp" alt="" className="w-full h-full object-contain" loading="lazy" width={1380} height={752} />
                 </div>
             </div>
 
@@ -103,13 +123,15 @@ export default function Hero() {
 
                 {/* Bosphorus video, clipped to the frame oval */}
                 <video
+                    ref={videoRef}
                     className="absolute z-0 w-full h-full object-cover object-center"
                     style={{ clipPath: "inset(12.1% 12.1% 12.1% 12.1% round 600px)" }}
                     autoPlay
                     loop
                     muted
                     playsInline
-                    preload="auto"
+                    preload="none"
+                    poster="/images/frame.png"
                 >
                     <source src="/videos/hero-video.mp4#t=2" type="video/mp4" />
                 </video>
