@@ -18,7 +18,7 @@ export default function LiteratureStrip() {
                 setIsVisible(true);
                 observer.disconnect();
             },
-            { threshold: 0.2, rootMargin: "0px 0px -8% 0px" },
+            { threshold: 0.05, rootMargin: "0px 0px -2% 0px" },
         );
 
         observer.observe(strip);

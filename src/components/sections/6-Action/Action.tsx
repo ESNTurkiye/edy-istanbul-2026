@@ -35,7 +35,7 @@ export default function Action() {
                 ease: "power2.inOut",
                 scrollTrigger: {
                     trigger: sectionRef.current,
-                    start: "top 60%",
+                    start: "top 10%",
                     once: true,
                 },
             },

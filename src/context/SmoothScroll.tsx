@@ -15,13 +15,30 @@ function LenisBridge() {
     useEffect(() => {
         if (!lenis) return;
         const l = lenis;
+
+        const syncLenisSize = () => {
+            l.resize();
+        };
+
         function update(time: number) {
             l.raf(time * 1000);
         }
+
         gsap.ticker.add(update);
         gsap.ticker.lagSmoothing(0);
         l.on("scroll", ScrollTrigger.update);
+        ScrollTrigger.addEventListener("refreshInit", syncLenisSize);
+        ScrollTrigger.addEventListener("refresh", syncLenisSize);
+
+        const initialRefresh = requestAnimationFrame(() => {
+            syncLenisSize();
+            ScrollTrigger.refresh();
+        });
+
         return () => {
+            cancelAnimationFrame(initialRefresh);
+            ScrollTrigger.removeEventListener("refreshInit", syncLenisSize);
+            ScrollTrigger.removeEventListener("refresh", syncLenisSize);
             gsap.ticker.remove(update);
             l.off("scroll", ScrollTrigger.update);
         };
