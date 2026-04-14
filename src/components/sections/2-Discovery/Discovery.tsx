@@ -206,8 +206,18 @@ export default function Discovery() {
                 tl.to(marti2Ref.current, { opacity: 0.75, y: 0, duration: 0.5 }, 0.1);
                 tl.to(marti1Ref.current, { opacity: 0.55, y: 0, duration: 0.5 }, 0.3);
 
-                /* 0.5 ── Ferry: slow pass, travels farther */
-                tl.to(ferryRef.current, { x: "-420%", ease: "none", duration: 76 }, 0.5);
+                /* Ferry is independent so other timeline animations keep their speed */
+                gsap.to(ferryRef.current, {
+                    x: "-150%",
+                    ease: "none",
+                    scrollTrigger: {
+                        trigger: sectionRef.current,
+                        start: "top top",
+                        end: scrollDist,
+                        scrub: 1.2,
+                        invalidateOnRefresh: true,
+                    },
+                });
 
                 /* 0.8 ── Route draws with segment timings */
                 const routeStart = 0.8;
