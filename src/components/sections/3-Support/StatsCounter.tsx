@@ -17,9 +17,9 @@ interface StatItem {
 }
 
 const STATS: StatItem[] = [
-    { value: 15, suffix: "", label: "Sections in one city", color: "#f47b20" },
-    { value: 500, suffix: "+", label: "Volunteers on call", color: "#00aeef" },
-    { value: 18, suffix: "", label: "Languages spoken", color: "#7ac143" },
+    { value: 39, suffix: "", label: "Sections in one city", color: "#f47b20" },
+    { value: 1500, suffix: "+", label: "Volunteers on call", color: "#00aeef" },
+    { value: 30, suffix: "", label: "Languages spoken", color: "#7ac143" },
     { value: 2000, suffix: "+", label: "Students hosted last year", color: "#ec008c" },
 ];
 
@@ -87,7 +87,8 @@ export default function StatsCounter() {
                         <span ref={el => { numRefs.current[i] = el; }}>0</span>
                         <span>{stat.suffix}</span>
                     </div>
-                    <div className="mt-2 text-[clamp(0.7rem,1.1vw,0.85rem)] tracking-widest uppercase" style={{ color: "#4a627f" }}>
+                    <div className="mt-2 text-[clamp(0.7rem,1.1vw,0.85rem)] tracking-widest uppercase" style={{ color: "#b0d68a" }}>
+               
                         {stat.label}
                     </div>
                 </div>

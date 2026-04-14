@@ -88,7 +88,7 @@ export default function Action() {
             <div
                 ref={galataRef}
                 className="absolute bottom-0 right-[2%] w-[28%] sm:w-[22%] max-w-[320px] opacity-0 pointer-events-none"
-                style={{ zIndex: 3, mixBlendMode: "luminosity" }}
+                style={{ zIndex: 3 }}
             >
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img src={`${CDN}/galata-kulesi.webp`} alt="Galata Tower" className="w-full h-auto" style={{ filter: "brightness(0.35) sepia(0) saturate(0)" }} />

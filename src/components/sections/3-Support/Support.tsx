@@ -18,6 +18,8 @@ export default function Support() {
     const headlineRef = useRef<HTMLDivElement>(null);
     const bullRef = useRef<HTMLDivElement>(null);
     const laleRef = useRef<HTMLDivElement>(null);
+    const lale2Ref = useRef<HTMLDivElement>(null);
+    const martiRef = useRef<HTMLDivElement>(null);
 
     useGSAP(() => {
         if (!sectionRef.current) return;
@@ -26,8 +28,11 @@ export default function Support() {
 
         gsap.fromTo(headlineRef.current, { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.9, ease: "power2.out", scrollTrigger: st });
         gsap.fromTo(bullRef.current, { opacity: 0, x: 60 }, { opacity: 1, x: 0, duration: 1.1, ease: "power2.out", scrollTrigger: st });
-        gsap.fromTo(laleRef.current, { opacity: 0, x: -40 }, { opacity: 0.35, x: 0, duration: 1, ease: "power2.out", scrollTrigger: st });
+        gsap.fromTo(laleRef.current, { opacity: 0, x: -40 }, { opacity: 1, x: 0, duration: 1, ease: "power2.out", scrollTrigger: st });
+        gsap.fromTo(lale2Ref.current, { opacity: 0, y: 50 }, { opacity: 1, y: 0, duration: 1.1, ease: "power2.out", delay: 0.2, scrollTrigger: st });
+        gsap.fromTo(martiRef.current, { opacity: 0, x: 80 }, { opacity: 0.22, x: 0, duration: 1.4, ease: "power2.out", delay: 0.4, scrollTrigger: st });
 
+        /* Bull: float up-down + subtle rocking rotation */
         gsap.to(bullRef.current, {
             y: "+=10",
             duration: 4,
@@ -35,6 +40,48 @@ export default function Support() {
             yoyo: true,
             ease: "sine.inOut",
             delay: 0.5,
+        });
+        gsap.to(bullRef.current, {
+            rotation: -4,
+            duration: 5.5,
+            repeat: -1,
+            yoyo: true,
+            ease: "sine.inOut",
+            delay: 0.8,
+            transformOrigin: "bottom center",
+        });
+
+        /* Lale-1: gentle sway */
+        gsap.to(laleRef.current, {
+            rotation: 3,
+            duration: 4,
+            repeat: -1,
+            yoyo: true,
+            ease: "sine.inOut",
+            delay: 0.6,
+            transformOrigin: "bottom center",
+        });
+
+        /* Lale-2: gentle sway (opposite phase) */
+        gsap.to(lale2Ref.current, {
+            rotation: -3,
+            duration: 4.5,
+            repeat: -1,
+            yoyo: true,
+            ease: "sine.inOut",
+            delay: 1.2,
+            transformOrigin: "bottom center",
+        });
+
+        /* Seagull: slow horizontal drift across upper sky */
+        gsap.to(martiRef.current, {
+            x: "-=30",
+            y: "+=8",
+            duration: 6,
+            repeat: -1,
+            yoyo: true,
+            ease: "sine.inOut",
+            delay: 1,
         });
     }, { scope: sectionRef });
 
@@ -53,6 +100,26 @@ export default function Support() {
                 }}
             />
 
+            {/* Seagull — upper right, background depth */}
+            <div
+                ref={martiRef}
+                className="absolute right-[8%] top-[6%] w-[18%] sm:w-[13%] max-w-[180px] pointer-events-none opacity-0"
+                style={{ zIndex: 1 }}
+            >
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src={`${CDN}/marti-2.webp`} alt="" className="w-full h-auto" />
+            </div>
+
+            {/* Lale-2 (golden tulips) — bottom right, behind bull */}
+            <div
+                ref={lale2Ref}
+                className="absolute right-[26%] sm:right-[24%] bottom-0 w-[18%] sm:w-[14%] max-w-[200px] pointer-events-none opacity-0"
+                style={{ zIndex: 1 }}
+            >
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src={`${CDN}/lale-2.webp`} alt="" className="w-full h-auto" />
+            </div>
+
             {/* Bull cutout — bottom right */}
             <div
                 ref={bullRef}
@@ -63,10 +130,10 @@ export default function Support() {
                 <img src={`${CDN}/boga-heykeli.webp`} alt="Kadıköy Bull Statue" className="w-full h-auto" />
             </div>
 
-            {/* Lale cutout — bottom left */}
+            {/* Lale-1 (pink tulips) — bottom left */}
             <div
                 ref={laleRef}
-                className="absolute left-0 bottom-0 w-[16%] max-w-[200px] pointer-events-none"
+                className="absolute left-0 bottom-0 w-[18%] sm:w-[14%] max-w-[220px] pointer-events-none"
                 style={{ zIndex: 2, opacity: 0 }}
             >
                 {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -87,36 +154,12 @@ export default function Support() {
 
                 {/* Ticker rows */}
                 <div className="flex flex-col gap-3 mb-2">
-                    <LogoTicker reverse={false} speed={32} />
-                    <LogoTicker reverse={true} speed={28} />
+                    <LogoTicker reverse={false} speed={80} />
+                    <LogoTicker reverse={true} speed={70} />
                 </div>
 
                 {/* Stats */}
                 <StatsCounter />
-
-                {/* Inclusion promise — compact text list */}
-                <div className="px-6 md:px-12 pb-16">
-                    <div className="flex flex-col sm:flex-row sm:flex-wrap gap-x-10 gap-y-3 max-w-[860px]">
-                        {[
-                            { label: "Accessible", detail: "step-free city tours, audio guides every week", accent: "#00aeef" },
-                            { label: "Every diet", detail: "halal, kosher, vegan — your buddy knows where", accent: "#ec008c" },
-                            { label: "LGBTQ+ home", detail: "Beyoğlu & Kadıköy have been home for decades", accent: "#7ac143" },
-                            { label: "Mental health", detail: "peer support in English, Turkish, on demand", accent: "#f47b20" },
-                        ].map((item, i) => (
-                            <div key={i} className="flex items-baseline gap-2">
-                                <span
-                                    className="shrink-0 font-bold"
-                                    style={{ color: item.accent, fontSize: "0.72rem", letterSpacing: "0.04em" }}
-                                >
-                                    {item.label}
-                                </span>
-                                <span className="text-white/40" style={{ fontSize: "0.72rem" }}>
-                                    {item.detail}
-                                </span>
-                            </div>
-                        ))}
-                    </div>
-                </div>
             </div>
         </section>
     );
