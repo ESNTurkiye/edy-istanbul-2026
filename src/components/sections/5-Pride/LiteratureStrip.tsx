@@ -1,50 +1,34 @@
 "use client";
 
-import { useRef } from "react";
-import { useGSAP } from "@gsap/react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useEffect, useRef, useState, type CSSProperties } from "react";
 import { QUOTES } from "./prideData";
-
-if (typeof window !== "undefined") {
-    gsap.registerPlugin(ScrollTrigger);
-}
+import styles from "./Pride.module.css";
 
 export default function LiteratureStrip() {
     const stripRef = useRef<HTMLDivElement>(null);
-    const quoteRefs = useRef<(HTMLDivElement | null)[]>([]);
+    const [isVisible, setIsVisible] = useState(false);
 
-    useGSAP(() => {
-        if (!stripRef.current) return;
-        gsap.fromTo(
-            quoteRefs.current.filter(Boolean),
-            { opacity: 0, x: -30 },
-            {
-                opacity: 1, x: 0,
-                duration: 0.9,
-                stagger: 0.25,
-                ease: "power2.out",
-                scrollTrigger: { trigger: stripRef.current, start: "top 75%", once: true },
+    useEffect(() => {
+        const strip = stripRef.current;
+        if (!strip || isVisible) return;
+
+        const observer = new IntersectionObserver(
+            (entries) => {
+                if (!entries[0]?.isIntersecting) return;
+                setIsVisible(true);
+                observer.disconnect();
             },
+            { threshold: 0.2, rootMargin: "0px 0px -8% 0px" },
         );
-    }, { scope: stripRef });
+
+        observer.observe(strip);
+        return () => observer.disconnect();
+    }, [isVisible]);
 
     return (
-        <div
-            ref={stripRef}
-            className="relative z-10 w-full max-w-[1100px] mx-auto px-6 py-12 mb-4"
-        >
+        <div ref={stripRef} className={styles.literatureStrip}>
             <div className="text-center mb-8">
-                <span style={{
-                    display: "inline-block",
-                    background: "rgba(244,123,32,0.14)",
-                    color: "#f47b20",
-                    fontSize: "0.62rem",
-                    fontWeight: 700,
-                    letterSpacing: "0.18em",
-                    textTransform: "uppercase",
-                    padding: "5px 14px",
-                }}>
+                <span className={styles.literatureBadge}>
                     Istanbul in Literature
                 </span>
             </div>
@@ -53,42 +37,25 @@ export default function LiteratureStrip() {
                 {QUOTES.map((q, i) => (
                     <div
                         key={i}
-                        ref={el => { quoteRefs.current[i] = el; }}
-                        className="relative opacity-0 rounded-xl p-5"
+                        className={`${styles.quoteCard} ${styles.revealSide} ${isVisible ? styles.revealVisible : ""}`}
                         style={{
-                            background: "rgba(255,255,255,0.03)",
-                            border: `1px solid ${q.accent}25`,
-                            backdropFilter: "blur(6px)",
-                        }}
+                            "--quote-accent": q.accent,
+                            "--quote-accent-25": `${q.accent}25`,
+                            "--quote-accent-30": `${q.accent}30`,
+                            "--reveal-delay": `${0.08 + i * 0.14}s`,
+                        } as CSSProperties}
                     >
-                        <div
-                            className="absolute top-3 left-4 leading-none select-none"
-                            style={{
-                                fontFamily: "Georgia, serif",
-                                fontSize: "3.5rem",
-                                color: `${q.accent}30`,
-                                lineHeight: 1,
-                            }}
-                        >
+                        <div className={styles.quoteMark}>
                             &ldquo;
                         </div>
-                        <p
-                            className="text-white/70 leading-relaxed pt-5 mb-4"
-                            style={{ fontSize: "clamp(0.78rem, 1vw, 0.88rem)" }}
-                        >
+                        <p className={styles.quoteText}>
                             {q.quote}
                         </p>
                         <div>
-                            <div
-                                className="font-semibold text-white"
-                                style={{ fontSize: "0.7rem", letterSpacing: "0.08em" }}
-                            >
+                            <div className={styles.quoteAuthor}>
                                 {q.author}
                             </div>
-                            <div
-                                className="font-light italic"
-                                style={{ fontSize: "0.62rem", color: q.accent, letterSpacing: "0.05em" }}
-                            >
+                            <div className={styles.quoteWork}>
                                 {q.work}
                             </div>
                         </div>
