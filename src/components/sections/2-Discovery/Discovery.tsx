@@ -5,13 +5,76 @@ import dynamic from "next/dynamic";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { CDN, PIN_TIMINGS, LANDMARKS, smoothPath, cardPos } from "./landmarks";
+import { CDN, PIN_TIMINGS, LANDMARKS, cardPos } from "./landmarks";
+
+
 
 if (typeof window !== "undefined") {
     gsap.registerPlugin(ScrollTrigger);
 }
 
 const MapBackground = dynamic(() => import("./MapBackground"), { ssr: false });
+
+/* ── Smooth curve builder functions ─────────────────────── */
+function cubicPoint(
+    p0: { x: number; y: number },
+    c1: { x: number; y: number },
+    c2: { x: number; y: number },
+    p3: { x: number; y: number },
+    t: number,
+) {
+    const mt = 1 - t;
+    const mt2 = mt * mt;
+    const t2 = t * t;
+    return {
+        x: mt2 * mt * p0.x + 3 * mt2 * t * c1.x + 3 * mt * t2 * c2.x + t2 * t * p3.x,
+        y: mt2 * mt * p0.y + 3 * mt2 * t * c1.y + 3 * mt * t2 * c2.y + t2 * t * p3.y,
+    };
+}
+
+function curveControls(pts: { x: number; y: number }[], i: number, tension = 1) {
+    const p0 = pts[Math.max(0, i - 1)];
+    const p1 = pts[i];
+    const p2 = pts[i + 1];
+    const p3 = pts[Math.min(pts.length - 1, i + 2)];
+
+    const c1 = {
+        x: p1.x + ((p2.x - p0.x) / 6) * tension,
+        y: p1.y + ((p2.y - p0.y) / 6) * tension,
+    };
+    const c2 = {
+        x: p2.x - ((p3.x - p1.x) / 6) * tension,
+        y: p2.y - ((p3.y - p1.y) / 6) * tension,
+    };
+
+    return { p1, c1, c2, p2 };
+}
+
+/* Smooth route that still passes exactly through every landmark point */
+function routePathThroughPoints(pts: { x: number; y: number }[]) {
+    if (pts.length < 2) return "";
+    let d = `M ${pts[0].x} ${pts[0].y}`;
+
+    for (let i = 0; i < pts.length - 1; i++) {
+        const { c1, c2, p2 } = curveControls(pts, i);
+        d += ` C ${c1.x} ${c1.y} ${c2.x} ${c2.y} ${p2.x} ${p2.y}`;
+    }
+
+    return d;
+}
+
+function pointTimingsFromSegmentDurations(segmentDurations: number[]) {
+    const timings = [0];
+    const total = segmentDurations.reduce((acc, v) => acc + v, 0);
+    if (total === 0) return timings;
+
+    let accum = 0;
+    for (let i = 0; i < segmentDurations.length; i++) {
+        accum += segmentDurations[i];
+        timings.push(accum / total);
+    }
+    return timings;
+}
 
 export default function Discovery() {
     const sectionRef = useRef<HTMLElement>(null);
@@ -47,7 +110,7 @@ export default function Discovery() {
         });
 
         setPinPositions(positions);
-        setRoutePath(smoothPath(positions));
+        setRoutePath(routePathThroughPoints(positions));
         setMapReady(true);
     }, []);
 
@@ -57,7 +120,7 @@ export default function Discovery() {
         /* ── Always hide decoratives / headline on first paint ──────────── */
         gsap.set(headlineRef.current, { opacity: 0, y: 28 });
         gsap.set(subRef.current, { opacity: 0 });
-        gsap.set(ferryRef.current, { x: "115%" });
+        gsap.set(ferryRef.current, { x: "140%" });
         gsap.set([marti2Ref.current, marti1Ref.current], { opacity: 0, y: -15 });
         // Left lale needs to be flipped via GSAP so rotation is also handled by GSAP
         gsap.set(laleLeftRef.current, { scaleX: -1, opacity: 0, y: -30 });
@@ -114,11 +177,24 @@ export default function Discovery() {
                 tl.to(marti2Ref.current, { opacity: 0.75, y: 0, duration: 0.5 }, 0.1);
                 tl.to(marti1Ref.current, { opacity: 0.55, y: 0, duration: 0.5 }, 0.3);
 
-                /* 0.5 ── Ferry */
-                tl.to(ferryRef.current, { x: "-50%", ease: "none", duration: 8 }, 0.5);
+                /* 0.5 ── Ferry: slow pass, travels farther */
+                tl.to(ferryRef.current, { x: "-420%", ease: "none", duration: 76 }, 0.5);
 
-                /* 0.8 ── Route draws itself */
-                tl.to(path, { strokeDashoffset: 0, ease: "none", duration: 5 }, 0.8);
+                /* 0.8 ── Route draws with segment timings */
+                const routeStart = 0.8;
+                const segmentDurations = [25, 25, 18, 15];
+                const pointTimings = pointTimingsFromSegmentDurations(segmentDurations);
+
+                let segStart = routeStart;
+                for (let seg = 0; seg < segmentDurations.length; seg++) {
+                    const nextProgress = (seg + 1) / LANDMARKS.length;
+                    tl.to(path, {
+                        strokeDashoffset: length * (1 - nextProgress),
+                        ease: "none",
+                        duration: segmentDurations[seg],
+                    }, segStart);
+                    segStart += segmentDurations[seg];
+                }
 
                 /* ── Per-landmark reveals ──────────────────────────────── */
                 LANDMARKS.forEach((lm, i) => {
