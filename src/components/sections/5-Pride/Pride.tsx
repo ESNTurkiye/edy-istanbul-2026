@@ -4,10 +4,17 @@ import { useEffect, useRef, useState, type CSSProperties } from "react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import SkylineReveal from "./SkylineReveal";
 import LiteratureStrip from "./LiteratureStrip";
 import { CDN, INFO_CARDS } from "./prideData";
 import styles from "./Pride.module.css";
+
+const SKYLINE_CDN = "https://cdn.jsdelivr.net/gh/ESNTurkiye/esn-assets@main/istanbul";
+
+const MONUMENTS = [
+    { src: "ayasofya.webp",      alt: "Blue Mosque",     x: "50%", w: "72%", maxW: 860, zIndex: 2, yEntry: 160, delay: 0.12 },
+    { src: "galata-kulesi.webp", alt: "Galata Tower",    x: "25%", w: "45%", maxW: 520, zIndex: 4, yEntry: 220, delay: 0 },
+    { src: "kiz-kulesi-2.webp",  alt: "Maiden's Tower",  x: "78%", w: "38%", maxW: 460, zIndex: 3, yEntry: 185, delay: 0.2 },
+] as const;
 
 if (typeof window !== "undefined") {
     gsap.registerPlugin(ScrollTrigger);
@@ -16,6 +23,8 @@ if (typeof window !== "undefined") {
 export default function Pride() {
     const sectionRef = useRef<HTMLElement>(null);
     const [isVisible, setIsVisible] = useState(false);
+    const skylineRef = useRef<HTMLDivElement>(null);
+    const [skylineVisible, setSkylineVisible] = useState(false);
     const birdOneFrameRef = useRef<HTMLDivElement>(null);
     const birdTwoFrameRef = useRef<HTMLDivElement>(null);
     const birdOneImageRef = useRef<HTMLImageElement>(null);
@@ -37,6 +46,23 @@ export default function Pride() {
         observer.observe(section);
         return () => observer.disconnect();
     }, [isVisible]);
+
+    useEffect(() => {
+        const wrap = skylineRef.current;
+        if (!wrap || skylineVisible) return;
+
+        const observer = new IntersectionObserver(
+            (entries) => {
+                if (!entries[0]?.isIntersecting) return;
+                setSkylineVisible(true);
+                observer.disconnect();
+            },
+            { threshold: 0.1 },
+        );
+
+        observer.observe(wrap);
+        return () => observer.disconnect();
+    }, [skylineVisible]);
 
     useGSAP(() => {
         if (!sectionRef.current || !birdOneFrameRef.current || !birdTwoFrameRef.current || !birdOneImageRef.current || !birdTwoImageRef.current) {
@@ -221,9 +247,37 @@ export default function Pride() {
             {/* Istanbul in Literature */}
             <LiteratureStrip />
 
-            {/* Rising skyline */}
-            <div className="relative z-10 w-full">
-                <SkylineReveal />
+            {/* Skyline */}
+            <div ref={skylineRef}>
+                <div className={styles.deepGroundGlow} />
+                <div className={styles.midFog} />
+                <div className={styles.groundFade} />
+                <div className={styles.topFade} />
+                {MONUMENTS.map((m) => (
+                    <div
+                        key={m.alt}
+                        className={styles.monumentParallax}
+                        style={{ left: m.x, width: m.w, maxWidth: m.maxW, zIndex: m.zIndex }}
+                    >
+                        <div className={styles.monumentAnchor}>
+                            <div
+                                className={`${styles.monumentEntry} ${skylineVisible ? styles.monumentEntryVisible : styles.monumentEntryHidden}`}
+                                style={{
+                                    "--entry-offset": `${m.yEntry}px`,
+                                    "--entry-delay": `${m.delay}s`,
+                                } as CSSProperties}
+                            >
+                                <div className={styles.monumentBaseGlow} />
+                                {/* eslint-disable-next-line @next/next/no-img-element */}
+                                <img
+                                    src={`${SKYLINE_CDN}/${m.src}`}
+                                    alt={m.alt}
+                                    className={styles.monumentImage}
+                                />
+                            </div>
+                        </div>
+                    </div>
+                ))}
             </div>
         </section>
     );
