@@ -6,7 +6,7 @@ interface StatItem {
 }
 
 const STATS: StatItem[] = [
-    { value: 39, suffix: "", label: "Sections in one city", color: "#f47b20" },
+    { value: 15, suffix: "", label: "Sections in one city", color: "#f47b20" },
     { value: 1500, suffix: "+", label: "Volunteers on call", color: "#00aeef" },
     { value: 30, suffix: "", label: "Languages spoken", color: "#7ac143" },
     { value: 2000, suffix: "+", label: "Students hosted last year", color: "#ec008c" },

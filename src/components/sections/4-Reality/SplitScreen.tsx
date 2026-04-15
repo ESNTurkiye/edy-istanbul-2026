@@ -2,7 +2,6 @@ import Image from "next/image";
 
 const CDN = "https://cdn.jsdelivr.net/gh/ESNTurkiye/esn-assets@main/istanbul";
 
-/* ── Data panels ───────────────────────────────── */
 const DAY_STATS = [
     { label: "Avg. Monthly Cost", value: "€ 400", note: "among Europe's most affordable" },
     { label: "World University Rank", value: "Top 500", note: "4 universities in global rankings" },

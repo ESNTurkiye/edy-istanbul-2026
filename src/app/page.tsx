@@ -1,4 +1,3 @@
-import Navigation from "@/components/global/Navigation";
 import Hero from "@/components/sections/1-Hero";
 import Discovery from "@/components/sections/2-Discovery";
 import Support from "@/components/sections/3-Support";
@@ -10,7 +9,6 @@ import PageWrapper from "@/components/global/PageWrapper";
 export default function Home() {
     return (
         <PageWrapper>
-            <Navigation />
             <main id="main-content" className="flex flex-col w-full relative overflow-x-hidden">
                 <section id="hero" aria-label="Istanbul — Hero"><Hero /></section>
                 <section id="discovery" aria-label="Discover Istanbul"><Discovery /></section>

@@ -17,7 +17,6 @@ if (typeof window !== "undefined") {
 
 const MapBackground = dynamic(() => import("./MapBackground"), { ssr: false });
 
-/* ── Smooth curve builder functions ─────────────────────── */
 function curveControls(pts: { x: number; y: number }[], i: number, tension = 1) {
     const p0 = pts[Math.max(0, i - 1)];
     const p1 = pts[i];
@@ -36,7 +35,6 @@ function curveControls(pts: { x: number; y: number }[], i: number, tension = 1) 
     return { p1, c1, c2, p2 };
 }
 
-/* Smooth route that still passes exactly through every landmark point */
 function routePathThroughPoints(pts: { x: number; y: number }[]) {
     if (pts.length < 2) return "";
     let d = `M ${pts[0].x} ${pts[0].y}`;
@@ -131,7 +129,6 @@ export default function Discovery() {
     useGSAP(() => {
         if (!sectionRef.current) return;
 
-        /* ── Always hide decoratives / headline on first paint ──────────── */
         gsap.set(headlineRef.current, { opacity: 0, y: 28 });
         gsap.set(subRef.current, { opacity: 0 });
         gsap.set(ferryRef.current, { x: "140%" });
@@ -140,12 +137,10 @@ export default function Discovery() {
         gsap.set(cardFrameRef.current, { opacity: 0, x: -28 });
         gsap.set(cardTrackRef.current, { xPercent: 0 });
 
-        /* Hide pins/cards refs may still be null before mapReady */
         pinDotRefs.current.forEach(el => { if (el) gsap.set(el, { scale: 0, opacity: 0 }); });
         ringRefs.current.forEach(el => { if (el) gsap.set(el, { scale: 1, opacity: 0 }); });
         labelRefs.current.forEach(el => { if (el) gsap.set(el, { opacity: 0, y: 6 }); });
 
-        /* ── Bail until Leaflet has calculated real pixel positions ─────── */
         if (!mapReady || pinPositions.length === 0 || !routeRef.current) return;
 
         const path = routeRef.current;
@@ -172,15 +167,12 @@ export default function Discovery() {
                     },
                 });
 
-                /* 0 ── Headline */
                 tl.to(headlineRef.current, { opacity: 1, y: 0, duration: 0.6, ease: "power2.out" }, 0);
                 tl.to(subRef.current, { opacity: 1, duration: 0.5 }, 0.3);
 
-                /* 0 ── Seagulls */
                 tl.to(marti2Ref.current, { opacity: 1, y: 0, duration: 0.55, ease: "power2.out" }, 0.05);
                 tl.to(marti1Ref.current, { opacity: 0.95, y: 0, duration: 0.55, ease: "power2.out" }, 0.2);
 
-                /* Ferry is independent so other timeline animations keep their speed */
                 gsap.to(ferryRef.current, {
                     x: "-150%",
                     ease: "none",
@@ -193,7 +185,6 @@ export default function Discovery() {
                     },
                 });
 
-                /* 0.8 ── Route draws with segment timings */
                 const routeStart = 0.8;
                 const segmentDurations = [25, 25, 18, 15];
                 const pointTimings = pointTimingsFromSegmentDurations(segmentDurations);
@@ -210,31 +201,26 @@ export default function Discovery() {
                     segStart += segmentDurations[seg];
                 }
 
-                /* ── Per-landmark reveals ──────────────────────────────── */
                 const totalDuration = segmentDurations.reduce((a, b) => a + b, 0);
                 LANDMARKS.forEach((lm, i) => {
                     const t = routeStart + totalDuration * (pointTimings[i] ?? 0);
 
-                    /* Pin dot pop */
                     tl.to(pinDotRefs.current[i], {
                         scale: 1, opacity: 1,
                         duration: 0.4, ease: "back.out(2.5)",
                     }, t);
 
-                    /* Expanding ring */
                     tl.fromTo(ringRefs.current[i],
                         { scale: 1, opacity: 0.8 },
                         { scale: 3.5, opacity: 0, duration: 0.55, ease: "power2.out" },
                         t + 0.05,
                     );
 
-                    /* Label */
                     tl.to(labelRefs.current[i], {
                         opacity: 1, y: 0,
                         duration: 0.4, ease: "power2.out",
                     }, t + 0.05);
 
-                    /* Film-strip card flow: each next card slides in-frame */
                     if (i === 0) {
                         tl.to(cardFrameRef.current, {
                             opacity: 1,
@@ -255,7 +241,6 @@ export default function Discovery() {
             },
         );
 
-        /* ── Idle / ambient animations ──────────────────────────────────── */
         gsap.to(marti2Ref.current, { y: "+=12", x: "+=8", duration: 3.5, repeat: -1, yoyo: true, ease: "sine.inOut" });
         gsap.to(marti1Ref.current, { y: "-=6", rotate: 2, duration: 4, repeat: -1, yoyo: true, ease: "sine.inOut", delay: 0.8 });
 

@@ -31,7 +31,6 @@ export default function Support() {
         gsap.fromTo(laleRef.current, { opacity: 0, x: -40 }, { opacity: 1, x: 0, duration: 1, ease: "power2.out", scrollTrigger: st });
         gsap.fromTo(martiRef.current, { opacity: 0, x: 80 }, { opacity: 1, x: 0, duration: 1.4, ease: "power2.out", delay: 0.4, scrollTrigger: st });
 
-        /* Bull: float up-down + subtle rocking rotation */
         gsap.to(bullRef.current, {
             y: "+=10",
             duration: 4,
@@ -50,7 +49,6 @@ export default function Support() {
             transformOrigin: "bottom center",
         });
 
-        /* Lale-1: gentle sway */
         gsap.to(laleRef.current, {
             rotation: 3,
             duration: 4,
@@ -61,7 +59,6 @@ export default function Support() {
             transformOrigin: "bottom center",
         });
 
-        /* Seagull: slow horizontal drift across upper sky */
         gsap.to(martiRef.current, {
             x: "-=30",
             y: "+=8",
