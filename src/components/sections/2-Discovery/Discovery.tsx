@@ -5,13 +5,109 @@ import dynamic from "next/dynamic";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { CDN, PIN_TIMINGS, LANDMARKS, smoothPath, cardPos } from "./landmarks";
+import { CDN, LANDMARKS } from "./landmarks";
+
+
 
 if (typeof window !== "undefined") {
     gsap.registerPlugin(ScrollTrigger);
 }
 
 const MapBackground = dynamic(() => import("./MapBackground"), { ssr: false });
+
+/* ── Smooth curve builder functions ─────────────────────── */
+function cubicPoint(
+    p0: { x: number; y: number },
+    c1: { x: number; y: number },
+    c2: { x: number; y: number },
+    p3: { x: number; y: number },
+    t: number,
+) {
+    const mt = 1 - t;
+    const mt2 = mt * mt;
+    const t2 = t * t;
+    return {
+        x: mt2 * mt * p0.x + 3 * mt2 * t * c1.x + 3 * mt * t2 * c2.x + t2 * t * p3.x,
+        y: mt2 * mt * p0.y + 3 * mt2 * t * c1.y + 3 * mt * t2 * c2.y + t2 * t * p3.y,
+    };
+}
+
+function curveControls(pts: { x: number; y: number }[], i: number, tension = 1) {
+    const p0 = pts[Math.max(0, i - 1)];
+    const p1 = pts[i];
+    const p2 = pts[i + 1];
+    const p3 = pts[Math.min(pts.length - 1, i + 2)];
+
+    const c1 = {
+        x: p1.x + ((p2.x - p0.x) / 6) * tension,
+        y: p1.y + ((p2.y - p0.y) / 6) * tension,
+    };
+    const c2 = {
+        x: p2.x - ((p3.x - p1.x) / 6) * tension,
+        y: p2.y - ((p3.y - p1.y) / 6) * tension,
+    };
+
+    return { p1, c1, c2, p2 };
+}
+
+/* Smooth route that still passes exactly through every landmark point */
+function routePathThroughPoints(pts: { x: number; y: number }[]) {
+    if (pts.length < 2) return "";
+    let d = `M ${pts[0].x} ${pts[0].y}`;
+
+    for (let i = 0; i < pts.length - 1; i++) {
+        const { c1, c2, p2 } = curveControls(pts, i);
+        d += ` C ${c1.x} ${c1.y} ${c2.x} ${c2.y} ${p2.x} ${p2.y}`;
+    }
+
+    return d;
+}
+
+function pointTimingsFromSegmentDurations(segmentDurations: number[]) {
+    const timings = [0];
+    const total = segmentDurations.reduce((acc, v) => acc + v, 0);
+    if (total === 0) return timings;
+
+    let accum = 0;
+    for (let i = 0; i < segmentDurations.length; i++) {
+        accum += segmentDurations[i];
+        timings.push(accum / total);
+    }
+    return timings;
+}
+
+function pathProgressAtRoutePoints(path: SVGPathElement, pts: { x: number; y: number }[]) {
+    if (pts.length === 0) return [];
+
+    const total = path.getTotalLength();
+    if (total <= 0) return pts.map(() => 0);
+
+    const samples = 1800;
+    const progresses: number[] = [0];
+    let startIndex = 0;
+
+    for (let i = 1; i < pts.length; i++) {
+        let bestIdx = startIndex;
+        let bestDist = Number.POSITIVE_INFINITY;
+
+        for (let s = startIndex; s <= samples; s++) {
+            const l = (s / samples) * total;
+            const p = path.getPointAtLength(l);
+            const dx = p.x - pts[i].x;
+            const dy = p.y - pts[i].y;
+            const d2 = dx * dx + dy * dy;
+            if (d2 < bestDist) {
+                bestDist = d2;
+                bestIdx = s;
+            }
+        }
+
+        startIndex = bestIdx;
+        progresses.push(bestIdx / samples);
+    }
+
+    return progresses;
+}
 
 export default function Discovery() {
     const sectionRef = useRef<HTMLElement>(null);
@@ -22,7 +118,8 @@ export default function Discovery() {
     const pinDotRefs = useRef<(HTMLDivElement | null)[]>([]);
     const ringRefs = useRef<(HTMLDivElement | null)[]>([]);
     const labelRefs = useRef<(HTMLDivElement | null)[]>([]);
-    const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
+    const cardFrameRef = useRef<HTMLDivElement>(null);
+    const cardTrackRef = useRef<HTMLDivElement>(null);
     const marti2Ref = useRef<HTMLDivElement>(null);
     const marti1Ref = useRef<HTMLDivElement>(null);
     const laleLeftRef = useRef<HTMLDivElement>(null);
@@ -47,7 +144,7 @@ export default function Discovery() {
         });
 
         setPinPositions(positions);
-        setRoutePath(smoothPath(positions));
+        setRoutePath(routePathThroughPoints(positions));
         setMapReady(true);
     }, []);
 
@@ -57,23 +154,18 @@ export default function Discovery() {
         /* ── Always hide decoratives / headline on first paint ──────────── */
         gsap.set(headlineRef.current, { opacity: 0, y: 28 });
         gsap.set(subRef.current, { opacity: 0 });
-        gsap.set(ferryRef.current, { x: "115%" });
+        gsap.set(ferryRef.current, { x: "140%" });
         gsap.set([marti2Ref.current, marti1Ref.current], { opacity: 0, y: -15 });
         // Left lale needs to be flipped via GSAP so rotation is also handled by GSAP
         gsap.set(laleLeftRef.current, { scaleX: -1, opacity: 0, y: -30 });
         gsap.set(laleRightRef.current, { opacity: 0, y: -30 });
+        gsap.set(cardFrameRef.current, { opacity: 0, x: -28 });
+        gsap.set(cardTrackRef.current, { xPercent: 0 });
 
         /* Hide pins/cards — refs may still be null before mapReady */
         pinDotRefs.current.forEach(el => { if (el) gsap.set(el, { scale: 0, opacity: 0 }); });
         ringRefs.current.forEach(el => { if (el) gsap.set(el, { scale: 1, opacity: 0 }); });
         labelRefs.current.forEach(el => { if (el) gsap.set(el, { opacity: 0, y: 6 }); });
-        cardRefs.current.forEach((el, i) => {
-            if (el) gsap.set(el, {
-                opacity: 0,
-                x: LANDMARKS[i].cardSide === "right" ? -20 : 20,
-                pointerEvents: "none",
-            });
-        });
 
         /* ── Bail until Leaflet has calculated real pixel positions ─────── */
         if (!mapReady || pinPositions.length === 0 || !routeRef.current) return;
@@ -114,17 +206,40 @@ export default function Discovery() {
                 tl.to(marti2Ref.current, { opacity: 0.75, y: 0, duration: 0.5 }, 0.1);
                 tl.to(marti1Ref.current, { opacity: 0.55, y: 0, duration: 0.5 }, 0.3);
 
-                /* 0.5 ── Ferry */
-                tl.to(ferryRef.current, { x: "-50%", ease: "none", duration: 8 }, 0.5);
+                /* Ferry is independent so other timeline animations keep their speed */
+                gsap.to(ferryRef.current, {
+                    x: "-150%",
+                    ease: "none",
+                    scrollTrigger: {
+                        trigger: sectionRef.current,
+                        start: "top top",
+                        end: scrollDist,
+                        scrub: 1.2,
+                        invalidateOnRefresh: true,
+                    },
+                });
 
-                /* 0.8 ── Route draws itself */
-                tl.to(path, { strokeDashoffset: 0, ease: "none", duration: 5 }, 0.8);
+                /* 0.8 ── Route draws with segment timings */
+                const routeStart = 0.8;
+                const segmentDurations = [25, 25, 18, 15];
+                const pointTimings = pointTimingsFromSegmentDurations(segmentDurations);
+                const routeProgressAtPoints = pathProgressAtRoutePoints(path, pinPositions);
+
+                let segStart = routeStart;
+                for (let seg = 0; seg < segmentDurations.length; seg++) {
+                    const nextProgress = routeProgressAtPoints[seg + 1] ?? 1;
+                    tl.to(path, {
+                        strokeDashoffset: length * (1 - nextProgress),
+                        ease: "none",
+                        duration: segmentDurations[seg],
+                    }, segStart);
+                    segStart += segmentDurations[seg];
+                }
 
                 /* ── Per-landmark reveals ──────────────────────────────── */
+                const totalDuration = segmentDurations.reduce((a, b) => a + b, 0);
                 LANDMARKS.forEach((lm, i) => {
-                    const t = PIN_TIMINGS[i];
-                    const prevCard = i > 0 ? cardRefs.current[i - 1] : null;
-                    const prevLm = i > 0 ? LANDMARKS[i - 1] : null;
+                    const t = routeStart + totalDuration * (pointTimings[i] ?? 0);
 
                     /* Pin dot pop */
                     tl.to(pinDotRefs.current[i], {
@@ -143,23 +258,23 @@ export default function Discovery() {
                     tl.to(labelRefs.current[i], {
                         opacity: 1, y: 0,
                         duration: 0.4, ease: "power2.out",
-                    }, t + 0.2);
+                    }, t + 0.05);
 
-                    /* Previous card exits toward its own side */
-                    if (prevCard && prevLm) {
-                        tl.to(prevCard, {
-                            opacity: 0,
-                            x: prevLm.cardSide === "right" ? 16 : -16,
-                            duration: 0.3, ease: "power2.in",
-                        }, t - 0.1);
+                    /* Film-strip card flow: each next card slides in-frame */
+                    if (i === 0) {
+                        tl.to(cardFrameRef.current, {
+                            opacity: 1,
+                            x: 0,
+                            duration: 0.35,
+                            ease: "power2.out",
+                        }, t);
                     }
 
-                    /* Current card slides in */
-                    tl.to(cardRefs.current[i], {
-                        opacity: 1, x: 0,
-                        duration: 0.55, ease: "power2.out",
-                        pointerEvents: "auto",
-                    }, t + 0.2);
+                    tl.to(cardTrackRef.current, {
+                        xPercent: -100 * i,
+                        duration: 5,
+                        ease: "power2.out",
+                    }, t);
                 });
 
                 return () => ctx.revert();
@@ -319,12 +434,11 @@ export default function Discovery() {
                 </svg>
             )}
 
-            {/* ── z:15/18  Pin markers + info cards ────────────────────────
+            {/* ── z:15  Pin markers ────────────────────────────────────────
                 All positioned using Leaflet's latLngToContainerPoint() values.
                 Pin dots are exactly over the correct geographic tile locations.  */}
             {positionsReady && LANDMARKS.map((lm, i) => {
                 const pos = pinPositions[i];
-                const card = cardPos(pos, lm);
 
                 return (
                     <Fragment key={lm.id}>
@@ -377,64 +491,64 @@ export default function Discovery() {
                                 </span>
                             </div>
                         </div>
-
-                        {/* Info card — positioned next to the pin */}
-                        <div
-                            ref={el => { cardRefs.current[i] = el; }}
-                            className="absolute pointer-events-none"
-                            style={{
-                                left: card.x,
-                                top: card.y,
-                                width: 200,
-                                zIndex: 18,
-                            }}
-                        >
-                            <div
-                                className="rounded-xl overflow-hidden"
-                                style={{
-                                    background: "rgba(2,10,24,0.85)",
-                                    border: `1px solid ${lm.accent}55`,
-                                    backdropFilter: "blur(14px)",
-                                }}
-                            >
-
-                                {/* Landmark image */}
-                                <div className="w-full overflow-hidden" style={{ height: 100 }}>
-                                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                                    <img
-                                        src={lm.image}
-                                        alt={lm.imageAlt}
-                                        className="w-full h-full object-contain object-bottom"
-                                        style={{ filter: "drop-shadow(0 2px 8px rgba(0,0,0,0.6))" }}
-                                    />
-                                </div>
-
-                                {/* Text */}
-                                <div className="px-3 pb-3 pt-2">
-                                    <p
-                                        className="font-semibold tracking-[0.2em] uppercase mb-0.5"
-                                        style={{ color: lm.accent, fontSize: "0.52rem" }}
-                                    >
-                                        {lm.sublabel}
-                                    </p>
-                                    <h3
-                                        className="text-white font-bold leading-tight mb-1"
-                                        style={{
-                                            fontFamily: "var(--font-kelson-sans), Arial, sans-serif",
-                                            fontSize: "clamp(0.78rem, 1.1vw, 0.9rem)",
-                                        }}
-                                    >
-                                        {lm.label}
-                                    </h3>
-                                    <p style={{ color: "rgba(255,255,255,0.84)", fontSize: "0.59rem", lineHeight: 1.4 }}>
-                                        {lm.description}
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
                     </Fragment>
                 );
             })}
+
+            {/* ── z:40  Film-strip info cards in fixed frame ────────────── */}
+            <div
+                ref={cardFrameRef}
+                className="absolute left-[6%] bottom-[12%] pointer-events-none overflow-hidden rounded-2xl"
+                style={{
+                    width: "clamp(230px, 28vw, 340px)",
+                    zIndex: 40,
+                    background: "rgba(2,10,24,0.85)",
+                    backdropFilter: "blur(14px)",
+                }}
+            >
+                <div ref={cardTrackRef} className="flex w-full">
+                    {LANDMARKS.map((lm) => (
+                        <div
+                            key={`film-card-${lm.id}`}
+                            className="shrink-0"
+                            style={{ width: "100%", border: `1px solid ${lm.accent}55` }}
+                        >
+                            <div style={{ height: 3, background: lm.accent }} />
+
+                            <div className="w-full overflow-hidden" style={{ height: 110 }}>
+                                {/* eslint-disable-next-line @next/next/no-img-element */}
+                                <img
+                                    src={lm.image}
+                                    alt={lm.imageAlt}
+                                    className="w-full h-full object-contain object-bottom"
+                                    style={{ filter: "drop-shadow(0 2px 8px rgba(0,0,0,0.6))" }}
+                                />
+                            </div>
+
+                            <div className="px-3 pb-3 pt-2">
+                                <p
+                                    className="font-semibold tracking-[0.2em] uppercase mb-0.5"
+                                    style={{ color: lm.accent, fontSize: "0.52rem" }}
+                                >
+                                    {lm.sublabel}
+                                </p>
+                                <h3
+                                    className="text-white font-bold leading-tight mb-1"
+                                    style={{
+                                        fontFamily: "var(--font-kelson-sans), Arial, sans-serif",
+                                        fontSize: "clamp(0.78rem, 1.1vw, 0.9rem)",
+                                    }}
+                                >
+                                    {lm.label}
+                                </h3>
+                                <p style={{ color: "rgba(255,255,255,0.84)", fontSize: "0.59rem", lineHeight: 1.4 }}>
+                                    {lm.description}
+                                </p>
+                            </div>
+                        </div>
+                    ))}
+                </div>
+            </div>
 
             {/* ── z:10  Ferry crossing the Bosphorus ──────────────────────── */}
             <div
