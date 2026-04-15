@@ -12,14 +12,14 @@ if (typeof window !== "undefined") {
 const CDN = "https://cdn.jsdelivr.net/gh/ESNTurkiye/esn-assets@main/istanbul";
 
 /**
- * Depth layers — back-to-front (ascending zIndex = closer to viewer).
+ * Depth layers back-to-front (ascending zIndex = closer to viewer).
  * yEntry:  how many px below final position the monument starts (rise-in)
  * yScroll: how many px the element moves UP while user scrolls through section
- *          — larger value = closer layer = more parallax movement
+ *          larger value = closer layer = more parallax movement
  * floatAmp: idle oscillation amplitude in px
  */
 const MONUMENTS = [
-    // Back layer — Blue Mosque, centred, barely moves (deep background anchor)
+    // Back layer Blue Mosque, centred, barely moves (deep background anchor)
     {
         src: "ayasofya.webp",
         alt: "Blue Mosque",
@@ -29,11 +29,11 @@ const MONUMENTS = [
         zIndex: 2,
         bottom: "0%",
         yEntry: 160,
-        yScroll: 18,   // almost stationary — far-background feel
+        yScroll: 18,   // almost stationary far-background feel
         delay: 0.12,
         floatAmp: 5,
     },
-    // Left foreground — Galata Tower, very fast parallax
+    // Left foreground Galata Tower, very fast parallax
     {
         src: "galata-kulesi.webp",
         alt: "Galata Tower",
@@ -47,7 +47,7 @@ const MONUMENTS = [
         delay: 0,
         floatAmp: 11,
     },
-    // Right mid — Maiden's Tower, fast parallax
+    // Right mid Maiden's Tower, fast parallax
     {
         src: "kiz-kulesi-2.webp",
         alt: "Maiden's Tower",
@@ -174,7 +174,7 @@ export default function SkylineReveal() {
             scrub: 0.6,
         };
 
-        // Bird 1 — appears above Galata Tower area, banks nose-down on scroll
+        // Bird 1 appears above Galata Tower area, banks nose-down on scroll
         if (bird1Ref.current) {
             // Entry fade-in
             gsap.fromTo(bird1Ref.current,
@@ -210,7 +210,7 @@ export default function SkylineReveal() {
             });
         }
 
-        // Bird 2 — appears above Kız Kulesi area, banks in opposite direction
+        // Bird 2 appears above Kız Kulesi area, banks in opposite direction
         if (bird2Ref.current) {
             // Entry fade-in while preserving mirrored orientation.
             gsap.fromTo(bird2Ref.current,
@@ -288,7 +288,7 @@ export default function SkylineReveal() {
                 }}
             />
 
-            {/* ── Top fade — blends with section above ─────────────────── */}
+            {/* ── Top fade blends with section above ─────────────────── */}
             <div
                 className="absolute top-0 left-0 right-0 pointer-events-none"
                 style={{
@@ -342,7 +342,7 @@ export default function SkylineReveal() {
                 </div>
             ))}
 
-            {/* ── Seagull 1 — fixed position above Galata Tower, scroll-rotates ── */}
+            {/* ── Seagull 1 fixed position above Galata Tower, scroll-rotates ── */}
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
                 ref={bird1Ref}
@@ -360,7 +360,7 @@ export default function SkylineReveal() {
                 }}
             />
 
-            {/* ── Seagull 2 — fixed position above Kız Kulesi, scroll-rotates ── */}
+            {/* ── Seagull 2 fixed position above Kız Kulesi, scroll-rotates ── */}
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
                 ref={bird2Ref}

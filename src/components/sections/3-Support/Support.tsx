@@ -18,7 +18,6 @@ export default function Support() {
     const headlineRef = useRef<HTMLDivElement>(null);
     const bullRef = useRef<HTMLDivElement>(null);
     const laleRef = useRef<HTMLDivElement>(null);
-    const lale2Ref = useRef<HTMLDivElement>(null);
     const martiRef = useRef<HTMLDivElement>(null);
 
     useGSAP(() => {
@@ -29,8 +28,7 @@ export default function Support() {
         gsap.fromTo(headlineRef.current, { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.9, ease: "power2.out", scrollTrigger: st });
         gsap.fromTo(bullRef.current, { opacity: 0, x: 60 }, { opacity: 1, x: 0, duration: 1.1, ease: "power2.out", scrollTrigger: st });
         gsap.fromTo(laleRef.current, { opacity: 0, x: -40 }, { opacity: 1, x: 0, duration: 1, ease: "power2.out", scrollTrigger: st });
-        gsap.fromTo(lale2Ref.current, { opacity: 0, y: 50 }, { opacity: 1, y: 0, duration: 1.1, ease: "power2.out", delay: 0.2, scrollTrigger: st });
-        gsap.fromTo(martiRef.current, { opacity: 0, x: 80 }, { opacity: 0.22, x: 0, duration: 1.4, ease: "power2.out", delay: 0.4, scrollTrigger: st });
+        gsap.fromTo(martiRef.current, { opacity: 0, x: 80 }, { opacity: 1, x: 0, duration: 1.4, ease: "power2.out", delay: 0.4, scrollTrigger: st });
 
         /* Bull: float up-down + subtle rocking rotation */
         gsap.to(bullRef.current, {
@@ -62,17 +60,6 @@ export default function Support() {
             transformOrigin: "bottom center",
         });
 
-        /* Lale-2: gentle sway (opposite phase) */
-        gsap.to(lale2Ref.current, {
-            rotation: -3,
-            duration: 4.5,
-            repeat: -1,
-            yoyo: true,
-            ease: "sine.inOut",
-            delay: 1.2,
-            transformOrigin: "bottom center",
-        });
-
         /* Seagull: slow horizontal drift across upper sky */
         gsap.to(martiRef.current, {
             x: "-=30",
@@ -100,44 +87,34 @@ export default function Support() {
                 }}
             />
 
-            {/* Seagull — upper right, background depth */}
+            {/* Seagull upper right, background depth */}
             <div
                 ref={martiRef}
-                className="absolute right-[8%] top-[6%] w-[18%] sm:w-[13%] max-w-[180px] pointer-events-none opacity-0"
+                className="absolute right-[8%] top-[6%] w-[22%] sm:w-[16%] max-w-[230px] pointer-events-none opacity-0"
                 style={{ zIndex: 1 }}
             >
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={`${CDN}/marti-2.webp`} alt="" className="w-full h-auto" />
+                <img src={`${CDN}/marti-2.webp`} alt="" className="w-full h-auto" loading="lazy" decoding="async" />
             </div>
 
-            {/* Lale-2 (golden tulips) — bottom right, behind bull */}
-            <div
-                ref={lale2Ref}
-                className="absolute right-[26%] sm:right-[24%] bottom-0 w-[18%] sm:w-[14%] max-w-[200px] pointer-events-none opacity-0"
-                style={{ zIndex: 1 }}
-            >
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={`${CDN}/lale-2.webp`} alt="" className="w-full h-auto" />
-            </div>
-
-            {/* Bull cutout — bottom right */}
+            {/* Bull cutout bottom right */}
             <div
                 ref={bullRef}
                 className="absolute right-0 bottom-0 w-[35%] sm:w-[28%] max-w-[400px] opacity-0 pointer-events-none"
                 style={{ zIndex: 2 }}
             >
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={`${CDN}/boga-heykeli.webp`} alt="Kadıköy Bull Statue" className="w-full h-auto" />
+                <img src={`${CDN}/boga-heykeli.webp`} alt="Kadıköy Bull Statue" className="w-full h-auto" loading="lazy" decoding="async" />
             </div>
 
-            {/* Lale-1 (pink tulips) — bottom left */}
+            {/* Lale-1 (pink tulips) bottom left */}
             <div
                 ref={laleRef}
-                className="absolute left-0 bottom-0 w-[18%] sm:w-[14%] max-w-[220px] pointer-events-none"
+                className="absolute left-0 bottom-0 w-[26%] sm:w-[18%] max-w-[300px] pointer-events-none"
                 style={{ zIndex: 2, opacity: 0 }}
             >
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={`${CDN}/lale-1.webp`} alt="" className="w-full h-auto" />
+                <img src={`${CDN}/lale-1.webp`} alt="" className="w-full h-auto" loading="lazy" decoding="async" />
             </div>
 
             <div className="relative z-10 flex flex-col w-full">
@@ -147,7 +124,7 @@ export default function Support() {
                         <span style={{ color: "#7ac143" }}>One Welcome.</span>
                     </h2>
                     <p className="mt-4 text-white/60 text-[clamp(0.8rem,1.3vw,1rem)] max-w-[520px] mx-auto leading-relaxed">
-                        From your first bus ride to your last goodbye, 500+ volunteers in 18 languages have your back — in your language, at your pace, on your terms.
+                        From your first bus ride to your last goodbye, 500+ volunteers in 18 languages have your back in your language, at your pace, on your terms.
                     </p>
                 </div>
 

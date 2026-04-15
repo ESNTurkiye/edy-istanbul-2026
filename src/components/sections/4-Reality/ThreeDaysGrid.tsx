@@ -9,26 +9,38 @@ if (typeof window !== "undefined") {
     gsap.registerPlugin(ScrollTrigger);
 }
 
+const CDN = "https://cdn.jsdelivr.net/gh/ESNTurkiye/esn-assets@main/istanbul";
+
 const THREE_DAYS = [
     {
         day: "Day 1",
         title: "The Historic Peninsula",
         items: ["Topkapı Palace", "Sultanahmet Mosque", "Basilica Cistern", "Egyptian Bazaar", "Bosphorus sunset cruise"],
         accent: "#f47b20",
+        image: "ayasofya.webp",
+        imageObjectPosition: "center 42%",
+        mediaAspectClass: "aspect-[16/10]",
     },
     {
         day: "Day 2",
         title: "Beyoğlu & Modern İstanbul",
         items: ["İstiklal Avenue", "Galata Tower", "Pera Museum", "Çukurcuma antiques", "Karaköy bars & galleries"],
         accent: "#00aeef",
+        image: "galata-kulesi.webp",
+        imageObjectPosition: "center 40%",
+        mediaAspectClass: "aspect-[16/10]",
     },
     {
         day: "Day 3",
         title: "Asian Soul",
         items: ["Kadıköy breakfast", "Moda waterfront", "Haydarpaşa Station", "Princes' Island ferry", "Return via Bosphorus at dusk"],
         accent: "#ec008c",
+        image: "boga-heykeli.webp",
+        /*9:16 asset in a wide slot: taller frame + anchor to lower third so the bull stays in frame */
+        imageObjectPosition: "center 92%",
+        mediaAspectClass: "aspect-[10/12] md:aspect-[9/11]",
     },
-];
+] as const;
 
 export default function ThreeDaysGrid() {
     const containerRef = useRef<HTMLDivElement>(null);
@@ -62,22 +74,30 @@ export default function ThreeDaysGrid() {
                     >
                         3 Days in Istanbul
                     </h2>
-                    <p className="mt-3 text-white/45 max-w-[440px] mx-auto" style={{ fontSize: "clamp(0.8rem, 1.2vw, 0.92rem)" }}>
-                        Three days. Three personalities. One city that still won&apos;t feel finished.
-                    </p>
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                     {THREE_DAYS.map((day) => (
                         <div
                             key={day.day}
-                            className="rounded-2xl p-6"
+                            className="rounded-2xl p-6 overflow-hidden"
                             style={{
                                 background: "rgba(255,255,255,0.05)",
                                 border: `1px solid ${day.accent}30`,
                                 backdropFilter: "blur(6px)",
                             }}
                         >
+                            <div className={`-mx-6 -mt-6 mb-4 overflow-hidden ${day.mediaAspectClass}`}>
+                                {/* eslint-disable-next-line @next/next/no-img-element */}
+                                <img
+                                    src={`${CDN}/${day.image}`}
+                                    alt=""
+                                    className="h-full w-full object-cover"
+                                    style={{ objectPosition: day.imageObjectPosition }}
+                                    loading="lazy"
+                                    decoding="async"
+                                />
+                            </div>
                             <div
                                 className="text-[0.62rem] font-semibold tracking-[0.2em] uppercase mb-2"
                                 style={{ color: day.accent }}

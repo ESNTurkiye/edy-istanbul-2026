@@ -32,7 +32,7 @@ export interface ParallaxItem {
  *   - NO vertical (Y-axis) translation during scroll.
  *   - The continuous idle rotation (-3°→+3°) is handled via CSS `.sway-*` classes,
  *     so it runs independently even while scrolling.
- *   - `scrub: true` makes every animation bidirectional — scrolling back replays it.
+ *   - `scrub: true` makes every animation bidirectional scrolling back replays it.
  */
 export function useHeroParallax(
     containerRef: RefObject<HTMLElement | null>,

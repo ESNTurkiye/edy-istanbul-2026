@@ -10,7 +10,7 @@ export interface Landmark {
     image: string;
     imageAlt: string;
     accent: string;
-    /** Real GPS coordinates — used by Leaflet for exact pin placement */
+    /** Real GPS coordinates used by Leaflet for exact pin placement */
     lat: number;
     lng: number;
     /**

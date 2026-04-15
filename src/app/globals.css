@@ -104,7 +104,7 @@
     50%       { rotate:  3deg; }
 }
 
-/* Variant durations for natural staggering — applied as className */
+/* Variant durations for natural staggering applied as className */
 .sway-a { animation: sway-idle 11s ease-in-out infinite; }
 .sway-b { animation: sway-idle  9s ease-in-out infinite 0.7s; }
 .sway-c { animation: sway-idle 13s ease-in-out infinite 1.4s; }
@@ -125,7 +125,7 @@ body {
     font-family: var(--font-kelson-sans), var(--font-lato), Arial, sans-serif;
 }
 
-/* ── Focus-visible — keyboard navigation baseline ───────────── */
+/* ── Focus-visible keyboard navigation baseline ───────────── */
 :where(a, button):focus-visible {
     outline: 2px solid white;
     outline-offset: 3px;
@@ -195,4 +195,28 @@ body {
     html {
         scroll-behavior: auto;
     }
+}
+
+/* ── Hero section full-width background ──────────────────── */
+#hero {
+    background-color: #00aeef;
+}
+
+/* ── Scrollbar ───────────────────────────────────────────── */
+::-webkit-scrollbar {
+    width: 6px;
+}
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.35);
+    border-radius: 999px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.6);
+}
+* {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255, 255, 255, 0.35) transparent;
 }

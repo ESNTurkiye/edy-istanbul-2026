@@ -18,9 +18,8 @@ export default function Action() {
     const headlineRef = useRef<HTMLDivElement>(null);
     const ctaRef = useRef<HTMLDivElement>(null);
     const galataRef = useRef<HTMLDivElement>(null);
-    const lale1Ref = useRef<HTMLDivElement>(null);
-    const lale2Ref = useRef<HTMLDivElement>(null);
     const kiz1Ref = useRef<HTMLDivElement>(null);
+    const ayasofyaRef = useRef<HTMLDivElement>(null);
 
     useGSAP(() => {
         if (!sectionRef.current || !bgRef.current) return;
@@ -45,18 +44,16 @@ export default function Action() {
 
         gsap.fromTo(headlineRef.current, { opacity: 0, y: 50 }, { opacity: 1, y: 0, duration: 1, ease: "power2.out", scrollTrigger: st });
         gsap.fromTo(ctaRef.current, { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.9, delay: 0.4, ease: "power2.out", scrollTrigger: st });
+
+        // Silhouettes rise from below
         gsap.fromTo(galataRef.current, { opacity: 0, y: 80 }, { opacity: 1, y: 0, duration: 1.2, delay: 0.1, ease: "power3.out", scrollTrigger: st });
-        gsap.fromTo(kiz1Ref.current, { opacity: 0, y: 60 }, { opacity: 1, y: 0, duration: 1, delay: 0.25, ease: "power3.out", scrollTrigger: st });
-        gsap.fromTo(lale1Ref.current, { opacity: 0, x: -40 }, { opacity: 1, x: 0, duration: 0.9, delay: 0.5, ease: "power2.out", scrollTrigger: st });
-        gsap.fromTo(lale2Ref.current, { opacity: 0, x: 40 }, { opacity: 1, x: 0, duration: 0.9, delay: 0.6, ease: "power2.out", scrollTrigger: st });
+        gsap.fromTo(kiz1Ref.current, { opacity: 0, y: 60 }, { opacity: 1, y: 0, duration: 1, delay: 0.2, ease: "power3.out", scrollTrigger: st });
+        gsap.fromTo(ayasofyaRef.current, { opacity: 0, y: 70 }, { opacity: 1, y: 0, duration: 1.1, delay: 0.15, ease: "power3.out", scrollTrigger: st });
 
-        // Idle float on Galata
-        gsap.to(galataRef.current, { y: "+=10", duration: 5, repeat: -1, yoyo: true, ease: "sine.inOut" });
-        gsap.to(kiz1Ref.current, { y: "-=8", duration: 4, repeat: -1, yoyo: true, ease: "sine.inOut", delay: 1.2 });
-
-        // Tulips gentle sway
-        gsap.to(lale1Ref.current, { rotation: "+=5", y: "+=6", duration: 3.5, repeat: -1, yoyo: true, ease: "sine.inOut" });
-        gsap.to(lale2Ref.current, { rotation: "-=5", y: "+=6", duration: 4, repeat: -1, yoyo: true, ease: "sine.inOut", delay: 0.8 });
+        // Idle float on landmarks
+        gsap.to(galataRef.current, { y: "+=8", duration: 5, repeat: -1, yoyo: true, ease: "sine.inOut" });
+        gsap.to(kiz1Ref.current, { y: "-=6", duration: 4.5, repeat: -1, yoyo: true, ease: "sine.inOut", delay: 0.8 });
+        gsap.to(ayasofyaRef.current, { y: "+=5", duration: 6, repeat: -1, yoyo: true, ease: "sine.inOut", delay: 1.2 });
     }, { scope: sectionRef });
 
     return (
@@ -84,41 +81,34 @@ export default function Action() {
                 }}
             />
 
-            {/* ── Galata Tower silhouette (right) ── */}
-            <div
-                ref={galataRef}
-                className="absolute bottom-0 right-[2%] w-[28%] sm:w-[22%] max-w-[320px] opacity-0 pointer-events-none"
-                style={{ zIndex: 3 }}
-            >
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={`${CDN}/galata-kulesi.webp`} alt="Galata Tower" className="w-full h-auto" style={{ filter: "brightness(0.35) sepia(0) saturate(0)" }} />
-            </div>
-
-            {/* ── Maiden's Tower silhouette (left) ── */}
+            {/* ── Maiden's Tower silhouette far left ── */}
             <div
                 ref={kiz1Ref}
-                className="absolute bottom-0 left-[1%] w-[18%] sm:w-[14%] max-w-[200px] opacity-0 pointer-events-none"
+                className="absolute bottom-0 left-0 w-[20%] sm:w-[13%] max-w-[180px] opacity-0 pointer-events-none"
                 style={{ zIndex: 3 }}
             >
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={`${CDN}/kiz-kulesi-1.webp`} alt="" className="w-full h-auto" style={{ filter: "brightness(0.3) saturate(0)" }} />
+                <img src={`${CDN}/kiz-kulesi-1.webp`} alt="" className="w-full h-auto" style={{ filter: "brightness(0) saturate(0)" }} loading="lazy" decoding="async" />
             </div>
 
+            {/* ── Blue Mosque silhouette center ── */}
             <div
-                ref={lale1Ref}
-                className="absolute bottom-[4%] left-[8%] sm:left-[16%] w-[12%] max-w-[150px] opacity-0 pointer-events-none"
-                style={{ zIndex: 5 }}
+                ref={ayasofyaRef}
+                className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[40%] sm:w-[28%] max-w-[400px] opacity-0 pointer-events-none"
+                style={{ zIndex: 3 }}
             >
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={`${CDN}/lale-1.webp`} alt="" className="w-full h-auto" />
+                <img src={`${CDN}/ayasofya.webp`} alt="" className="w-full h-auto" style={{ filter: "brightness(0) saturate(0)" }} loading="lazy" decoding="async" />
             </div>
+
+            {/* ── Galata Tower silhouette far right ── */}
             <div
-                ref={lale2Ref}
-                className="absolute bottom-[4%] right-[8%] sm:right-[16%] w-[12%] max-w-[150px] opacity-0 pointer-events-none"
-                style={{ zIndex: 5 }}
+                ref={galataRef}
+                className="absolute bottom-0 right-0 w-[26%] sm:w-[18%] max-w-[260px] opacity-0 pointer-events-none"
+                style={{ zIndex: 3 }}
             >
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={`${CDN}/lale-2.webp`} alt="" className="w-full h-auto" />
+                <img src={`${CDN}/galata-kulesi.webp`} alt="Galata Tower" className="w-full h-auto" style={{ filter: "brightness(0) saturate(0)" }} loading="lazy" decoding="async" />
             </div>
 
             <div className="relative z-10 flex flex-col items-center text-center px-6 py-20">

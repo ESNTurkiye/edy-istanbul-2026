@@ -122,8 +122,6 @@ export default function Discovery() {
     const cardTrackRef = useRef<HTMLDivElement>(null);
     const marti2Ref = useRef<HTMLDivElement>(null);
     const marti1Ref = useRef<HTMLDivElement>(null);
-    const laleLeftRef = useRef<HTMLDivElement>(null);
-    const laleRightRef = useRef<HTMLDivElement>(null);
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const leafletMap = useRef<any>(null);
@@ -137,7 +135,7 @@ export default function Discovery() {
         leafletMap.current = map;
         map.invalidateSize();
 
-        // Use Leaflet's own projection — pins will sit exactly on the map tiles
+        // Use Leaflet's own projection pins will sit exactly on the map tiles
         const positions = LANDMARKS.map(lm => {
             const pt = map.latLngToContainerPoint([lm.lat, lm.lng]);
             return { x: Math.round(pt.x), y: Math.round(pt.y) };
@@ -155,14 +153,12 @@ export default function Discovery() {
         gsap.set(headlineRef.current, { opacity: 0, y: 28 });
         gsap.set(subRef.current, { opacity: 0 });
         gsap.set(ferryRef.current, { x: "140%" });
-        gsap.set([marti2Ref.current, marti1Ref.current], { opacity: 0, y: -15 });
-        // Left lale needs to be flipped via GSAP so rotation is also handled by GSAP
-        gsap.set(laleLeftRef.current, { scaleX: -1, opacity: 0, y: -30 });
-        gsap.set(laleRightRef.current, { opacity: 0, y: -30 });
+        gsap.set(marti2Ref.current, { opacity: 0, y: -15 });
+        gsap.set(marti1Ref.current, { opacity: 0, y: -15, xPercent: -50 });
         gsap.set(cardFrameRef.current, { opacity: 0, x: -28 });
         gsap.set(cardTrackRef.current, { xPercent: 0 });
 
-        /* Hide pins/cards — refs may still be null before mapReady */
+        /* Hide pins/cards refs may still be null before mapReady */
         pinDotRefs.current.forEach(el => { if (el) gsap.set(el, { scale: 0, opacity: 0 }); });
         ringRefs.current.forEach(el => { if (el) gsap.set(el, { scale: 1, opacity: 0 }); });
         labelRefs.current.forEach(el => { if (el) gsap.set(el, { opacity: 0, y: 6 }); });
@@ -198,13 +194,9 @@ export default function Discovery() {
                 tl.to(headlineRef.current, { opacity: 1, y: 0, duration: 0.6, ease: "power2.out" }, 0);
                 tl.to(subRef.current, { opacity: 1, duration: 0.5 }, 0.3);
 
-                /* 0 ── Lale corner decorations bloom in from top */
-                tl.to(laleLeftRef.current, { opacity: 1, y: 0, duration: 0.9, ease: "power2.out" }, 0);
-                tl.to(laleRightRef.current, { opacity: 1, y: 0, duration: 0.9, ease: "power2.out" }, 0.15);
-
                 /* 0 ── Seagulls */
-                tl.to(marti2Ref.current, { opacity: 0.75, y: 0, duration: 0.5 }, 0.1);
-                tl.to(marti1Ref.current, { opacity: 0.55, y: 0, duration: 0.5 }, 0.3);
+                tl.to(marti2Ref.current, { opacity: 1, y: 0, duration: 0.55, ease: "power2.out" }, 0.05);
+                tl.to(marti1Ref.current, { opacity: 0.95, y: 0, duration: 0.55, ease: "power2.out" }, 0.2);
 
                 /* Ferry is independent so other timeline animations keep their speed */
                 gsap.to(ferryRef.current, {
@@ -282,11 +274,8 @@ export default function Discovery() {
         );
 
         /* ── Idle / ambient animations ──────────────────────────────────── */
-        gsap.to(marti2Ref.current, { y: "+=10", x: "+=6", duration: 3.5, repeat: -1, yoyo: true, ease: "sine.inOut" });
-        gsap.to(marti1Ref.current, { y: "-=4", rotate: 1.5, duration: 4, repeat: -1, yoyo: true, ease: "sine.inOut", delay: 0.8 });
-        // Lale sway — transformOrigin at the top so petals swing naturally
-        gsap.to(laleLeftRef.current, { rotate: -1.8, scaleX: -1, duration: 4.5, repeat: -1, yoyo: true, ease: "sine.inOut", transformOrigin: "top right" });
-        gsap.to(laleRightRef.current, { rotate: 1.8, duration: 4.2, repeat: -1, yoyo: true, ease: "sine.inOut", transformOrigin: "top left", delay: 0.4 });
+        gsap.to(marti2Ref.current, { y: "+=12", x: "+=8", duration: 3.5, repeat: -1, yoyo: true, ease: "sine.inOut" });
+        gsap.to(marti1Ref.current, { y: "-=6", rotate: 2, duration: 4, repeat: -1, yoyo: true, ease: "sine.inOut", delay: 0.8 });
 
         return () => mm.revert();
 
@@ -300,12 +289,12 @@ export default function Discovery() {
             className="relative w-full min-h-screen overflow-hidden"
             style={{ background: "#07213b" }}
         >
-            {/* ── z:1  Leaflet map — CartoDB dark tiles, fixed at zoom 13 ── */}
+            {/* ── z:1  Leaflet map CartoDB dark tiles, fixed at zoom 13 ── */}
             <div className="absolute inset-0" style={{ zIndex: 1 }}>
                 <MapBackground onMapReady={handleMapReady} />
             </div>
 
-            {/* ── z:2  Light veil — preserves map readability ──────────────── */}
+            {/* ── z:2  Light veil preserves map readability ──────────────── */}
             <div
                 className="absolute inset-0 pointer-events-none"
                 style={{
@@ -316,36 +305,6 @@ export default function Discovery() {
                     ].join(", "),
                 }}
             />
-
-            {/* ── z:10  lale-2 top-left (desktop — visible throughout scroll) */}
-            {/*
-                GSAP sets scaleX(-1) to flip; the outer div is positioned at
-                the corner. Stays visible the entire pinned scroll duration.
-            */}
-            <div
-                ref={laleLeftRef}
-                className="hidden md:block absolute top-0 left-0 pointer-events-none"
-                style={{
-                    zIndex: 10,
-                    width: "clamp(180px, 22vw, 300px)",
-                }}
-            >
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={`${CDN}/lale-2.webp`} alt="" className="w-full h-auto" />
-            </div>
-
-            {/* ── z:10  lale-2 top-right (desktop) ───────────────────────── */}
-            <div
-                ref={laleRightRef}
-                className="hidden md:block absolute top-0 right-0 pointer-events-none"
-                style={{
-                    zIndex: 10,
-                    width: "clamp(180px, 22vw, 300px)",
-                }}
-            >
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={`${CDN}/lale-2.webp`} alt="" className="w-full h-auto" />
-            </div>
 
             {/* ── z:20  Headline ──────────────────────────────────────────── */}
             <div
@@ -378,27 +337,21 @@ export default function Discovery() {
                 </p>
             </div>
 
-            {/* ── z:10  marti-2 flying seagull ────────────────────────────── */}
+            {/* ── z:17  marti-2 flying seagull above map/route, sized for visibility */}
             <div
                 ref={marti2Ref}
-                className="absolute top-[11%] right-[5%] w-[7%] max-w-[88px] pointer-events-none"
-                style={{ zIndex: 10 }}
+                className="absolute top-[7%] right-[2%] sm:top-[9%] sm:right-[4%] pointer-events-none"
+                style={{
+                    zIndex: 17,
+                    width: "clamp(100px, 16vw, 200px)",
+                    filter: "drop-shadow(0 4px 14px rgba(0,0,0,0.55)) drop-shadow(0 0 1px rgba(255,255,255,0.35))",
+                }}
             >
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={`${CDN}/marti-2.webp`} alt="" className="w-full h-auto" />
+                <img src={`${CDN}/marti-2.webp`} alt="" className="w-full h-auto" loading="lazy" decoding="async" />
             </div>
 
-            {/* ── z:10  marti-1 standing seagull, bottom-right ────────────── */}
-            <div
-                ref={marti1Ref}
-                className="absolute bottom-[4%] right-[1.5%] w-[4%] max-w-[50px] pointer-events-none"
-                style={{ zIndex: 10 }}
-            >
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={`${CDN}/marti-1.webp`} alt="" className="w-full h-auto" />
-            </div>
-
-            {/* ── z:12  SVG route — pixel-space coordinates from Leaflet ─────
+            {/* ── z:12  SVG route pixel-space coordinates from Leaflet ─────
                 No viewBox: SVG user units = CSS pixels, matching containerPoint.
                 overflow-visible allows the path to extend outside the rect.   */}
             {routePath && (
@@ -550,19 +503,30 @@ export default function Discovery() {
                 </div>
             </div>
 
-            {/* ── z:10  Ferry crossing the Bosphorus ──────────────────────── */}
+            {/* ── z:10  Ferry + hitchhiking seagull (marti-1 moves with ferry) ─ */}
             <div
                 ref={ferryRef}
-                className="absolute bottom-[7%] right-0 w-[36%] sm:w-[28%] max-w-[460px] opacity-55 pointer-events-none"
+                className="absolute bottom-[7%] right-0 w-[36%] sm:w-[28%] max-w-[460px] pointer-events-none"
                 style={{ zIndex: 10 }}
             >
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                     src={`${CDN}/feribot-yatay.webp`}
                     alt="Istanbul ferry"
-                    className="w-full h-auto"
+                    className="relative z-0 w-full h-auto opacity-55"
                     style={{ transform: "scaleX(-1)" }}
                 />
+                <div
+                    ref={marti1Ref}
+                    className="absolute left-[44%] top-[2%] z-10 pointer-events-none"
+                    style={{
+                        width: "clamp(42px, 15%, 92px)",
+                        filter: "drop-shadow(0 3px 10px rgba(0,0,0,0.5)) drop-shadow(0 0 1px rgba(255,255,255,0.4))",
+                    }}
+                >
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img src={`${CDN}/marti-1.webp`} alt="" className="w-full h-auto" loading="lazy" decoding="async" />
+                </div>
             </div>
 
             {/* ── z:20  Scroll cue ──────────────────────────────────────────── */}
@@ -576,11 +540,11 @@ export default function Discovery() {
                 </svg>
             </div>
 
-            {/* Screen-reader landmark list — visually hidden, a11y-accessible */}
+            {/* Screen-reader landmark list visually hidden, a11y-accessible */}
             <ul className="sr-only" aria-label="Istanbul landmarks">
                 {LANDMARKS.map(lm => (
                     <li key={lm.id}>
-                        <strong>{lm.label}</strong> — {lm.sublabel}: {lm.description}
+                        <strong>{lm.label}</strong> {lm.sublabel}: {lm.description}
                     </li>
                 ))}
             </ul>

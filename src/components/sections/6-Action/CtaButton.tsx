@@ -17,7 +17,7 @@ export default function CtaButton({ label = "VOTE FOR ISTANBUL" }: CtaButtonProp
                 disabled
                 className="relative overflow-hidden inline-flex items-center justify-center gap-3 px-10 py-5 rounded-full font-brand font-bold tracking-wider text-[clamp(1rem,2vw,1.3rem)] select-none opacity-60 cursor-default"
                 style={{ color: "#ec008c", background: "white" }}
-                aria-label={`${label} — vote link coming soon`}
+                aria-label={`${label} vote link coming soon`}
             >
                 {/* shimmer sweep */}
                 <span

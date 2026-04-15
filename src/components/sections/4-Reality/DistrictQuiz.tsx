@@ -9,6 +9,8 @@ if (typeof window !== "undefined") {
     gsap.registerPlugin(ScrollTrigger);
 }
 
+const CDN = "https://cdn.jsdelivr.net/gh/ESNTurkiye/esn-assets@main/istanbul";
+
 const QUIZ_QUESTIONS = [
     {
         q: "Your ideal Saturday morning?",
@@ -41,12 +43,12 @@ const QUIZ_QUESTIONS = [
 
 const DISTRICT_PROFILES: Record<string, { label: string; tagline: string; accent: string }> = {
     Sultanahmet: { label: "Sultanahmet", tagline: "History is your home. You feel the weight of centuries and find it comforting.", accent: "#f47b20" },
-    Kadıköy: { label: "Kadıköy", tagline: "You are the Asian soul of this city — creative, restless and fiercely local.", accent: "#7ac143" },
+    Kadıköy: { label: "Kadıköy", tagline: "You are the Asian soul of this city creative, restless and fiercely local.", accent: "#7ac143" },
     Beyoğlu: { label: "Beyoğlu", tagline: "Midnight is your timezone. You belong to the neon and the meyhane tables.", accent: "#ec008c" },
     Beşiktaş: { label: "Beşiktaş", tagline: "You want modern comfort with a view. Ambitious, social and well-dressed.", accent: "#2e3192" },
     Karaköy: { label: "Karaköy", tagline: "Art, design and a good espresso are non-negotiable for you.", accent: "#00aeef" },
     Cihangir: { label: "Cihangir", tagline: "Literary, slightly melancholic, in love with cat-filled courtyards.", accent: "#00aeef" },
-    Nişantaşı: { label: "Nişantaşı", tagline: "Chic, cosmopolitan — Istanbul's European heartbeat.", accent: "#7ac143" },
+    Nişantaşı: { label: "Nişantaşı", tagline: "Chic, cosmopolitan Istanbul's European heartbeat.", accent: "#7ac143" },
     Üsküdar: { label: "Üsküdar", tagline: "Contemplative and traditional. You feel most at home by the water at dusk.", accent: "#f47b20" },
     Fatih: { label: "Fatih", tagline: "You seek authenticity above all. The unvarnished city is where you belong.", accent: "#f47b20" },
 };
@@ -87,7 +89,16 @@ export default function DistrictQuiz() {
 
     return (
         <div ref={containerRef} className="relative z-10 px-6 py-20 max-w-[700px] mx-auto">
-            <div ref={wrapRef} className="opacity-0">
+            <div className="pointer-events-none absolute -top-2 left-0 sm:left-2 w-[26%] max-w-[120px] z-0 opacity-90" aria-hidden>
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src={`${CDN}/kedi-1.webp`} alt="" className="w-full h-auto drop-shadow-[0_8px_24px_rgba(0,0,0,0.45)]" loading="lazy" decoding="async" />
+            </div>
+            <div className="pointer-events-none absolute bottom-16 right-0 sm:right-4 w-[24%] max-w-[115px] z-0 opacity-90 hidden sm:block" aria-hidden>
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src={`${CDN}/turk-kahvesi-1.webp`} alt="" className="w-full h-auto drop-shadow-[0_8px_24px_rgba(0,0,0,0.45)] rounded-full" loading="lazy" decoding="async" />
+            </div>
+
+            <div ref={wrapRef} className="opacity-0 relative z-10">
                 <div className="text-center mb-10">
                     <h2
                         className="font-bold text-white leading-tight"
@@ -100,16 +111,17 @@ export default function DistrictQuiz() {
                     </h2>
                 </div>
 
+                {/* Fixed min-height so finishing the quiz does not shrink the block and shift the page */}
                 {!quizDone ? (
                     <div
-                        className="rounded-2xl p-8"
+                        className="rounded-2xl p-8 flex flex-col box-border min-h-106 sm:min-h-112 md:min-h-120"
                         style={{
                             background: "rgba(255,255,255,0.04)",
                             border: "1px solid rgba(236,0,140,0.2)",
                             backdropFilter: "blur(10px)",
                         }}
                     >
-                        <div className="flex gap-2 mb-6 justify-center">
+                        <div className="flex gap-2 mb-6 justify-center shrink-0">
                             {QUIZ_QUESTIONS.map((_, i) => (
                                 <div
                                     key={i}
@@ -119,11 +131,11 @@ export default function DistrictQuiz() {
                             ))}
                         </div>
 
-                        <p className="text-white font-semibold text-center mb-6" style={{ fontSize: "clamp(0.9rem, 1.5vw, 1.1rem)" }}>
+                        <p className="text-white font-semibold text-center mb-6 shrink-0" style={{ fontSize: "clamp(0.9rem, 1.5vw, 1.1rem)" }}>
                             {QUIZ_QUESTIONS[quizStep].q}
                         </p>
 
-                        <div className="flex flex-col gap-3">
+                        <div className="flex flex-col gap-3 flex-1">
                             {QUIZ_QUESTIONS[quizStep].options.map((opt, i) => (
                                 <button
                                     key={i}
@@ -152,16 +164,13 @@ export default function DistrictQuiz() {
                     </div>
                 ) : topDistrict && DISTRICT_PROFILES[topDistrict] ? (
                     <div
-                        className="rounded-2xl p-8 text-center"
+                        className="rounded-2xl p-8 text-center flex flex-col justify-center box-border min-h-106 sm:min-h-112 md:min-h-120"
                         style={{
                             background: `linear-gradient(135deg, ${DISTRICT_PROFILES[topDistrict].accent}18 0%, rgba(0,0,0,0.4) 100%)`,
                             border: `1px solid ${DISTRICT_PROFILES[topDistrict].accent}40`,
                             backdropFilter: "blur(10px)",
                         }}
                     >
-                        <p className="text-white/50 tracking-[0.2em] uppercase mb-3" style={{ fontSize: "0.65rem" }}>
-                            Your Istanbul district
-                        </p>
                         <h3
                             className="font-bold text-white mb-4"
                             style={{
@@ -176,8 +185,23 @@ export default function DistrictQuiz() {
                             {DISTRICT_PROFILES[topDistrict].tagline}
                         </p>
                         <button
+                            type="button"
                             onClick={() => { setQuizStep(0); setVotes({}); setQuizDone(false); }}
-                            className="text-white/50 hover:text-white transition-colors text-[0.7rem] tracking-widest uppercase"
+                            className="mx-auto inline-flex items-center justify-center rounded-full border px-5 py-2.5 text-[0.72rem] font-medium tracking-[0.2em] uppercase text-white/90 transition-[color,background-color,border-color,box-shadow] duration-200 hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-white/35 focus-visible:ring-offset-2 focus-visible:ring-offset-transparent"
+                            style={{
+                                borderColor: `${DISTRICT_PROFILES[topDistrict].accent}55`,
+                                backgroundColor: "rgba(255,255,255,0.06)",
+                                boxShadow: "inset 0 0 0 1px rgba(255,255,255,0.04)",
+                            }}
+                            onMouseEnter={e => {
+                                const a = DISTRICT_PROFILES[topDistrict].accent;
+                                (e.currentTarget as HTMLButtonElement).style.backgroundColor = `${a}14`;
+                                (e.currentTarget as HTMLButtonElement).style.borderColor = `${a}80`;
+                            }}
+                            onMouseLeave={e => {
+                                (e.currentTarget as HTMLButtonElement).style.backgroundColor = "rgba(255,255,255,0.06)";
+                                (e.currentTarget as HTMLButtonElement).style.borderColor = `${DISTRICT_PROFILES[topDistrict].accent}55`;
+                            }}
                         >
                             Try again
                         </button>

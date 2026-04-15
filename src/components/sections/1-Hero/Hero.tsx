@@ -49,8 +49,6 @@ export default function Hero() {
 
     return (
         <section ref={sectionRef} className="hero-section">
-
-            {/* ── Top-left cloud ─────────────────────────────────────────── */}
             <div ref={cloudOneRef} className="absolute cloud-one z-20 pointer-events-none">
                 <div ref={innerCloudOneRef} className="sway-a w-full h-full">
                     {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -58,7 +56,6 @@ export default function Hero() {
                 </div>
             </div>
 
-            {/* ── Top-right cloud ────────────────────────────────────────── */}
             <div ref={cloudTwoRef} className="absolute cloud-two z-20 pointer-events-none">
                 <div ref={innerCloudTwoRef} className="sway-c w-full h-full">
                     {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -66,7 +63,6 @@ export default function Hero() {
                 </div>
             </div>
 
-            {/* ── Bottom-left cloud ──────────────────────────────────────── */}
             <div ref={leftCloudRef} className="absolute left-cloud-bottom z-20 pointer-events-none">
                 <div ref={innerLCRef} className="sway-b w-full h-full">
                     {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -74,34 +70,25 @@ export default function Hero() {
                 </div>
             </div>
 
-            {/* ── Bottom-right cloud ─────────────────────────────────────── */}
             <div ref={rightCloudRef} className="absolute right-cloud-bottom z-20 pointer-events-none">
                 <div ref={innerRCRef} className="sway-d w-full h-full">
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img src="/images/cloud-two.png" alt="" className="w-full h-full object-contain -scale-x-100" />
                 </div>
             </div>
 
-            {/* ── Left flower bouquet (foreground) ───────────────────────── */}
             <div ref={flowerLeftRef} className="absolute flower-left z-20 pointer-events-none">
                 <div className="sway-b w-full h-full">
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img src="/images/flower-bouquet.png" alt="" className="w-full h-full object-contain" />
                 </div>
             </div>
 
-            {/* ── Right flower bouquet (foreground) ──────────────────────── */}
             <div ref={flowerRightRef} className="absolute flower-right z-20 pointer-events-none">
                 <div className="sway-d w-full h-full">
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img src="/images/flower-bouquet.png" alt="" className="w-full h-full object-contain" />
                 </div>
             </div>
 
-            {/* ── Center frame + Bosphorus video ─────────────────────────── */}
             <div ref={centerFrameRef} className="absolute center-frame z-0 pointer-events-none flex items-center justify-center">
-
-                {/* Bosphorus video, clipped to the frame oval */}
                 <video
                     className="absolute z-0 w-full h-full object-cover object-center"
                     style={{ clipPath: "inset(12.1% 12.1% 12.1% 12.1% round 600px)" }}
@@ -113,23 +100,22 @@ export default function Hero() {
                 >
                     <source src="/videos/hero-video.mp4#t=2" type="video/mp4" />
                 </video>
-
-                {/* Frame overlay (cutout photo) – sways gently as a single unit */}
                 <div className="sway-a w-full h-full z-10">
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img
                         src="/images/frame.png"
-                        alt="Hero frame — Bosphorus view"
+                        alt="Hero frame Bosphorus view"
                         className="w-full h-full object-contain"
                     />
                 </div>
             </div>
 
-            {/* ── Headline ──────────────────────────────────────────────── */}
-            <div className="z-20 relative hero-text-content text-center pointer-events-none drop-shadow-xl p-4">
+            <div className="z-20 relative hero-text-content text-center pointer-events-none p-4">
                 <p
-                    className="text-white/90 tracking-[0.3em] uppercase font-light mb-2"
-                    style={{ fontSize: "clamp(0.6rem, 1.2vw, 0.78rem)" }}
+                    className="text-white tracking-[0.25em] uppercase font-semibold mb-2"
+                    style={{
+                        fontSize: "clamp(0.72rem, 1.6vw, 0.9rem)",
+                        textShadow: "0 1px 12px rgba(0,0,0,0.6), 0 2px 4px rgba(0,0,0,0.4)",
+                    }}
                 >
                     Finalist · Erasmus Destination of the Year 2026
                 </p>
@@ -138,14 +124,18 @@ export default function Hero() {
                     style={{
                         fontFamily: "var(--font-kelson-sans), Arial, sans-serif",
                         fontSize: "clamp(3rem, 9vw, 7rem)",
-                        textShadow: "0 4px 40px rgba(0,0,0,0.35)",
+                        textShadow: "0 4px 40px rgba(0,0,0,0.45), 0 2px 8px rgba(0,0,0,0.3)",
                     }}
                 >
                     Istanbul
                 </h1>
                 <p
-                    className="text-white/95 mt-2 font-light"
-                    style={{ fontSize: "clamp(0.75rem, 1.5vw, 1rem)", letterSpacing: "0.1em" }}
+                    className="text-white mt-2 font-medium"
+                    style={{
+                        fontSize: "clamp(0.9rem, 2vw, 1.2rem)",
+                        letterSpacing: "0.12em",
+                        textShadow: "0 1px 12px rgba(0,0,0,0.6), 0 2px 4px rgba(0,0,0,0.4)",
+                    }}
                 >
                     Two continents. One welcome.
                 </p>

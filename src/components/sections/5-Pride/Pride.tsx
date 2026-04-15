@@ -113,22 +113,6 @@ export default function Pride() {
                                 className="absolute top-0 left-0 right-0 h-px"
                                 style={{ background: `linear-gradient(to right, transparent, ${card.accent}60, transparent)` }}
                             />
-                            <div
-                                className="font-bold mb-3 leading-none"
-                                style={{
-                                    fontFamily: "var(--font-kelson-sans), Georgia, serif",
-                                    fontSize: "1.8rem",
-                                    color: `${card.accent}70`,
-                                }}
-                            >
-                                {card.symbol}
-                            </div>
-                            <div
-                                className="inline-block text-[0.6rem] tracking-widest uppercase font-semibold px-2 py-0.5 rounded-full mb-3"
-                                style={{ background: `${card.accent}18`, color: card.accent }}
-                            >
-                                {card.tag}
-                            </div>
                             <h3 className="font-brand font-bold text-[clamp(1.2rem,2.2vw,1.6rem)] leading-tight mb-2" style={{ color: "#f2e5d8" }}>
                                 {card.headline}
                             </h3>
