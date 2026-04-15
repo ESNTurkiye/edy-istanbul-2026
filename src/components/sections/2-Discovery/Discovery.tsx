@@ -289,7 +289,7 @@ export default function Discovery() {
             className="relative w-full min-h-screen overflow-hidden"
             style={{ background: "#07213b" }}
         >
-            {/* ── z:1  Leaflet map CartoDB dark tiles, fixed at zoom 13 ── */}
+            {/* ── z:1  Leaflet map — zoom 11.75 mobile / 13 desktop (MapBackground) ── */}
             <div className="absolute inset-0" style={{ zIndex: 1 }}>
                 <MapBackground onMapReady={handleMapReady} />
             </div>
@@ -306,10 +306,10 @@ export default function Discovery() {
                 }}
             />
 
-            {/* ── z:20  Headline ──────────────────────────────────────────── */}
+            {/* ── z:20  Headline — extra top offset on mobile (fixed nav) ─── */}
             <div
                 ref={headlineRef}
-                className="absolute top-[6%] left-1/2 -translate-x-1/2 text-center pointer-events-none w-full px-4"
+                className="absolute left-1/2 -translate-x-1/2 text-center pointer-events-none w-full px-4 top-32 max-md:top-[calc(env(safe-area-inset-top,0px)+5.75rem)] md:top-[6%]"
                 style={{ zIndex: 20 }}
             >
                 <h2
@@ -324,23 +324,12 @@ export default function Discovery() {
                     7 HILLS&nbsp;&middot;&nbsp;
                     <span style={{ color: "#00aeef" }}>15 MILLION</span> STORIES
                 </h2>
-                <p
-                    ref={subRef}
-                    className="mt-3 tracking-[0.2em] uppercase font-light"
-                    style={{
-                        fontSize: "clamp(0.65rem, 1.2vw, 0.82rem)",
-                        color: "rgba(255,255,255,0.82)",
-                        textShadow: "0 1px 8px rgba(0,0,0,0.7)",
-                    }}
-                >
-                    The Erasmus Route &mdash; Istanbul
-                </p>
             </div>
 
             {/* ── z:17  marti-2 flying seagull above map/route, sized for visibility */}
             <div
                 ref={marti2Ref}
-                className="absolute top-[7%] right-[2%] sm:top-[9%] sm:right-[4%] pointer-events-none"
+                className="absolute right-[2%] sm:right-[4%] pointer-events-none max-md:top-[calc(env(safe-area-inset-top,0px)+10rem)] md:top-[7%]"
                 style={{
                     zIndex: 17,
                     width: "clamp(100px, 16vw, 200px)",
@@ -408,19 +397,16 @@ export default function Discovery() {
                             {/* Expanding ring (burst on reveal) */}
                             <div
                                 ref={el => { ringRefs.current[i] = el; }}
-                                className="absolute rounded-full"
+                                className="absolute rounded-full max-md:-inset-[14px] md:-inset-3"
                                 style={{
-                                    inset: "-12px",
                                     border: `1px solid ${lm.accent}70`,
                                 }}
                             />
-                            {/* Glowing dot */}
+                            {/* Glowing dot — slightly larger on mobile */}
                             <div
                                 ref={el => { pinDotRefs.current[i] = el; }}
-                                className="relative rounded-full"
+                                className="relative rounded-full w-4 h-4 md:w-[13px] md:h-[13px]"
                                 style={{
-                                    width: 13,
-                                    height: 13,
                                     background: lm.accent,
                                     boxShadow: `0 0 14px 5px ${lm.accent}90`,
                                     zIndex: 2,
@@ -432,10 +418,9 @@ export default function Discovery() {
                                 className="absolute bottom-full left-1/2 -translate-x-1/2 pb-[6px] whitespace-nowrap text-center"
                             >
                                 <span
-                                    className="font-bold leading-tight"
+                                    className="font-bold leading-tight text-[0.68rem] md:text-[clamp(0.58rem,0.85vw,0.7rem)]"
                                     style={{
                                         fontFamily: "var(--font-kelson-sans), Arial, sans-serif",
-                                        fontSize: "clamp(0.58rem, 0.85vw, 0.7rem)",
                                         color: "white",
                                         textShadow: "0 1px 6px rgba(0,0,0,1), 0 0 12px rgba(0,0,0,0.8)",
                                     }}
