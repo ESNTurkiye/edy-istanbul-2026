@@ -5,7 +5,6 @@ import Image from "next/image";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import CtaButton from "./CtaButton";
 
 if (typeof window !== "undefined") {
     gsap.registerPlugin(ScrollTrigger);
@@ -107,10 +106,6 @@ export default function Action() {
                     <p className="mt-5 text-white/95 text-[clamp(0.85rem,1.5vw,1.1rem)] max-w-[500px] mx-auto leading-relaxed">
                         Every year, one city earns the honour of hosting Europe&apos;s Erasmus community. Make it Istanbul. Make it unforgettable.
                     </p>
-                </div>
-
-                <div ref={ctaRef} className="opacity-0 flex flex-col items-center gap-4">
-                    <CtaButton label="VOTE FOR ISTANBUL" />
                 </div>
             </div>
 
