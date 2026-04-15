@@ -10,16 +10,32 @@ export default function RealityExtras() {
     return (
         <div
             className="relative w-full"
-            style={{ background: "#1a1d5c" }}
+            style={{
+                background: "linear-gradient(180deg, #122366 0%, #1a1d5c 46%, #11164b 100%)",
+            }}
         >
-            {/* ── Turkish coffee decoration — bottom-right ───────────────── */}
-            <div className="absolute bottom-0 right-[4%] w-[14%] max-w-[220px] pointer-events-none" style={{ zIndex: 1, opacity: 0.65 }}>
+            {/* Atmosphere layer for depth, similar to the reference mood */}
+            <div
+                className="absolute inset-0 pointer-events-none"
+                style={{
+                    background: "radial-gradient(ellipse 100% 68% at 50% 100%, rgba(0,0,0,0.42) 0%, rgba(0,0,0,0) 72%)",
+                    zIndex: 0,
+                }}
+            />
+
+            {/* Balat horizontal row-houses as scenic base layer */}
+            <div
+                className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[94%] max-w-[1500px] pointer-events-none"
+                style={{ zIndex: 1, opacity: 0.95 }}
+            >
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
-                    src="https://cdn.jsdelivr.net/gh/ESNTurkiye/esn-assets@main/istanbul/turk-kahvesi-2.webp"
-                    alt="Turkish coffee"
+                    src="https://cdn.jsdelivr.net/gh/ESNTurkiye/esn-assets@main/istanbul/balat-yatay.jpg"
+                    alt=""
                     className="w-full h-auto"
-                    style={{ filter: "drop-shadow(0 -8px 24px rgba(0,0,0,0.45))" }}
+                    style={{
+                        filter: "drop-shadow(0 -12px 40px rgba(0,0,0,0.5))",
+                    }}
                 />
             </div>
 
