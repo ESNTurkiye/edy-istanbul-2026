@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef } from "react";
+import Image from "next/image";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -39,34 +40,29 @@ export default function OneDayTimeline() {
 
     return (
         <div ref={containerRef} className="relative z-10 px-6 py-20 max-w-[900px] mx-auto">
-            {/* Collage mobile: compact right rail; lg+: spread vertically + stagger horizontal */}
             <div
                 className="pointer-events-none absolute top-6 right-2 sm:right-6 w-[22%] max-w-[130px] z-0 opacity-95 lg:top-10 lg:right-[5%] lg:max-w-[118px]"
                 aria-hidden
             >
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={`${CDN}/Simit-1.webp`} alt="" className="w-full h-auto drop-shadow-[0_8px_24px_rgba(0,0,0,0.45)]" loading="lazy" decoding="async" />
+                <Image src={`${CDN}/Simit-1.webp`} alt="" width={260} height={195} className="w-full h-auto drop-shadow-[0_8px_24px_rgba(0,0,0,0.45)]" sizes="130px" />
             </div>
             <div
                 className="pointer-events-none absolute bottom-24 left-0 sm:left-4 w-[20%] max-w-[120px] z-0 opacity-90 hidden sm:block lg:left-auto lg:right-[4%] lg:bottom-auto lg:top-[46%] lg:max-w-[128px]"
                 aria-hidden
             >
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={`${CDN}/kiz-kulesi-1.webp`} alt="" className="w-full h-auto drop-shadow-[0_8px_24px_rgba(0,0,0,0.45)]" loading="lazy" decoding="async" />
+                <Image src={`${CDN}/kiz-kulesi-1.webp`} alt="" width={240} height={180} className="w-full h-auto drop-shadow-[0_8px_24px_rgba(0,0,0,0.45)]" sizes="120px" />
             </div>
             <div
                 className="pointer-events-none absolute top-[48%] -right-1 sm:right-0 w-[16%] max-w-[88px] z-0 opacity-92 lg:top-[24%] lg:right-[14%] lg:max-w-[96px]"
                 aria-hidden
             >
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={`${CDN}/cay-2.webp`} alt="" className="w-full h-auto drop-shadow-[0_6px_20px_rgba(0,0,0,0.45)] rounded-full" loading="lazy" decoding="async" />
+                <Image src={`${CDN}/cay-2.webp`} alt="" width={176} height={176} className="w-full h-auto drop-shadow-[0_6px_20px_rgba(0,0,0,0.45)] rounded-full" sizes="88px" />
             </div>
             <div
                 className="pointer-events-none absolute bottom-8 right-[12%] w-[24%] max-w-[140px] z-0 opacity-88 hidden md:block lg:bottom-[6%] lg:right-[26%] lg:max-w-[132px]"
                 aria-hidden
             >
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={`${CDN}/islak-hamburger.webp`} alt="" className="w-full h-auto drop-shadow-[0_8px_24px_rgba(0,0,0,0.45)]" loading="lazy" decoding="async" />
+                <Image src={`${CDN}/islak-hamburger.webp`} alt="" width={280} height={210} className="w-full h-auto drop-shadow-[0_8px_24px_rgba(0,0,0,0.45)]" sizes="140px" />
             </div>
 
             <div ref={wrapRef} className="opacity-0 relative z-10">

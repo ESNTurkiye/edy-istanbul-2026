@@ -10,14 +10,8 @@ export interface Landmark {
     image: string;
     imageAlt: string;
     accent: string;
-    /** Real GPS coordinates used by Leaflet for exact pin placement */
     lat: number;
     lng: number;
-    /**
-     * Which side the info card appears on relative to the pin.
-     * right → card to the right; left → card to the left.
-     * Right-of-center (Taksim, Kadıköy) use left so card doesn't overflow screen.
-     */
     cardSide: "left" | "right";
 }
 
@@ -79,7 +73,6 @@ export const LANDMARKS: Landmark[] = [
     },
 ];
 
-/** Smooth quadratic-bezier path through pixel-coordinate points */
 export function smoothPath(pts: { x: number; y: number }[]) {
     if (pts.length < 2) return "";
     let d = `M ${pts[0].x} ${pts[0].y}`;
@@ -93,11 +86,10 @@ export function smoothPath(pts: { x: number; y: number }[]) {
     return d;
 }
 
-/** Card position relative to the section, offset from the pin */
 export function cardPos(pinPx: { x: number; y: number }, lm: Landmark) {
-    const W = 200; // approx card width in px
+    const W = 200;
     const GAP = 20;
-    const Y = -100; // card appears 100px above the pin centre
+    const Y = -100;
     const x = lm.cardSide === "right"
         ? pinPx.x + GAP
         : Math.max(8, pinPx.x - W - GAP);

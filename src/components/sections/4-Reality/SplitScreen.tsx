@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 const CDN = "https://cdn.jsdelivr.net/gh/ESNTurkiye/esn-assets@main/istanbul";
 
 /* ── Data panels ───────────────────────────────── */
@@ -19,8 +21,6 @@ export default function SplitScreen() {
             className="relative w-full flex flex-col md:flex-row min-h-[70vh] overflow-hidden"
             style={{ background: "#121d4a" }}
         >
-
-            {/* ── LEFT: Day / Academic ───────────────────────────── */}
             <div
                 className="relative w-full md:w-[35%] flex flex-col justify-center items-start px-8 md:px-12 lg:px-16 py-16 min-h-[35vh] md:min-h-[70vh]"
                 style={{ background: "transparent" }}
@@ -36,7 +36,6 @@ export default function SplitScreen() {
                             Where Knowledge<br />Meets Culture
                         </h3>
                     </div>
-
                     <div className="flex flex-col gap-4 mb-6 w-full max-w-[360px]">
                         {DAY_STATS.map(s => (
                             <div key={s.label} className="flex items-baseline gap-3">
@@ -52,8 +51,6 @@ export default function SplitScreen() {
                     </div>
                 </div>
             </div>
-
-            {/* ── CENTER DIVIDER ── */}
             <div
                 className="hidden md:block absolute top-0 left-[35%] -translate-x-1/2 w-px h-full z-20"
                 style={{
@@ -61,35 +58,21 @@ export default function SplitScreen() {
                     transformOrigin: "top center",
                 }}
             />
-
-            {/* ── RIGHT: Night / Social ──────────────────────────── */}
             <div
                 className="relative w-full md:w-[65%] flex flex-col justify-center items-start px-8 md:px-12 lg:px-16 py-16 min-h-[52vh] md:min-h-[70vh] overflow-hidden"
                 style={{ background: "transparent" }}
             >
                 <div className="absolute -inset-px" style={{ background: "#191f52" }} />
-
-                {/* Bridge: minW+minH 100% + center reliable cover on mobile & desktop (no % height on img) */}
                 <div className="absolute inset-0 overflow-hidden">
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img
+                    <Image
                         src={`${CDN}/bogaz-koprusu-2.webp`}
                         alt=""
-                        className="pointer-events-none select-none max-w-none"
+                        fill
+                        className="pointer-events-none select-none object-cover opacity-[0.82]"
                         style={{
-                            position: "absolute",
-                            left: "50%",
-                            top: "50%",
-                            transform: "translate(-50%, -50%)",
-                            minWidth: "100%",
-                            minHeight: "100%",
-                            width: "auto",
-                            height: "auto",
-                            opacity: 0.82,
                             filter: "contrast(1.18) saturate(1.12) brightness(0.72)",
                         }}
-                        loading="lazy"
-                        decoding="async"
+                        sizes="100vw"
                     />
                     <div className="absolute inset-0 pointer-events-none" style={{ background: "linear-gradient(138deg, rgba(15,26,62,0.22) 0%, rgba(8,14,38,0.55) 100%)" }} />
                 </div>
@@ -100,7 +83,6 @@ export default function SplitScreen() {
                             Where Friendships<br />Begin
                         </h3>
                     </div>
-
                     <div className="relative z-10 flex flex-col gap-4 mb-6 w-full max-w-[360px]">
                         {NIGHT_STATS.map(s => (
                             <div key={s.label} className="flex items-baseline gap-3">

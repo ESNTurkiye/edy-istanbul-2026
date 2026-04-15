@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef, useState } from "react";
+import Image from "next/image";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -90,14 +91,11 @@ export default function DistrictQuiz() {
     return (
         <div ref={containerRef} className="relative z-10 px-6 py-20 max-w-[700px] mx-auto">
             <div className="pointer-events-none absolute -top-2 left-0 sm:left-2 w-[26%] max-w-[120px] z-0 opacity-90" aria-hidden>
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={`${CDN}/kedi-1.webp`} alt="" className="w-full h-auto drop-shadow-[0_8px_24px_rgba(0,0,0,0.45)]" loading="lazy" decoding="async" />
+                <Image src={`${CDN}/kedi-1.webp`} alt="" width={240} height={180} className="w-full h-auto drop-shadow-[0_8px_24px_rgba(0,0,0,0.45)]" sizes="120px" />
             </div>
             <div className="pointer-events-none absolute bottom-16 right-0 sm:right-4 w-[24%] max-w-[115px] z-0 opacity-90 hidden sm:block" aria-hidden>
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={`${CDN}/turk-kahvesi-1.webp`} alt="" className="w-full h-auto drop-shadow-[0_8px_24px_rgba(0,0,0,0.45)] rounded-full" loading="lazy" decoding="async" />
+                <Image src={`${CDN}/turk-kahvesi-1.webp`} alt="" width={230} height={230} className="w-full h-auto drop-shadow-[0_8px_24px_rgba(0,0,0,0.45)] rounded-full" sizes="115px" />
             </div>
-
             <div ref={wrapRef} className="opacity-0 relative z-10">
                 <div className="text-center mb-10">
                     <h2
@@ -110,8 +108,6 @@ export default function DistrictQuiz() {
                         Which Istanbul District<br />Are You?
                     </h2>
                 </div>
-
-                {/* Fixed min-height so finishing the quiz does not shrink the block and shift the page */}
                 {!quizDone ? (
                     <div
                         className="rounded-2xl p-8 flex flex-col box-border min-h-106 sm:min-h-112 md:min-h-120"

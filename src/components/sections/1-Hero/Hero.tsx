@@ -3,6 +3,7 @@
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { useRef } from "react";
+import Image from "next/image";
 import { useHeroParallax } from "@/hooks/useScrollAnimation";
 import "./Hero.css";
 
@@ -50,41 +51,38 @@ export default function Hero() {
     return (
         <section ref={sectionRef} className="hero-section">
             <div ref={cloudOneRef} className="absolute cloud-one z-20 pointer-events-none">
-                <div ref={innerCloudOneRef} className="sway-a w-full h-full">
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img src="/images/cloud-one.png" alt="" className="w-full h-full object-contain" />
+                <div ref={innerCloudOneRef} className="sway-a relative w-full h-full">
+                    <Image src="/images/cloud-one.png" alt="" fill className="object-contain" sizes="45vw" priority />
                 </div>
             </div>
 
             <div ref={cloudTwoRef} className="absolute cloud-two z-20 pointer-events-none">
-                <div ref={innerCloudTwoRef} className="sway-c w-full h-full">
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img src="/images/cloud-one.png" alt="" className="w-full h-full object-contain" />
+                <div ref={innerCloudTwoRef} className="sway-c relative w-full h-full">
+                    <Image src="/images/cloud-one.png" alt="" fill className="object-contain" sizes="40vw" priority />
                 </div>
             </div>
 
             <div ref={leftCloudRef} className="absolute left-cloud-bottom z-20 pointer-events-none">
-                <div ref={innerLCRef} className="sway-b w-full h-full">
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img src="/images/cloud-two.png" alt="" className="w-full h-full object-contain" />
+                <div ref={innerLCRef} className="sway-b relative w-full h-full">
+                    <Image src="/images/cloud-two.png" alt="" fill className="object-contain" sizes="100vw" priority />
                 </div>
             </div>
 
             <div ref={rightCloudRef} className="absolute right-cloud-bottom z-20 pointer-events-none">
-                <div ref={innerRCRef} className="sway-d w-full h-full">
-                    <img src="/images/cloud-two.png" alt="" className="w-full h-full object-contain -scale-x-100" />
+                <div ref={innerRCRef} className="sway-d relative w-full h-full">
+                    <Image src="/images/cloud-two.png" alt="" fill className="object-contain -scale-x-100" sizes="100vw" priority />
                 </div>
             </div>
 
             <div ref={flowerLeftRef} className="absolute flower-left z-20 pointer-events-none">
-                <div className="sway-b w-full h-full">
-                    <img src="/images/flower-bouquet.png" alt="" className="w-full h-full object-contain" />
+                <div className="sway-b relative w-full h-full">
+                    <Image src="/images/flower-bouquet.png" alt="" fill className="object-contain" sizes="70vw" priority />
                 </div>
             </div>
 
             <div ref={flowerRightRef} className="absolute flower-right z-20 pointer-events-none">
-                <div className="sway-d w-full h-full">
-                    <img src="/images/flower-bouquet.png" alt="" className="w-full h-full object-contain" />
+                <div className="sway-d relative w-full h-full">
+                    <Image src="/images/flower-bouquet.png" alt="" fill className="object-contain" sizes="70vw" priority />
                 </div>
             </div>
 
@@ -100,11 +98,14 @@ export default function Hero() {
                 >
                     <source src="/videos/hero-video.mp4#t=2" type="video/mp4" />
                 </video>
-                <div className="sway-a w-full h-full z-10">
-                    <img
+                <div className="sway-a relative z-10 w-full h-full">
+                    <Image
                         src="/images/frame.png"
                         alt="Hero frame Bosphorus view"
-                        className="w-full h-full object-contain"
+                        fill
+                        className="object-contain"
+                        sizes="85vw"
+                        priority
                     />
                 </div>
             </div>

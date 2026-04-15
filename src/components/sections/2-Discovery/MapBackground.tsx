@@ -8,7 +8,6 @@ import "leaflet/dist/leaflet.css";
 const DARK_TILES =
     "https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png";
 
-// Centered on historical peninsula + Kadıköy; tighter zoom on desktop, wider on mobile so landmarks read as a route
 const ISTANBUL_CENTER: LatLngExpression = [41.01, 29.003];
 const ZOOM_DESKTOP = 13;
 const ZOOM_MOBILE = 11.75;

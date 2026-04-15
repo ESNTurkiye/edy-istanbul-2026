@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef } from "react";
+import Image from "next/image";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -78,7 +79,6 @@ export default function Support() {
             className="relative w-full min-h-screen overflow-hidden flex flex-col justify-center"
             style={{ background: "#1a3a0a" }}
         >
-            {/* Green ambient glow */}
             <div
                 className="absolute inset-0 pointer-events-none"
                 style={{
@@ -86,35 +86,26 @@ export default function Support() {
                         "radial-gradient(ellipse 70% 60% at 50% 0%, rgba(122,193,67,0.20) 0%, transparent 70%)",
                 }}
             />
-
-            {/* Seagull upper right, background depth */}
             <div
                 ref={martiRef}
                 className="absolute right-[8%] top-[6%] w-[22%] sm:w-[16%] max-w-[230px] pointer-events-none opacity-0"
                 style={{ zIndex: 1 }}
             >
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={`${CDN}/marti-2.webp`} alt="" className="w-full h-auto" loading="lazy" decoding="async" />
+                <Image src={`${CDN}/marti-2.webp`} alt="" width={460} height={345} className="w-full h-auto" sizes="230px" />
             </div>
-
-            {/* Bull cutout bottom right */}
             <div
                 ref={bullRef}
                 className="absolute right-0 bottom-0 w-[35%] sm:w-[28%] max-w-[400px] opacity-0 pointer-events-none"
                 style={{ zIndex: 2 }}
             >
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={`${CDN}/boga-heykeli.webp`} alt="Kadıköy Bull Statue" className="w-full h-auto" loading="lazy" decoding="async" />
+                <Image src={`${CDN}/boga-heykeli.webp`} alt="Kadıköy Bull Statue" width={800} height={600} className="w-full h-auto" sizes="400px" />
             </div>
-
-            {/* Lale-1 (pink tulips) bottom left */}
             <div
                 ref={laleRef}
                 className="absolute left-0 bottom-0 w-[26%] sm:w-[18%] max-w-[300px] pointer-events-none"
                 style={{ zIndex: 2, opacity: 0 }}
             >
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={`${CDN}/lale-1.webp`} alt="" className="w-full h-auto" loading="lazy" decoding="async" />
+                <Image src={`${CDN}/lale-1.webp`} alt="" width={600} height={450} className="w-full h-auto" sizes="300px" />
             </div>
 
             <div className="relative z-10 flex flex-col w-full">
@@ -127,15 +118,10 @@ export default function Support() {
                         From your first bus ride to your last goodbye, 500+ volunteers in 18 languages have your back in your language, at your pace, on your terms.
                     </p>
                 </div>
-
-
-                {/* Ticker rows */}
                 <div className="flex flex-col gap-3 mb-2">
                     <LogoTicker reverse={false} speed={80} />
                     <LogoTicker reverse={true} speed={70} />
                 </div>
-
-                {/* Stats */}
                 <StatsCounter />
             </div>
         </section>

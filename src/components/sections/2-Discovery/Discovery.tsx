@@ -2,6 +2,8 @@
 
 import { useRef, useCallback, useState, Fragment } from "react";
 import dynamic from "next/dynamic";
+import Image from "next/image";
+import type { Map } from "leaflet";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -16,22 +18,6 @@ if (typeof window !== "undefined") {
 const MapBackground = dynamic(() => import("./MapBackground"), { ssr: false });
 
 /* ── Smooth curve builder functions ─────────────────────── */
-function cubicPoint(
-    p0: { x: number; y: number },
-    c1: { x: number; y: number },
-    c2: { x: number; y: number },
-    p3: { x: number; y: number },
-    t: number,
-) {
-    const mt = 1 - t;
-    const mt2 = mt * mt;
-    const t2 = t * t;
-    return {
-        x: mt2 * mt * p0.x + 3 * mt2 * t * c1.x + 3 * mt * t2 * c2.x + t2 * t * p3.x,
-        y: mt2 * mt * p0.y + 3 * mt2 * t * c1.y + 3 * mt * t2 * c2.y + t2 * t * p3.y,
-    };
-}
-
 function curveControls(pts: { x: number; y: number }[], i: number, tension = 1) {
     const p0 = pts[Math.max(0, i - 1)];
     const p1 = pts[i];
@@ -123,19 +109,15 @@ export default function Discovery() {
     const marti2Ref = useRef<HTMLDivElement>(null);
     const marti1Ref = useRef<HTMLDivElement>(null);
 
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const leafletMap = useRef<any>(null);
+    const leafletMap = useRef<Map | null>(null);
     const [mapReady, setMapReady] = useState(false);
     const [pinPositions, setPinPositions] = useState<{ x: number; y: number }[]>([]);
     const [routePath, setRoutePath] = useState("");
 
-    const handleMapReady = useCallback((m: unknown) => {
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        const map = m as any;
+    const handleMapReady = useCallback((map: Map) => {
         leafletMap.current = map;
         map.invalidateSize();
 
-        // Use Leaflet's own projection pins will sit exactly on the map tiles
         const positions = LANDMARKS.map(lm => {
             const pt = map.latLngToContainerPoint([lm.lat, lm.lng]);
             return { x: Math.round(pt.x), y: Math.round(pt.y) };
@@ -289,12 +271,9 @@ export default function Discovery() {
             className="relative w-full min-h-screen overflow-hidden"
             style={{ background: "#07213b" }}
         >
-            {/* ── z:1  Leaflet map — zoom 11.75 mobile / 13 desktop (MapBackground) ── */}
             <div className="absolute inset-0" style={{ zIndex: 1 }}>
                 <MapBackground onMapReady={handleMapReady} />
             </div>
-
-            {/* ── z:2  Light veil preserves map readability ──────────────── */}
             <div
                 className="absolute inset-0 pointer-events-none"
                 style={{
@@ -305,8 +284,6 @@ export default function Discovery() {
                     ].join(", "),
                 }}
             />
-
-            {/* ── z:20  Headline — extra top offset on mobile (fixed nav) ─── */}
             <div
                 ref={headlineRef}
                 className="absolute left-1/2 -translate-x-1/2 text-center pointer-events-none w-full px-4 top-32 max-md:top-[calc(env(safe-area-inset-top,0px)+5.75rem)] md:top-[6%]"
@@ -325,8 +302,6 @@ export default function Discovery() {
                     <span style={{ color: "#00aeef" }}>15 MILLION</span> STORIES
                 </h2>
             </div>
-
-            {/* ── z:17  marti-2 flying seagull above map/route, sized for visibility */}
             <div
                 ref={marti2Ref}
                 className="absolute right-[2%] sm:right-[4%] pointer-events-none max-md:top-[calc(env(safe-area-inset-top,0px)+10rem)] md:top-[7%]"
@@ -336,13 +311,8 @@ export default function Discovery() {
                     filter: "drop-shadow(0 4px 14px rgba(0,0,0,0.55)) drop-shadow(0 0 1px rgba(255,255,255,0.35))",
                 }}
             >
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={`${CDN}/marti-2.webp`} alt="" className="w-full h-auto" loading="lazy" decoding="async" />
+                <Image src={`${CDN}/marti-2.webp`} alt="" width={400} height={300} className="w-full h-auto" sizes="(max-width: 768px) 100px, 200px" />
             </div>
-
-            {/* ── z:12  SVG route pixel-space coordinates from Leaflet ─────
-                No viewBox: SVG user units = CSS pixels, matching containerPoint.
-                overflow-visible allows the path to extend outside the rect.   */}
             {routePath && (
                 <svg
                     className="absolute inset-0 pointer-events-none"
@@ -375,16 +345,11 @@ export default function Discovery() {
                     />
                 </svg>
             )}
-
-            {/* ── z:15  Pin markers ────────────────────────────────────────
-                All positioned using Leaflet's latLngToContainerPoint() values.
-                Pin dots are exactly over the correct geographic tile locations.  */}
             {positionsReady && LANDMARKS.map((lm, i) => {
                 const pos = pinPositions[i];
 
                 return (
                     <Fragment key={lm.id}>
-                        {/* Pin dot + ring + label */}
                         <div
                             className="absolute"
                             style={{
@@ -394,7 +359,6 @@ export default function Discovery() {
                                 zIndex: 15,
                             }}
                         >
-                            {/* Expanding ring (burst on reveal) */}
                             <div
                                 ref={el => { ringRefs.current[i] = el; }}
                                 className="absolute rounded-full max-md:-inset-[14px] md:-inset-3"
@@ -402,7 +366,6 @@ export default function Discovery() {
                                     border: `1px solid ${lm.accent}70`,
                                 }}
                             />
-                            {/* Glowing dot — slightly larger on mobile */}
                             <div
                                 ref={el => { pinDotRefs.current[i] = el; }}
                                 className="relative rounded-full w-4 h-4 md:w-[13px] md:h-[13px]"
@@ -412,7 +375,6 @@ export default function Discovery() {
                                     zIndex: 2,
                                 }}
                             />
-                            {/* Label above pin */}
                             <div
                                 ref={el => { labelRefs.current[i] = el; }}
                                 className="absolute bottom-full left-1/2 -translate-x-1/2 pb-[6px] whitespace-nowrap text-center"
@@ -432,8 +394,6 @@ export default function Discovery() {
                     </Fragment>
                 );
             })}
-
-            {/* ── z:40  Film-strip info cards in fixed frame ────────────── */}
             <div
                 ref={cardFrameRef}
                 className="absolute left-[6%] bottom-[12%] pointer-events-none overflow-hidden rounded-2xl"
@@ -453,13 +413,14 @@ export default function Discovery() {
                         >
                             <div style={{ height: 3, background: lm.accent }} />
 
-                            <div className="w-full overflow-hidden" style={{ height: 110 }}>
-                                {/* eslint-disable-next-line @next/next/no-img-element */}
-                                <img
+                            <div className="relative w-full overflow-hidden" style={{ height: 110 }}>
+                                <Image
                                     src={lm.image}
                                     alt={lm.imageAlt}
-                                    className="w-full h-full object-contain object-bottom"
+                                    fill
+                                    className="object-contain object-bottom"
                                     style={{ filter: "drop-shadow(0 2px 8px rgba(0,0,0,0.6))" }}
+                                    sizes="340px"
                                 />
                             </div>
 
@@ -487,19 +448,19 @@ export default function Discovery() {
                     ))}
                 </div>
             </div>
-
-            {/* ── z:10  Ferry + hitchhiking seagull (marti-1 moves with ferry) ─ */}
             <div
                 ref={ferryRef}
                 className="absolute bottom-[7%] right-0 w-[36%] sm:w-[28%] max-w-[460px] pointer-events-none"
                 style={{ zIndex: 10 }}
             >
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
+                <Image
                     src={`${CDN}/feribot-yatay.webp`}
                     alt="Istanbul ferry"
+                    width={920}
+                    height={360}
                     className="relative z-0 w-full h-auto opacity-55"
                     style={{ transform: "scaleX(-1)" }}
+                    sizes="(max-width: 640px) 36vw, 460px"
                 />
                 <div
                     ref={marti1Ref}
@@ -509,12 +470,9 @@ export default function Discovery() {
                         filter: "drop-shadow(0 3px 10px rgba(0,0,0,0.5)) drop-shadow(0 0 1px rgba(255,255,255,0.4))",
                     }}
                 >
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img src={`${CDN}/marti-1.webp`} alt="" className="w-full h-auto" loading="lazy" decoding="async" />
+                    <Image src={`${CDN}/marti-1.webp`} alt="" width={184} height={138} className="w-full h-auto" sizes="92px" />
                 </div>
             </div>
-
-            {/* ── z:20  Scroll cue ──────────────────────────────────────────── */}
             <div
                 className="absolute bottom-[2%] left-1/2 -translate-x-1/2 pointer-events-none animate-scroll-cue"
                 style={{ zIndex: 20 }}
@@ -524,8 +482,6 @@ export default function Discovery() {
                     <path d="M4 20 L12 32 L20 20" stroke="rgba(255,255,255,0.4)" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
             </div>
-
-            {/* Screen-reader landmark list visually hidden, a11y-accessible */}
             <ul className="sr-only" aria-label="Istanbul landmarks">
                 {LANDMARKS.map(lm => (
                     <li key={lm.id}>

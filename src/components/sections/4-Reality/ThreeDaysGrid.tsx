@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef } from "react";
+import Image from "next/image";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -87,15 +88,14 @@ export default function ThreeDaysGrid() {
                                 backdropFilter: "blur(6px)",
                             }}
                         >
-                            <div className={`-mx-6 -mt-6 mb-4 overflow-hidden ${day.mediaAspectClass}`}>
-                                {/* eslint-disable-next-line @next/next/no-img-element */}
-                                <img
+                            <div className={`-mx-6 -mt-6 relative mb-4 overflow-hidden ${day.mediaAspectClass}`}>
+                                <Image
                                     src={`${CDN}/${day.image}`}
                                     alt=""
-                                    className="h-full w-full object-cover"
+                                    fill
+                                    className="object-cover"
                                     style={{ objectPosition: day.imageObjectPosition }}
-                                    loading="lazy"
-                                    decoding="async"
+                                    sizes="(max-width: 768px) 100vw, 360px"
                                 />
                             </div>
                             <div

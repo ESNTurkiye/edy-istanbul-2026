@@ -62,7 +62,6 @@ export default function Pride() {
             className="relative w-full overflow-hidden"
             style={{ background: "#2a1200" }}
         >
-            {/* Ambient warm glow from top */}
             <div
                 className="absolute top-0 left-0 right-0 pointer-events-none"
                 style={{
@@ -70,8 +69,6 @@ export default function Pride() {
                     background: "radial-gradient(ellipse at 50% -20%, rgba(244,123,32,0.28) 0%, transparent 70%)",
                 }}
             />
-
-            {/* Cistern background */}
             <div
                 className="absolute inset-0 opacity-25"
                 style={{
@@ -81,11 +78,7 @@ export default function Pride() {
                 }}
             />
             <div className="absolute inset-0" style={{ background: "linear-gradient(to bottom, rgba(42,18,0,0.88) 0%, rgba(42,18,0,0.65) 40%, rgba(42,18,0,0.82) 100%)" }} />
-
-            {/* Content */}
             <div className="relative z-10 flex flex-col items-center w-full px-6 pt-16 pb-0">
-
-                {/* Headline */}
                 <div ref={headlineRef} className="text-center max-w-[700px] mb-12 opacity-0">
                     <h2 className="font-brand font-bold leading-tight text-white text-[clamp(2rem,5vw,3.8rem)]">
                         Istanbul Isn&apos;t Just a City —<br />
@@ -95,8 +88,6 @@ export default function Pride() {
                         Three empires called it home. One generation of Erasmus students is about to discover why.
                     </p>
                 </div>
-
-                {/* Info cards */}
                 <div ref={cardsWrapRef} className="grid grid-cols-1 md:grid-cols-3 gap-5 w-full max-w-[1120px] mb-10 place-items-center">
                     {INFO_CARDS.map((card, i) => (
                         <div
@@ -123,11 +114,7 @@ export default function Pride() {
                     ))}
                 </div>
             </div>
-
-            {/* Istanbul in Literature */}
             <LiteratureStrip />
-
-            {/* Rising skyline */}
             <div className="relative z-10 w-full">
                 <SkylineReveal />
             </div>

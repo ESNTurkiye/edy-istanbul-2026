@@ -25,16 +25,7 @@ export default function RealityExtras() {
                 className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[94%] max-w-[1500px] pointer-events-none"
                 style={{ zIndex: 1, opacity: 0.95 }}
             >
-                {/* <img
-                    src="https://cdn.jsdelivr.net/gh/ESNTurkiye/esn-assets@main/istanbul/balat-yatay.jpg"
-                    alt=""
-                    className="w-full h-auto"
-                    style={{
-                        filter: "drop-shadow(0 -12px 40px rgba(0,0,0,0.5))",
-                    }}
-                /> */}
             </div>
-
             <SportSection />
             <OneDayTimeline />
             <ThreeDaysGrid />

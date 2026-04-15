@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef } from "react";
+import Image from "next/image";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -42,20 +43,17 @@ export default function SportSection() {
 
     return (
         <div ref={containerRef} className="relative z-10 px-6 py-20 max-w-[1100px] mx-auto">
-            {/* Decorative kept in margins so cards stay readable (no backdrop blur) */}
             <div
                 className="pointer-events-none absolute top-0 right-6 w-[26%] max-w-[168px] opacity-90 z-0 hidden sm:block"
                 aria-hidden
             >
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={`${CDN}/taksim-tramvay.webp`} alt="" className="w-full h-auto drop-shadow-[0_8px_28px_rgba(0,0,0,0.45)]" loading="lazy" decoding="async" />
+                <Image src={`${CDN}/taksim-tramvay.webp`} alt="" width={336} height={252} className="w-full h-auto drop-shadow-[0_8px_28px_rgba(0,0,0,0.45)]" sizes="168px" />
             </div>
             <div
                 className="pointer-events-none absolute top-30 left-0 w-[16%] max-w-[88px] opacity-90 z-0 md:block hidden"
                 aria-hidden
             >
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={`${CDN}/kedi-2.webp`} alt="" className="w-full h-auto drop-shadow-[0_6px_20px_rgba(0,0,0,0.5)]" loading="lazy" decoding="async" />
+                <Image src={`${CDN}/kedi-2.webp`} alt="" width={176} height={132} className="w-full h-auto drop-shadow-[0_6px_20px_rgba(0,0,0,0.5)]" sizes="88px" />
             </div>
 
             <div ref={headRef} className="text-center mb-12 opacity-0 relative z-10">
