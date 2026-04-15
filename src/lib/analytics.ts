@@ -6,7 +6,7 @@ type GtagFn = (
 
 /**
  * Fire a vote_clicked event to GA4 (via gtag or dataLayer).
- * Safe to call even if no analytics is configured — all paths are
+ * Safe to call even if no analytics is configured all paths are
  * guarded and will silently no-op.
  */
 export function trackVote(): void {

@@ -32,7 +32,7 @@ export interface ParallaxItem {
  *   - NO vertical (Y-axis) translation during scroll.
  *   - The continuous idle rotation (-3°→+3°) is handled via CSS `.sway-*` classes,
  *     so it runs independently even while scrolling.
- *   - `scrub: true` makes every animation bidirectional — scrolling back replays it.
+ *   - `scrub: true` makes every animation bidirectional scrolling back replays it.
  */
 export function useHeroParallax(
     containerRef: RefObject<HTMLElement | null>,
@@ -48,17 +48,14 @@ export function useHeroParallax(
             (context) => {
                 const { isMobile } = context.conditions as { isMobile: boolean };
 
-                // Dampen travel on touch screens so elements don't overshoot
                 const depthMul  = isMobile ? 0.35 : 1;
                 const scrubVal  = isMobile ? 1.8 : 1.2;
 
-                // Maximum horizontal travel in viewport-widths
-                const BASE_VW = 0.12; // 12% of viewport width per speed unit
+                const BASE_VW = 0.12;
 
                 items.forEach((item, idx) => {
                     if (!item.ref.current) return;
 
-                    // Alternate direction by default so opposing layers create depth
                     const dir = item.direction ?? (idx % 2 === 0 ? -1 : 1);
                     const travel = window.innerWidth * BASE_VW * item.speed * depthMul * dir;
 

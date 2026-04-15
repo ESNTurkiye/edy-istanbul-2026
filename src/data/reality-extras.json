@@ -2,9 +2,9 @@
   "_note": "Content archived 2026-04-13: Sport, Playlist and 3 Days cut from the 90-second core journey for pacing. One Day and District Quiz kept in RealityExtras.tsx. Re-introduce here if a deep-dive section is added later.",
   "sports": [
     { "label": "Running",  "detail": "The Bosphorus shore paths stretch for miles. Sunrise jogs with seagulls as pace-setters.",            "accent": "#7ac143" },
-    { "label": "Football", "detail": "Galatasaray, Fenerbahçe, Beşiktaş — the city has three top-flight clubs and a legendary derby.",       "accent": "#f47b20" },
+    { "label": "Football", "detail": "Galatasaray, Fenerbahçe, Beşiktaş the city has three top-flight clubs and a legendary derby.",       "accent": "#f47b20" },
     { "label": "Hiking",   "detail": "Belgrad Forest and the Princes' Islands offer trails within 30 minutes of the city centre.",            "accent": "#00aeef" },
-    { "label": "Swimming", "detail": "Black Sea beaches to the north, Marmara coves to the south — the city is surrounded by water.",        "accent": "#2e3192" },
+    { "label": "Swimming", "detail": "Black Sea beaches to the north, Marmara coves to the south the city is surrounded by water.",        "accent": "#2e3192" },
     { "label": "Cycling",  "detail": "Dedicated bike lanes on Kadıköy's waterfront and the newly opened cycling routes along the Bosphorus.", "accent": "#ec008c" }
   ],
   "playlist": [

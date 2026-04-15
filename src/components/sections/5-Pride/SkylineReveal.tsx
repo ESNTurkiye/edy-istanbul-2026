@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef } from "react";
+import Image from "next/image";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -11,15 +12,7 @@ if (typeof window !== "undefined") {
 
 const CDN = "https://cdn.jsdelivr.net/gh/ESNTurkiye/esn-assets@main/istanbul";
 
-/**
- * Depth layers — back-to-front (ascending zIndex = closer to viewer).
- * yEntry:  how many px below final position the monument starts (rise-in)
- * yScroll: how many px the element moves UP while user scrolls through section
- *          — larger value = closer layer = more parallax movement
- * floatAmp: idle oscillation amplitude in px
- */
 const MONUMENTS = [
-    // Back layer — Blue Mosque, centred, barely moves (deep background anchor)
     {
         src: "ayasofya.webp",
         alt: "Blue Mosque",
@@ -27,12 +20,12 @@ const MONUMENTS = [
         w: "72%",
         maxW: 860,
         zIndex: 2,
+        bottom: "0%",
         yEntry: 160,
-        yScroll: 18,   // almost stationary — far-background feel
+        yScroll: 18,
         delay: 0.12,
         floatAmp: 5,
     },
-    // Left foreground — Galata Tower, very fast parallax
     {
         src: "galata-kulesi.webp",
         alt: "Galata Tower",
@@ -40,12 +33,12 @@ const MONUMENTS = [
         w: "45%",
         maxW: 520,
         zIndex: 4,
-        yEntry: 220,
-        yScroll: 210,  // shoots upward — close foreground
+        bottom: "-11%",
+        yEntry: 280,
+        yScroll: 260,
         delay: 0,
         floatAmp: 11,
     },
-    // Right mid — Maiden's Tower, fast parallax
     {
         src: "kiz-kulesi-2.webp",
         alt: "Maiden's Tower",
@@ -53,60 +46,80 @@ const MONUMENTS = [
         w: "38%",
         maxW: 460,
         zIndex: 3,
-        yEntry: 185,
-        yScroll: 170,  // fast — mid-foreground
+        bottom: "-9%",
+        yEntry: 245,
+        yScroll: 220,
         delay: 0.2,
         floatAmp: 9,
     },
 ] as const;
 
+const TOWER_START_RAISE = 300;
+
 export default function SkylineReveal() {
     const wrapRef = useRef<HTMLDivElement>(null);
-    // Outer wrappers carry the scroll-parallax tween
     const parallaxRefs = useRef<(HTMLDivElement | null)[]>([]);
-    // Inner wrappers carry the entry + idle-float tween
     const entryRefs = useRef<(HTMLDivElement | null)[]>([]);
     const bird1Ref = useRef<HTMLImageElement>(null);
     const bird2Ref = useRef<HTMLImageElement>(null);
 
     useGSAP(() => {
         if (!wrapRef.current) return;
+        parallaxRefs.current.filter(Boolean).forEach((el) => {
+            gsap.set(el, { xPercent: -50 });
+        });
 
-        const entryTrigger = {
+        const revealTrigger = {
             trigger: wrapRef.current,
-            start: "top 82%",
-            once: true,
+            start: "top top",
+            end: "+=60%",
+            scrub: 0.5,
         };
 
-        // ── Entry: monuments rise from below ───────────────────────────────
+        const towerScrollTrigger = {
+            trigger: wrapRef.current,
+            start: "top top",
+            end: "+=480%",
+            scrub: 0.6,
+        };
+
         entryRefs.current.filter(Boolean).forEach((el, i) => {
             const m = MONUMENTS[i];
             gsap.fromTo(
                 el,
-                { y: m.yEntry, opacity: 0 },
+                { opacity: 0 },
                 {
-                    y: 0,
                     opacity: 1,
-                    duration: 1.5,
-                    delay: m.delay,
-                    ease: "power3.out",
-                    scrollTrigger: entryTrigger,
-                    onComplete: () => {
-                        // Start idle float only after the rise completes
-                        gsap.to(el, {
-                            y: `-=${m.floatAmp}`,
-                            duration: 4.5 + i * 0.65,
-                            repeat: -1,
-                            yoyo: true,
-                            ease: "sine.inOut",
-                        });
-                    },
+                    duration: 0.7,
+                    ease: "power2.out",
+                    scrollTrigger: revealTrigger,
                 },
             );
+
+            gsap.to(el, {
+                y: `-=${m.floatAmp}`,
+                x: i % 2 === 0 ? "+=4" : "-=4",
+                rotate: i % 2 === 0 ? 1.6 : -1.6,
+                duration: 4.5 + i * 0.65,
+                repeat: -1,
+                yoyo: true,
+                ease: "sine.inOut",
+            });
         });
 
-        // ── Scroll parallax: outer wrappers move at different speeds ───────
         parallaxRefs.current.filter(Boolean).forEach((el, i) => {
+            if (i === 1 || i === 2) {
+                gsap.fromTo(el,
+                    { y: MONUMENTS[i].yEntry - TOWER_START_RAISE },
+                    {
+                        y: -400,
+                        ease: "none",
+                        scrollTrigger: towerScrollTrigger,
+                    },
+                );
+                return;
+            }
+
             gsap.to(el, {
                 y: -MONUMENTS[i].yScroll,
                 ease: "none",
@@ -119,7 +132,6 @@ export default function SkylineReveal() {
             });
         });
 
-        // ── Galata Tower warm light pulse ──────────────────────────────────
         const galataImg = entryRefs.current[1]?.querySelector<HTMLImageElement>("img");
         if (galataImg) {
             gsap.fromTo(
@@ -135,50 +147,72 @@ export default function SkylineReveal() {
                 },
             );
         }
-
-        // ── Seagulls: fade in on entry, then rotate with scroll ───────────
         const birdScrollTrigger = {
             trigger: wrapRef.current,
-            start: "top bottom",
-            end: "bottom top",
-            scrub: 1.0,
+            start: "top top",
+            end: "+=480%",
+            scrub: 0.6,
         };
 
-        // Bird 1 — appears above Galata Tower area, banks nose-down on scroll
         if (bird1Ref.current) {
-            // Entry fade-in
             gsap.fromTo(bird1Ref.current,
-                { opacity: 0, scale: 0.85 },
-                { opacity: 0.9, scale: 1, duration: 1.2, ease: "power2.out", scrollTrigger: entryTrigger },
+                { opacity: 0, scale: 0.9 },
+                { opacity: 0.9, scale: 1, ease: "none", scrollTrigger: revealTrigger },
             );
-            // Scroll-driven bank: tilts from -18° (gliding up) → +22° (nosing down)
             gsap.fromTo(bird1Ref.current,
                 { rotation: -18 },
                 { rotation: 22, ease: "none", scrollTrigger: birdScrollTrigger },
             );
-            // Subtle idle drift (time-based) — not locked to scroll
+
+            gsap.fromTo(bird1Ref.current, {
+                x: -260,
+                y: 8,
+            }, {
+                x: 400,
+                y: -24,
+                ease: "none",
+                scrollTrigger: birdScrollTrigger,
+            });
+
             gsap.to(bird1Ref.current, {
-                x: "+=12", y: "-=7",
-                duration: 5.5, repeat: -1, yoyo: true, ease: "sine.inOut",
+                xPercent: 6,
+                yPercent: -6,
+                rotate: 2.2,
+                duration: 4.8,
+                repeat: -1,
+                yoyo: true,
+                ease: "sine.inOut",
             });
         }
 
-        // Bird 2 — appears above Kız Kulesi area, banks in opposite direction
         if (bird2Ref.current) {
-            // Entry fade-in (slightly delayed)
             gsap.fromTo(bird2Ref.current,
-                { opacity: 0, scale: 0.85 },
-                { opacity: 0.7, scale: 1, duration: 1.2, delay: 0.35, ease: "power2.out", scrollTrigger: entryTrigger },
+                { opacity: 0, scaleX: -0.9, scaleY: 0.9 },
+                { opacity: 0.7, scaleX: -1, scaleY: 1, ease: "none", scrollTrigger: revealTrigger },
             );
-            // Scroll-driven bank: tilts from +15° → -20° (mirrored feel, opposite phase)
             gsap.fromTo(bird2Ref.current,
                 { rotation: 15 },
                 { rotation: -20, ease: "none", scrollTrigger: birdScrollTrigger },
             );
-            // Subtle idle drift
+
+            gsap.fromTo(bird2Ref.current, {
+                x: 260,
+                y: -8,
+            }, {
+                x: -400,
+                y: 18,
+                ease: "none",
+                scrollTrigger: birdScrollTrigger,
+            });
+
             gsap.to(bird2Ref.current, {
-                x: "-=10", y: "+=6",
-                duration: 6.5, repeat: -1, yoyo: true, ease: "sine.inOut",
+                xPercent: -6,
+                yPercent: 6,
+                rotate: -2.2,
+                duration: 5.3,
+                repeat: -1,
+                yoyo: true,
+                ease: "sine.inOut",
             });
         }
 
@@ -190,7 +224,6 @@ export default function SkylineReveal() {
             className="relative w-full overflow-hidden"
             style={{ height: "clamp(520px, 72vw, 900px)" }}
         >
-            {/* ── Atmospheric deep-ground warm glow ─────────────────────── */}
             <div
                 className="absolute bottom-0 left-0 right-0 pointer-events-none"
                 style={{
@@ -200,8 +233,6 @@ export default function SkylineReveal() {
                     zIndex: 1,
                 }}
             />
-
-            {/* ── Mid-scene ambient orange fog layer ────────────────────── */}
             <div
                 className="absolute left-0 right-0 pointer-events-none"
                 style={{
@@ -213,8 +244,6 @@ export default function SkylineReveal() {
                     zIndex: 1,
                 }}
             />
-
-            {/* ── Ground fog / section-bottom fade ─────────────────────── */}
             <div
                 className="absolute bottom-0 left-0 right-0 pointer-events-none"
                 style={{
@@ -223,8 +252,6 @@ export default function SkylineReveal() {
                     zIndex: 9,
                 }}
             />
-
-            {/* ── Top fade — blends with section above ─────────────────── */}
             <div
                 className="absolute top-0 left-0 right-0 pointer-events-none"
                 style={{
@@ -233,8 +260,6 @@ export default function SkylineReveal() {
                     zIndex: 9,
                 }}
             />
-
-            {/* ── Monuments ─────────────────────────────────────────────── */}
             {MONUMENTS.map((m, i) => (
                 <div
                     key={m.alt}
@@ -245,7 +270,7 @@ export default function SkylineReveal() {
                         width: m.w,
                         maxWidth: m.maxW,
                         zIndex: m.zIndex,
-                        transform: "translateX(-50%)",
+                        bottom: m.bottom,
                         willChange: "transform",
                     }}
                 >
@@ -254,7 +279,6 @@ export default function SkylineReveal() {
                         className="opacity-0"
                         style={{ willChange: "transform, opacity" }}
                     >
-                        {/* Per-monument base glow */}
                         <div
                             className="absolute inset-x-0 bottom-0 pointer-events-none"
                             style={{
@@ -265,27 +289,28 @@ export default function SkylineReveal() {
                                 zIndex: -1,
                             }}
                         />
-                        {/* eslint-disable-next-line @next/next/no-img-element */}
-                        <img
+                        <Image
                             src={`${CDN}/${m.src}`}
                             alt={m.alt}
+                            width={860}
+                            height={520}
                             className="relative w-full h-auto"
                             style={{
                                 filter: "drop-shadow(0 28px 52px rgba(0,0,0,0.65))",
                             }}
+                            sizes="(max-width: 768px) 72vw, 860px"
                         />
                     </div>
                 </div>
             ))}
-
-            {/* ── Seagull 1 — fixed position above Galata Tower, scroll-rotates ── */}
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
+            <Image
                 ref={bird1Ref}
                 src={`${CDN}/marti-2.webp`}
                 alt=""
-                aria-hidden="true"
-                className="absolute pointer-events-none select-none"
+                aria-hidden
+                width={100}
+                height={75}
+                className="absolute pointer-events-none select-none h-auto"
                 style={{
                     width: "clamp(58px, 7vw, 100px)",
                     top: "18%",
@@ -295,23 +320,22 @@ export default function SkylineReveal() {
                     transformOrigin: "center center",
                 }}
             />
-
-            {/* ── Seagull 2 — fixed position above Kız Kulesi, scroll-rotates ── */}
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
+            <Image
                 ref={bird2Ref}
                 src={`${CDN}/marti-2.webp`}
                 alt=""
-                aria-hidden="true"
-                className="absolute pointer-events-none select-none"
+                aria-hidden
+                width={62}
+                height={47}
+                className="absolute pointer-events-none select-none h-auto"
                 style={{
                     width: "clamp(36px, 4vw, 62px)",
                     top: "28%",
                     left: "68%",
                     zIndex: 7,
-                    transform: "scaleX(-1)",
                     opacity: 0,
                     transformOrigin: "center center",
+                    transform: "scaleX(-1)",
                 }}
             />
         </div>

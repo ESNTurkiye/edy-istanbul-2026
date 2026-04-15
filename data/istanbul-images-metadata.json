@@ -1,7 +1,7 @@
 {
     "project": "ESN Turkiye – Istanbul EDY 2026",
     "metadata_version": "2.0",
-    "note": "All images in this set have WHITE/TRANSPARENT backgrounds — they are cut-out (PNG-style) assets, NOT full-bleed photography. This is a critical design constraint: these images are compositing elements, not standalone backgrounds. They must be layered OVER background colors, gradients, videos or other full-bleed photos.",
+    "note": "All images in this set have WHITE/TRANSPARENT backgrounds they are cut-out (PNG-style) assets, NOT full-bleed photography. This is a critical design constraint: these images are compositing elements, not standalone backgrounds. They must be layered OVER background colors, gradients, videos or other full-bleed photos.",
     "images": [
         {
             "filename": "feribot-dikey.webp",
@@ -21,7 +21,7 @@
             },
             "composition": {
                 "subject_position": "left-center, occupying roughly top-left quadrant",
-                "white_space": "large — right half and bottom third are empty",
+                "white_space": "large right half and bottom third are empty",
                 "framing": "bow-forward angle, slightly from below"
             },
             "mood": "iconic, maritime, daily Istanbul life, movement, freedom",
@@ -41,7 +41,7 @@
                 "cutout"
             ],
             "suggested_section": "Hero or Discovery",
-            "suggested_use": "Compositing element — float over Bosphorus video/photo background. The vessel can drift across the Hero section from right to left (translateX animation) as if crossing the strait.",
+            "suggested_use": "Compositing element float over Bosphorus video/photo background. The vessel can drift across the Hero section from right to left (translateX animation) as if crossing the strait.",
             "animation_hints": {
                 "primary": "translateX from right edge to left edge, slow drift 8-12s loop, ease-in-out",
                 "secondary": "subtle vertical sine wave (±5px) to simulate water movement",
@@ -58,7 +58,7 @@
             "background": "white / transparent",
             "asset_type": "cutout",
             "subject": "Pink Tulip Bouquet (Pembe Lale Demeti)",
-            "description": "Cut-out of a lush bouquet of pink-magenta double-petaled tulips with green stems and leaves. Roughly 15-20 tulip heads visible, tightly grouped, some in full bloom, some still closed/budding. Colors range from deep magenta-pink at edges to lighter pink-white at center petals. No outdoor context — purely the flowers isolated on white.",
+            "description": "Cut-out of a lush bouquet of pink-magenta double-petaled tulips with green stems and leaves. Roughly 15-20 tulip heads visible, tightly grouped, some in full bloom, some still closed/budding. Colors range from deep magenta-pink at edges to lighter pink-white at center petals. No outdoor context purely the flowers isolated on white.",
             "colors": {
                 "primary": "deep pink / magenta (#c0396a approximate)",
                 "secondary": "medium pink / rose (#e87aab approximate)",
@@ -71,7 +71,7 @@
                 "framing": "close-up bouquet shot, slightly from above"
             },
             "mood": "vibrant, celebratory, spring, Ottoman heritage, feminine energy, festival",
-            "color_match_esn": "The magenta-pink is very close to ESN Magenta (#ec008c) — strong brand harmony. Use intentionally.",
+            "color_match_esn": "The magenta-pink is very close to ESN Magenta (#ec008c) strong brand harmony. Use intentionally.",
             "tags": [
                 "tulip",
                 "lale",
@@ -93,7 +93,7 @@
                 "stagger": "if using multiple lale images together, stagger entry by 150ms per flower group",
                 "reduced_motion_fallback": "static placement, opacity fade-in only"
             },
-            "design_notes": "Pink-magenta color naturally harmonizes with ESN Magenta. On dark backgrounds (ESN Dark Blue #2e3192 or black), the green stems will also pop. Avoid placing on white backgrounds — the cutout will be invisible."
+            "design_notes": "Pink-magenta color naturally harmonizes with ESN Magenta. On dark backgrounds (ESN Dark Blue #2e3192 or black), the green stems will also pop. Avoid placing on white backgrounds the cutout will be invisible."
         },
         {
             "filename": "marti-2.webp",
@@ -102,7 +102,7 @@
             "background": "white / transparent",
             "asset_type": "cutout",
             "subject": "Istanbul Seagull in Flight (Uçan Martı)",
-            "description": "Cut-out of a single seagull photographed mid-flight from slightly below, wings fully spread upward in a V-shape glide posture. Bird faces slightly left (toward viewer's left). White-grey plumage on body and inner wings, dark grey-black wingtips and primary feathers. Legs tucked under body, beak slightly open. Very clean isolation — ideal for compositing. This is the HIGHEST QUALITY cut-out asset in the set — near-perfect edge isolation.",
+            "description": "Cut-out of a single seagull photographed mid-flight from slightly below, wings fully spread upward in a V-shape glide posture. Bird faces slightly left (toward viewer's left). White-grey plumage on body and inner wings, dark grey-black wingtips and primary feathers. Legs tucked under body, beak slightly open. Very clean isolation ideal for compositing. This is the HIGHEST QUALITY cut-out asset in the set near-perfect edge isolation.",
             "colors": {
                 "primary": "white (body, inner wings)",
                 "secondary": "light grey (wing coverts)",
@@ -112,7 +112,7 @@
             "composition": {
                 "subject_position": "centered, fills roughly 70% of frame",
                 "white_space": "corners are empty, bird fills the visual center",
-                "framing": "from slightly below, wings spread wide — dramatic, expansive feeling",
+                "framing": "from slightly below, wings spread wide dramatic, expansive feeling",
                 "flight_direction": "bird appears to be gliding/banking left"
             },
             "mood": "freedom, soaring, Istanbul spirit, maritime, poetic, iconic, alive",
@@ -129,13 +129,13 @@
                 "sky"
             ],
             "suggested_section": "Hero",
-            "suggested_use": "STAR ASSET for Hero section. Layer over Bosphorus background video/image. Multiple seagulls (marti-1 + marti-2) at different scales create parallax depth — larger one in foreground moves faster, smaller one in background moves slower.",
+            "suggested_use": "STAR ASSET for Hero section. Layer over Bosphorus background video/image. Multiple seagulls (marti-1 + marti-2) at different scales create parallax depth larger one in foreground moves faster, smaller one in background moves slower.",
             "animation_hints": {
-                "primary": "translateX drift from right to left at different speed than ferry — creates layered depth",
+                "primary": "translateX drift from right to left at different speed than ferry creates layered depth",
                 "wing_flap": "subtle CSS scale on Y axis (scaleY 1 to 0.92 to 1, 1.2s loop) to simulate slow wing movement",
                 "vertical": "sine wave vertical drift ±8px, 3s loop, offset timing from ferry animation",
                 "parallax_depth": "use at 0.4x scroll speed for foreground seagull, 0.25x for background (if using marti-1 together)",
-                "entry": "appear from outside right viewport edge, drift across screen, exit left — loops or pauses mid-screen",
+                "entry": "appear from outside right viewport edge, drift across screen, exit left loops or pauses mid-screen",
                 "reduced_motion_fallback": "static placement at upper-right quadrant of Hero, opacity 80%"
             },
             "design_notes": "This is a transparent-background cut-out built for compositing. The near-black wingtips work well on both light (Bosphorus blue) and dark backgrounds. Scale down to 40-60% of original size for realistic proportions against a landscape background."
@@ -147,7 +147,7 @@
             "background": "white / transparent",
             "asset_type": "cutout",
             "subject": "Turkish Coffee Being Poured (Türk Kahvesi Dökülüyor)",
-            "description": "Cut-out of Turkish coffee being poured from a copper cezve (ibrik) into a traditional Iznik-pattern porcelain demitasse cup on a matching saucer. The pour is active — dark brown coffee stream visible mid-air from cezve spout into cup. The cup and saucer feature hand-painted blue, red and green floral Ottoman motifs (carnations, tulips, leaves) on white porcelain — classic Kütahya/Iznik style. The cezve (top-left) is partially cut off. Slight reflective sheen on saucer surface.",
+            "description": "Cut-out of Turkish coffee being poured from a copper cezve (ibrik) into a traditional Iznik-pattern porcelain demitasse cup on a matching saucer. The pour is active dark brown coffee stream visible mid-air from cezve spout into cup. The cup and saucer feature hand-painted blue, red and green floral Ottoman motifs (carnations, tulips, leaves) on white porcelain classic Kütahya/Iznik style. The cezve (top-left) is partially cut off. Slight reflective sheen on saucer surface.",
             "colors": {
                 "cup_saucer_base": "white porcelain",
                 "motif_blue": "cobalt blue (#1a3a8f approximate)",
@@ -162,7 +162,7 @@
                 "framing": "close-up, slightly from above and to the right, 3/4 angle"
             },
             "mood": "ritual, warmth, Ottoman culture, artisanal, hospitality, sensory, rich",
-            "design_connection": "The Iznik floral motifs on the cup DIRECTLY ECHO the cini-yatay.webp (İznik tile) image — these two assets pair perfectly together for a 'Ottoman art in daily life' narrative moment.",
+            "design_connection": "The Iznik floral motifs on the cup DIRECTLY ECHO the cini-yatay.webp (İznik tile) image these two assets pair perfectly together for a 'Ottoman art in daily life' narrative moment.",
             "tags": [
                 "Turkish coffee",
                 "kahve",
@@ -182,11 +182,11 @@
                 "hospitality"
             ],
             "suggested_section": "Discovery or Reality",
-            "suggested_use": "Float over a warm-toned background section. The active pour moment makes it feel alive — use as a 'cultural experience' pin reveal or as a lifestyle card in the Reality section.",
+            "suggested_use": "Float over a warm-toned background section. The active pour moment makes it feel alive use as a 'cultural experience' pin reveal or as a lifestyle card in the Reality section.",
             "animation_hints": {
                 "entry": "translateY from +40px to 0, opacity 0 to 1, duration 0.7s ease-out on scroll trigger",
                 "pour_effect": "if desired, add a dark-brown particle/drip CSS animation falling from cezve spout position to cup (pure CSS, no JS needed)",
-                "steam": "add 2-3 SVG/CSS wavy lines rising from cup top — opacity 0.4, slow wave animation, ESN Orange tinted",
+                "steam": "add 2-3 SVG/CSS wavy lines rising from cup top opacity 0.4, slow wave animation, ESN Orange tinted",
                 "hover": "on desktop hover: scale(1.03) with drop-shadow increase, 0.3s ease",
                 "reduced_motion_fallback": "static placement, opacity fade-in only, no steam or pour effects"
             },
@@ -212,8 +212,8 @@
                 "framing": "low-angle wide shot emphasizing the cobblestone texture and building height"
             },
             "mood": "warm, nostalgic, upscale, vibrant, cozy, historical",
-            "esn_color_match": "ESN Orange (#f47b20) — matches the historical energy and warm sunset/lighting tones",
-            "design_connection": "balat-dikey.jpg — both provide vertical urban texture for student lifestyle sections",
+            "esn_color_match": "ESN Orange (#f47b20) matches the historical energy and warm sunset/lighting tones",
+            "design_connection": "balat-dikey.jpg both provide vertical urban texture for student lifestyle sections",
             "tags": [
                 "akaretler",
                 "besiktas",
@@ -259,8 +259,8 @@
                 "framing": "centered architectural symmetry with a low-angle reflection"
             },
             "mood": "majestic, spiritual, peaceful, historical, iconic",
-            "esn_color_match": "ESN Orange (#f47b20) — harmonizes with the golden reflections and historical significance",
-            "design_connection": "boga-heykeli.webp — both represent iconic physical landmarks of Istanbul's identity",
+            "esn_color_match": "ESN Orange (#f47b20) harmonizes with the golden reflections and historical significance",
+            "design_connection": "boga-heykeli.webp both represent iconic physical landmarks of Istanbul's identity",
             "tags": [
                 "blue mosque",
                 "sultanahmet",
@@ -306,8 +306,8 @@
                 "framing": "extreme upward angle, looking down the street line"
             },
             "mood": "vibrant, authentic, artistic, local, energetic, textured",
-            "esn_color_match": "ESN Green (#7ac143) — pairs with the 'Student Life' theme and provides a complementary pop to the existing warm/cool building tones",
-            "design_connection": "balat-yatay.jpg — use both to establish the Balat aesthetic in different layout containers",
+            "esn_color_match": "ESN Green (#7ac143) pairs with the 'Student Life' theme and provides a complementary pop to the existing warm/cool building tones",
+            "design_connection": "balat-yatay.jpg use both to establish the Balat aesthetic in different layout containers",
             "tags": [
                 "balat",
                 "colorful houses",
@@ -352,8 +352,8 @@
                 "framing": "straight-on eye level, showing the incline of the street"
             },
             "mood": "playful, iconic, historical, charming, diverse",
-            "esn_color_match": "ESN Green (#7ac143) — matches the affordability and 'daily life' aspect of the Balat district",
-            "design_connection": "balat-dikey.jpg — same location, different perspective for variety",
+            "esn_color_match": "ESN Green (#7ac143) matches the affordability and 'daily life' aspect of the Balat district",
+            "design_connection": "balat-dikey.jpg same location, different perspective for variety",
             "tags": [
                 "balat",
                 "colorful houses",
@@ -398,8 +398,8 @@
                 "framing": "three-quarter profile view from a slightly low angle to emphasize power"
             },
             "mood": "strength, meeting point, iconic, urban, resilient, grounded",
-            "esn_color_match": "ESN Dark Blue (#2e3192) — the bronze tones look prestigious and academic when paired with deep blues",
-            "design_connection": "ayasofya.webp — both represent landmark meeting points in the city",
+            "esn_color_match": "ESN Dark Blue (#2e3192) the bronze tones look prestigious and academic when paired with deep blues",
+            "design_connection": "ayasofya.webp both represent landmark meeting points in the city",
             "tags": [
                 "kadikoy",
                 "bull statue",
@@ -444,8 +444,8 @@
                 "framing": "aerial perspective from a high vantage point (likely Otağtepe Park)"
             },
             "mood": "grand, epic, patriotic, breathtaking, transit, twilight",
-            "esn_color_match": "ESN Orange (#f47b20) — perfectly mirrors the natural sunset and the bridge's red lighting",
-            "design_connection": "bogaz-koprusu-2.webp — use both to show the bridge in different light states (sunset vs. deep night)",
+            "esn_color_match": "ESN Orange (#f47b20) perfectly mirrors the natural sunset and the bridge's red lighting",
+            "design_connection": "bogaz-koprusu-2.webp use both to show the bridge in different light states (sunset vs. deep night)",
             "tags": [
                 "bosphorus bridge",
                 "fsm",
@@ -491,8 +491,8 @@
                 "framing": "wide-angle panoramic view from the European side looking toward Asia"
             },
             "mood": "nocturnal, electric, modern, connected, cinematic",
-            "esn_color_match": "ESN Dark Blue (#2e3192) — the midnight sky and deep shadows harmonize with ESN’s professional palette",
-            "design_connection": "bogaz-koprusu-1.webp — serves as a more modern, 'nightlife' focused counterpart to the sunset bridge",
+            "esn_color_match": "ESN Dark Blue (#2e3192) the midnight sky and deep shadows harmonize with ESN’s professional palette",
+            "design_connection": "bogaz-koprusu-1.webp serves as a more modern, 'nightlife' focused counterpart to the sunset bridge",
             "tags": [
                 "bosphorus bridge",
                 "night",
@@ -537,8 +537,8 @@
                 "framing": "top-down perspective, emphasizing the spoon's detail and saucer pattern"
             },
             "mood": "traditional, hospitable, warm, detailed, authentic",
-            "esn_color_match": "ESN Orange (#f47b20) — matches the warmth of the tea and the hospitality theme",
-            "design_connection": "cay-1.jpg and cay-3.webp — use multiple tea assets to create a 'social gathering' collage effect",
+            "esn_color_match": "ESN Orange (#f47b20) matches the warmth of the tea and the hospitality theme",
+            "design_connection": "cay-1.jpg and cay-3.webp use multiple tea assets to create a 'social gathering' collage effect",
             "tags": [
                 "tea",
                 "cay",
@@ -584,8 +584,8 @@
                 "framing": "eye-level, side view emphasizing the iconic 'waisted' shape of the glass"
             },
             "mood": "moody, rustic, cozy, grounding, calm",
-            "esn_color_match": "ESN Dark Blue (#2e3192) — the rustic bronze and deep reds pair well with darker, more 'academic' layouts",
-            "design_connection": "cay-2.webp — provides a different aesthetic (rustic vs. traditional porcelain) for tea",
+            "esn_color_match": "ESN Dark Blue (#2e3192) the rustic bronze and deep reds pair well with darker, more 'academic' layouts",
+            "design_connection": "cay-2.webp provides a different aesthetic (rustic vs. traditional porcelain) for tea",
             "tags": [
                 "tea",
                 "cay",
@@ -631,8 +631,8 @@
                 "framing": "close-up, top-down perspective"
             },
             "mood": "vibrant, fresh, energetic, colorful, social",
-            "esn_color_match": "ESN Cyan (#00a6ef) — perfectly matches the blue patterns in the saucer",
-            "design_connection": "balat-dikey.jpg — shares the same high-saturation, colorful 'Discovery' vibe",
+            "esn_color_match": "ESN Cyan (#00a6ef) perfectly matches the blue patterns in the saucer",
+            "design_connection": "balat-dikey.jpg shares the same high-saturation, colorful 'Discovery' vibe",
             "tags": [
                 "tea",
                 "turkish tea",
@@ -664,7 +664,7 @@
             "aspect_ratio": "approximately 3:4",
             "background": "white",
             "asset_type": "cutout",
-            "subject": "Iznik Tile Panel — Ottoman Floral Wall",
+            "subject": "Iznik Tile Panel Ottoman Floral Wall",
             "description": "A large rectangular panel of classical Iznik-style ceramic tiles arranged in a grid, photographed head-on from a flat frontal angle. The central field is white, densely covered with repeating Ottoman floral motifs: stylized tulips, carnations, hyacinths, saz leaves, and rosettes rendered in cobalt blue, turquoise, and crimson red on white glaze. Both left and right vertical borders are solid cobalt blue with scrolling white arabesques and red accent florals. The tile grid lines are faintly visible. The panel fills nearly the entire frame with minimal white overshoot at edges.",
             "colors": {
                 "primary": "cobalt blue (#1a3a9c)",
@@ -674,12 +674,12 @@
             },
             "composition": {
                 "subject_position": "centered, fills 95%+ of frame",
-                "white_space": "minimal — thin slivers at all four edges only",
+                "white_space": "minimal thin slivers at all four edges only",
                 "framing": "flat frontal, no perspective distortion, full-panel shot"
             },
             "mood": "ornate, historic, intricate, cultural, timeless, imperial",
-            "esn_color_match": "ESN Cyan (#00a6ef) and ESN Dark Blue (#2e3192) — the cobalt and turquoise tones of the tiles directly echo both ESN blues, making this asset feel brand-native when placed against dark blue or cyan section backgrounds",
-            "design_connection": "galata-kulesi.webp — both carry Ottoman/historical depth; pairing tile texture as a background layer with the Galata Tower cutout layered over it would reinforce the Pride section's historical narrative",
+            "esn_color_match": "ESN Cyan (#00a6ef) and ESN Dark Blue (#2e3192) the cobalt and turquoise tones of the tiles directly echo both ESN blues, making this asset feel brand-native when placed against dark blue or cyan section backgrounds",
+            "design_connection": "galata-kulesi.webp both carry Ottoman/historical depth; pairing tile texture as a background layer with the Galata Tower cutout layered over it would reinforce the Pride section's historical narrative",
             "tags": [
                 "iznik",
                 "tile",
@@ -698,16 +698,16 @@
                 "decorative"
             ],
             "suggested_section": "Pride",
-            "suggested_use": "Use as a full-bleed texture background layer for the Pride section, scaled to fill the viewport and set to approximately 85% opacity. Alternatively, crop a quadrant and use as a decorative side panel or parallax texture strip behind text overlays. Do not use as a floating cutout — its strength is as a surface texture.",
+            "suggested_use": "Use as a full-bleed texture background layer for the Pride section, scaled to fill the viewport and set to approximately 85% opacity. Alternatively, crop a quadrant and use as a decorative side panel or parallax texture strip behind text overlays. Do not use as a floating cutout its strength is as a surface texture.",
             "animation_hints": {
                 "entry": "opacity 0 to 1 with subtle scale 1.05 to 1.0, duration 1s ease-out, triggered at Intersection Observer threshold 0.25",
-                "primary": "very slow pan: translateX from 0 to -2% over 20s loop ease-in-out — gives impression of an endless ornamental surface",
+                "primary": "very slow pan: translateX from 0 to -2% over 20s loop ease-in-out gives impression of an endless ornamental surface",
                 "secondary": "null",
-                "parallax": "0.2x scroll speed relative to foreground content — slow drift to feel like a fixed decorative wall",
+                "parallax": "0.2x scroll speed relative to foreground content slow drift to feel like a fixed decorative wall",
                 "hover": "null",
                 "reduced_motion_fallback": "static full-bleed background, opacity 80%, no movement"
             },
-            "design_notes": "This is a real-scene photograph, not a pure graphic — tile grout lines and minor photographic noise are visible. Use CSS filter: saturate(1.1) to intensify colors if needed under dark overlays. Because the background is white glaze (not transparent), apply mix-blend-mode: multiply only if layering over a non-white background; otherwise mask the border region and use as a texture tile."
+            "design_notes": "This is a real-scene photograph, not a pure graphic tile grout lines and minor photographic noise are visible. Use CSS filter: saturate(1.1) to intensify colors if needed under dark overlays. Because the background is white glaze (not transparent), apply mix-blend-mode: multiply only if layering over a non-white background; otherwise mask the border region and use as a texture tile."
         },
         {
             "filename": "feribot-dikey-2.webp",
@@ -715,7 +715,7 @@
             "aspect_ratio": "approximately 1:2",
             "background": "white",
             "asset_type": "cutout",
-            "subject": "Istanbul Ferry — Bow and Port Side View",
+            "subject": "Istanbul Ferry Bow and Port Side View",
             "description": "A classic Istanbul Şehir Hatları commuter ferry photographed from water level at a slight left-to-right angle, showing the bow and full port side. The hull is white with a distinctive horizontal gold/amber stripe. The funnel is bright amber-yellow with a black top and bears a red decorative emblem (anchor or maritime insignia). Orange life rings are mounted along the upper passenger deck railing. Passengers are visible seated on the lower open deck, right side. In the background upper-left, the historic Haydarpaşa Train Station building with its twin turrets is partially visible. The ferry occupies approximately 75% of the frame, positioned center-to-right. Large white space at top; water (muted teal-grey) fills the bottom third.",
             "colors": {
                 "primary": "white (#f0eeeb)",
@@ -726,11 +726,11 @@
             "composition": {
                 "subject_position": "center-right, bow pointing lower-left",
                 "white_space": "large empty white area top-left (sky replaced), moderate white at far right",
-                "framing": "near water level, slight upward angle, medium distance — boat fills vertical height of frame"
+                "framing": "near water level, slight upward angle, medium distance boat fills vertical height of frame"
             },
             "mood": "maritime, nostalgic, urban, moving, iconic, everyday",
-            "esn_color_match": "ESN Orange (#f47b20) — the ferry's amber-gold stripe and funnel are near-identical to ESN Orange, creating instant brand harmony when placed over ESN Dark Blue or cyan section backgrounds",
-            "design_connection": "feribot-yatay.webp — both show Istanbul ferries; use together at different scales to create a multi-layer Bosphorus scene with depth, or use one for Hero and one for Discovery",
+            "esn_color_match": "ESN Orange (#f47b20) the ferry's amber-gold stripe and funnel are near-identical to ESN Orange, creating instant brand harmony when placed over ESN Dark Blue or cyan section backgrounds",
+            "design_connection": "feribot-yatay.webp both show Istanbul ferries; use together at different scales to create a multi-layer Bosphorus scene with depth, or use one for Hero and one for Discovery",
             "tags": [
                 "ferry",
                 "feribot",
@@ -749,16 +749,16 @@
                 "urban"
             ],
             "suggested_section": "Hero",
-            "suggested_use": "Layer over a Bosphorus video or gradient background, positioned right-of-center at 60–70% natural size. The bow facing left creates natural leftward movement energy — pair with right-to-left drift animation to feel like the ferry is crossing the frame. The tall portrait format suits a right-anchored CSS absolute position.",
+            "suggested_use": "Layer over a Bosphorus video or gradient background, positioned right-of-center at 60–70% natural size. The bow facing left creates natural leftward movement energy pair with right-to-left drift animation to feel like the ferry is crossing the frame. The tall portrait format suits a right-anchored CSS absolute position.",
             "animation_hints": {
                 "entry": "translateX +80px to 0, opacity 0 to 1, duration 1s ease-out, triggered at Intersection Observer threshold 0.25",
                 "primary": "slow translateX drift right-to-left: 0 to -15px over 12s loop ease-in-out, simulating gentle crossing motion",
-                "secondary": "vertical sine wave ±4px, 6s loop, offset 2s from primary — water bob effect",
-                "parallax": "0.5x scroll speed relative to background — ferry moves slower than sky, faster than water",
+                "secondary": "vertical sine wave ±4px, 6s loop, offset 2s from primary water bob effect",
+                "parallax": "0.5x scroll speed relative to background ferry moves slower than sky, faster than water",
                 "hover": "scale 1.02, filter brightness(1.08), transition 0.3s ease-out",
                 "reduced_motion_fallback": "static placement right-center, opacity 90%, no movement"
             },
-            "design_notes": "The white sky in the upper-left has been replaced with white but is not a clean transparent cutout — the Haydarpaşa building blends into the white background and cannot be easily separated. Apply mix-blend-mode: multiply to drop the white, but verify that the building silhouette reads correctly against the target background. Water at the bottom is photographic and will show seam edges if placed over a solid color — crop or feather the bottom 15% for seamless compositing."
+            "design_notes": "The white sky in the upper-left has been replaced with white but is not a clean transparent cutout the Haydarpaşa building blends into the white background and cannot be easily separated. Apply mix-blend-mode: multiply to drop the white, but verify that the building silhouette reads correctly against the target background. Water at the bottom is photographic and will show seam edges if placed over a solid color crop or feather the bottom 15% for seamless compositing."
         },
         {
             "filename": "feribot-yatay.webp",
@@ -766,7 +766,7 @@
             "aspect_ratio": "approximately 4:3",
             "background": "white",
             "asset_type": "cutout",
-            "subject": "Istanbul Ferry 'Tuat Sezgin' Crossing the Golden Horn — Full Scene",
+            "subject": "Istanbul Ferry 'Tuat Sezgin' Crossing the Golden Horn Full Scene",
             "description": "A crowded Istanbul commuter ferry named 'TUAT SEZGİN' (name visible on the bow in black lettering) photographed from water level at a near-frontal angle, slightly starboard side. The ferry is packed with passengers on both the enclosed lower deck and the open upper deck; dozens of people lean on railings, stand, and sit. A prominent Turkish flag (red with white crescent and star) flies from a tall pole at the bow's upper-left. A row of six orange life-ring buoys lines the upper deck railing. The ferry's hull is white with a horizontal amber-gold stripe. In the background left, the Galata Tower and the Galata Bridge are partially visible against a white sky. A second ferry is visible far left background. Wake foam is visible at the lower-left. The scene fills approximately 85% of the frame; white sky fills the top 15%.",
             "colors": {
                 "primary": "white (#efefef) hull",
@@ -777,11 +777,11 @@
             "composition": {
                 "subject_position": "right-center to center, bow facing slightly left toward viewer",
                 "white_space": "top 15% white sky, small white margin at far left and right",
-                "framing": "water-level, near-frontal with slight starboard angle, medium-close distance — ferry fills vertical frame"
+                "framing": "water-level, near-frontal with slight starboard angle, medium-close distance ferry fills vertical frame"
             },
             "mood": "lively, communal, authentic, bustling, energetic, urban, joyful",
-            "esn_color_match": "ESN Cyan (#00a6ef) and ESN Orange (#f47b20) — the teal Bosphorus water pairs with ESN Cyan; the amber stripe echoes ESN Orange. This image carries two brand colors naturally, making it highly versatile across sections.",
-            "design_connection": "feribot-dikey-2.webp — both are Istanbul ferry cutouts; use feribot-yatay as the wide establishing scene (Discovery or Hero) and feribot-dikey-2 as a close detail layer to create compositional depth within the same section",
+            "esn_color_match": "ESN Cyan (#00a6ef) and ESN Orange (#f47b20) the teal Bosphorus water pairs with ESN Cyan; the amber stripe echoes ESN Orange. This image carries two brand colors naturally, making it highly versatile across sections.",
+            "design_connection": "feribot-dikey-2.webp both are Istanbul ferry cutouts; use feribot-yatay as the wide establishing scene (Discovery or Hero) and feribot-dikey-2 as a close detail layer to create compositional depth within the same section",
             "tags": [
                 "ferry",
                 "feribot",
@@ -803,9 +803,9 @@
             "suggested_use": "Use as a wide scenic cutout composited over a Bosphorus gradient or video background in the Discovery section, positioned center or left-center at 70–80% viewport width. The Turkish flag at upper-left and the Galata Tower in the background tell a complete Istanbul story in one frame. Can also anchor the Hero section as a secondary layer beneath a headline overlay.",
             "animation_hints": {
                 "entry": "translateX -60px to 0, opacity 0 to 1, duration 1s ease-out, triggered at Intersection Observer threshold 0.25",
-                "primary": "slow translateX drift left-to-right: 0 to +12px over 14s loop ease-in-out — mimics the ferry crossing toward the viewer",
-                "secondary": "vertical sine wave ±5px, 7s loop, offset 3s from primary — gentle water rocking",
-                "parallax": "0.45x scroll speed relative to background — ferry moves at medium parallax depth",
+                "primary": "slow translateX drift left-to-right: 0 to +12px over 14s loop ease-in-out mimics the ferry crossing toward the viewer",
+                "secondary": "vertical sine wave ±5px, 7s loop, offset 3s from primary gentle water rocking",
+                "parallax": "0.45x scroll speed relative to background ferry moves at medium parallax depth",
                 "hover": "scale 1.015, filter brightness(1.05), transition 0.3s ease-out",
                 "reduced_motion_fallback": "static placement center, opacity 90%, no movement"
             },
@@ -817,7 +817,7 @@
             "aspect_ratio": "approximately 4:3",
             "background": "white",
             "asset_type": "cutout",
-            "subject": "İslak Hamburger — Istanbul Wet Burger Pair",
+            "subject": "İslak Hamburger Istanbul Wet Burger Pair",
             "description": "Two classic Istanbul street-food 'ıslak hamburger' (wet burgers) photographed from a slightly elevated three-quarter angle, presented side by side. Each burger sits in a translucent greaseproof paper wrapper, partially open at the top. The buns are deeply glazed with a tomato-paprika sauce that gives them a characteristic glossy, orange-amber appearance with dark caramelized patches on top. Dark, thin grilled beef patties are visible peeking out from the base of each bun. The left burger is slightly smaller and positioned slightly behind the right one. The pair occupies approximately 50% of the frame, centered horizontally and sitting in the lower-center of the image. Generous white space above and on all sides.",
             "colors": {
                 "primary": "amber-orange (#d4740a) glazed bun surface",
@@ -831,7 +831,7 @@
                 "framing": "slightly elevated three-quarter view, close-medium distance, subjects angled naturally"
             },
             "mood": "appetizing, street-food, playful, affordable, local, authentic",
-            "esn_color_match": "ESN Orange (#f47b20) — the glazed tomato-orange buns are an almost exact match to ESN Orange, making this a natural accent element for the Reality section's cost-of-living or student food narrative",
+            "esn_color_match": "ESN Orange (#f47b20) the glazed tomato-orange buns are an almost exact match to ESN Orange, making this a natural accent element for the Reality section's cost-of-living or student food narrative",
             "design_connection": "null",
             "tags": [
                 "islak hamburger",
@@ -854,13 +854,13 @@
             "suggested_use": "Place as a floating cutout element in the Reality section's student lifestyle subsection, anchored lower-center or lower-right. Scale to approximately 30–40% of viewport width for an editorial 'food stamp' feel. Works well alongside a price tag graphic (e.g. '₺25') to reinforce the affordability message.",
             "animation_hints": {
                 "entry": "translateY +30px to 0, opacity 0 to 1, duration 0.7s ease-out, triggered at Intersection Observer threshold 0.3",
-                "primary": "subtle vertical bob: translateY 0 to -6px to 0, 4s loop ease-in-out — mimics being handed across a counter",
+                "primary": "subtle vertical bob: translateY 0 to -6px to 0, 4s loop ease-in-out mimics being handed across a counter",
                 "secondary": "null",
                 "parallax": "null",
-                "hover": "rotate(-3deg) scale(1.05), transition 0.25s ease-out — playful tilt on hover",
+                "hover": "rotate(-3deg) scale(1.05), transition 0.25s ease-out playful tilt on hover",
                 "reduced_motion_fallback": "static placement lower-center, opacity 95%, no movement"
             },
-            "design_notes": "Clean cutout with tight white background — mix-blend-mode: multiply will work well to drop the white against any colored section background. The greaseproof paper wrappers have light blue tones that may appear slightly visible against very dark backgrounds; test on the target color. Scale conservatively — oversizing this asset would break the editorial proportions of the layout."
+            "design_notes": "Clean cutout with tight white background mix-blend-mode: multiply will work well to drop the white against any colored section background. The greaseproof paper wrappers have light blue tones that may appear slightly visible against very dark backgrounds; test on the target color. Scale conservatively oversizing this asset would break the editorial proportions of the layout."
         },
         {
             "filename": "galata-kulesi.webp",
@@ -869,7 +869,7 @@
             "background": "white",
             "asset_type": "cutout",
             "subject": "Galata Tower at Dusk with Beyoğlu Rooftops",
-            "description": "The Galata Tower photographed at dusk or early evening from a medium-distance elevated vantage point, showing the full tower from its conical slate-grey roof and iron spire down to the cylindrical stone body with arched windows and a viewing balcony. The tower's medieval limestone surface shows warm reddish-amber internal lighting glowing through the arched balcony openings. Behind and below the tower stretches a dense cluster of Beyoğlu rooftops with terracotta-red roof tiles and low-rise apartment buildings. In the distant background, faintly visible through haze, is a mosque dome and a minaret silhouette on the opposite hillside. The entire composition — tower plus rooftop neighborhood — fills the bottom 75% of the frame. The top 25% is flat white (sky removed). No text visible.",
+            "description": "The Galata Tower photographed at dusk or early evening from a medium-distance elevated vantage point, showing the full tower from its conical slate-grey roof and iron spire down to the cylindrical stone body with arched windows and a viewing balcony. The tower's medieval limestone surface shows warm reddish-amber internal lighting glowing through the arched balcony openings. Behind and below the tower stretches a dense cluster of Beyoğlu rooftops with terracotta-red roof tiles and low-rise apartment buildings. In the distant background, faintly visible through haze, is a mosque dome and a minaret silhouette on the opposite hillside. The entire composition tower plus rooftop neighborhood fills the bottom 75% of the frame. The top 25% is flat white (sky removed). No text visible.",
             "colors": {
                 "primary": "warm taupe-stone (#8c6b58) tower body",
                 "secondary": "terracotta red (#9c4a3a) rooftop tiles",
@@ -882,8 +882,8 @@
                 "framing": "elevated vantage point, medium distance, slight upward perspective on tower, flat-on to roofscape"
             },
             "mood": "historic, moody, golden hour, iconic, layered, timeless",
-            "esn_color_match": "ESN Orange (#f47b20) — the warm amber glow of the lit windows and terracotta roofs aligns with ESN Orange; place over ESN Dark Blue (#2e3192) backgrounds for maximum contrast and depth",
-            "design_connection": "cini-yatay.webp — both are Ottoman/historical heritage assets; the tile panel can serve as a decorative texture layer in the same Pride section where this tower acts as the hero landmark",
+            "esn_color_match": "ESN Orange (#f47b20) the warm amber glow of the lit windows and terracotta roofs aligns with ESN Orange; place over ESN Dark Blue (#2e3192) backgrounds for maximum contrast and depth",
+            "design_connection": "cini-yatay.webp both are Ottoman/historical heritage assets; the tile panel can serve as a decorative texture layer in the same Pride section where this tower acts as the hero landmark",
             "tags": [
                 "galata tower",
                 "istanbul",
@@ -905,13 +905,13 @@
             "suggested_use": "Position as a large right-anchored or center-anchored cutout in the Pride section, covering roughly 40–55% of viewport height. The flat white sky at the top makes it easy to composite over any gradient or video background. Layer text content to the left of the tower. The tower's verticality creates a natural visual anchor for a split-layout section.",
             "animation_hints": {
                 "entry": "translateY +40px to 0, opacity 0 to 1, duration 1s ease-out, triggered at Intersection Observer threshold 0.25",
-                "primary": "null — tower is stationary; rely on parallax only",
-                "secondary": "CSS filter: brightness subtle pulse 1.0 to 1.08 to 1.0 over 6s loop ease-in-out — simulates the warm internal light flickering faintly",
-                "parallax": "0.35x scroll speed relative to background — tower rises slightly against a slower-moving sky",
+                "primary": "null tower is stationary; rely on parallax only",
+                "secondary": "CSS filter: brightness subtle pulse 1.0 to 1.08 to 1.0 over 6s loop ease-in-out simulates the warm internal light flickering faintly",
+                "parallax": "0.35x scroll speed relative to background tower rises slightly against a slower-moving sky",
                 "hover": "null",
                 "reduced_motion_fallback": "static placement center or right, opacity 90%, no movement, no brightness pulse"
             },
-            "design_notes": "The sky has been cut to white but the cut is imprecise at the tower spire tip — the iron finial may show minor fringing artifacts against colored backgrounds. Test with mix-blend-mode: multiply or apply a manual feathered mask at the top edge. The rooftop cluster at the bottom has irregular edges; feather the bottom 8% slightly for seamless blending over section backgrounds. Do not place on white section backgrounds."
+            "design_notes": "The sky has been cut to white but the cut is imprecise at the tower spire tip the iron finial may show minor fringing artifacts against colored backgrounds. Test with mix-blend-mode: multiply or apply a manual feathered mask at the top edge. The rooftop cluster at the bottom has irregular edges; feather the bottom 8% slightly for seamless blending over section backgrounds. Do not place on white section backgrounds."
         },
         {
             "filename": "kedi-1.webp",
@@ -919,8 +919,8 @@
             "aspect_ratio": "approximately 3:4",
             "background": "white",
             "asset_type": "cutout",
-            "subject": "Istanbul Street Cat — Tabby and White, Sitting, Looking Up",
-            "description": "A medium-longhaired tabby-and-white street cat sits upright on a flat surface, body facing slightly left while the head is turned further left and tilted upward at approximately 30 degrees, as if watching something above and to the left. The coat is a classic brown-grey mackerel tabby pattern on the back, sides, and head, with a broad white bib covering the chest and belly. The face shows clear tabby striping on the forehead, a white muzzle, and a small pink nose. Both eyes are open and alert — left eye fully visible, right eye partially obscured by the head turn. White whiskers extend prominently. The cat occupies approximately 60% of the frame, centered horizontally, with its base sitting at roughly the lower 15% of the image. Large empty white space fills the upper 30% of the frame.",
+            "subject": "Istanbul Street Cat Tabby and White, Sitting, Looking Up",
+            "description": "A medium-longhaired tabby-and-white street cat sits upright on a flat surface, body facing slightly left while the head is turned further left and tilted upward at approximately 30 degrees, as if watching something above and to the left. The coat is a classic brown-grey mackerel tabby pattern on the back, sides, and head, with a broad white bib covering the chest and belly. The face shows clear tabby striping on the forehead, a white muzzle, and a small pink nose. Both eyes are open and alert left eye fully visible, right eye partially obscured by the head turn. White whiskers extend prominently. The cat occupies approximately 60% of the frame, centered horizontally, with its base sitting at roughly the lower 15% of the image. Large empty white space fills the upper 30% of the frame.",
             "colors": {
                 "primary": "warm grey-brown tabby (#7a6452)",
                 "secondary": "white (#f5f5f5) chest and muzzle",
@@ -933,8 +933,8 @@
                 "framing": "eye-level, medium-close distance, slight upward gaze creates dynamic diagonal tension"
             },
             "mood": "curious, alert, charming, local, warm, personality-driven",
-            "esn_color_match": "ESN Orange (#f47b20) — the warm brown-amber tabby tones harmonize with ESN Orange; place over ESN Dark Blue (#2e3192) backgrounds for maximum contrast and to invoke the classic Istanbul cat-on-rooftop atmosphere",
-            "design_connection": "kedi-2.webp — both are Istanbul street cat cutouts; use together at different scales and positions to create a playful multi-cat composition in the Reality or Discovery section, reinforcing Istanbul's famous feline street culture",
+            "esn_color_match": "ESN Orange (#f47b20) the warm brown-amber tabby tones harmonize with ESN Orange; place over ESN Dark Blue (#2e3192) backgrounds for maximum contrast and to invoke the classic Istanbul cat-on-rooftop atmosphere",
+            "design_connection": "kedi-2.webp both are Istanbul street cat cutouts; use together at different scales and positions to create a playful multi-cat composition in the Reality or Discovery section, reinforcing Istanbul's famous feline street culture",
             "tags": [
                 "cat",
                 "kedi",
@@ -956,13 +956,13 @@
             "suggested_use": "Place as a mid-size floating cutout element in the Reality section anchored to the lower-left or lower-right corner, at approximately 25–35% of viewport width. The upward gaze naturally directs the viewer's eye toward headline text placed above it. Pair with kedi-2.webp at a slightly different scale on the opposite side for an editorial double-cat layout.",
             "animation_hints": {
                 "entry": "translateY +25px to 0, opacity 0 to 1, duration 0.8s ease-out, triggered at Intersection Observer threshold 0.3",
-                "primary": "head-tilt simulation: rotate -3deg to +2deg over 5s loop ease-in-out — mimics a cat tracking movement",
-                "secondary": "subtle translateY 0 to -5px to 0, 4s loop ease-in-out, offset 1s from primary — gentle breathing bob",
+                "primary": "head-tilt simulation: rotate -3deg to +2deg over 5s loop ease-in-out mimics a cat tracking movement",
+                "secondary": "subtle translateY 0 to -5px to 0, 4s loop ease-in-out, offset 1s from primary gentle breathing bob",
                 "parallax": "0.3x scroll speed relative to background",
-                "hover": "scale 1.04, rotate 2deg, transition 0.3s ease-out — playful lean-in on hover",
+                "hover": "scale 1.04, rotate 2deg, transition 0.3s ease-out playful lean-in on hover",
                 "reduced_motion_fallback": "static placement lower-left or lower-right, opacity 90%, no movement"
             },
-            "design_notes": "The cutout edge around the fur is relatively clean but fine white hairs at the ear tips and whiskers may show faint white fringing against dark backgrounds — test with mix-blend-mode: multiply. The dark shadowing on the left side of the body blends well against dark section backgrounds without needing multiply. Never place on white section backgrounds."
+            "design_notes": "The cutout edge around the fur is relatively clean but fine white hairs at the ear tips and whiskers may show faint white fringing against dark backgrounds test with mix-blend-mode: multiply. The dark shadowing on the left side of the body blends well against dark section backgrounds without needing multiply. Never place on white section backgrounds."
         },
         {
             "filename": "kedi-2.webp",
@@ -970,7 +970,7 @@
             "aspect_ratio": "approximately 3:4",
             "background": "white",
             "asset_type": "cutout",
-            "subject": "Istanbul Street Cat — Dark Tabby, Sitting, Direct Gaze",
+            "subject": "Istanbul Street Cat Dark Tabby, Sitting, Direct Gaze",
             "description": "A medium-longhaired dark mackerel tabby cat sits in a composed upright posture, body and face both directed straight toward the viewer with a calm, steady direct gaze. The coat is a dark charcoal-brown with dense black tabby striping throughout the body, flanks, legs, and tail. The tail curves around to the left side, tip resting on the ground. The face is darker overall with subtle tabby markings, a small white chin patch, and striking pale green eyes. Front paws are neatly placed together. The cat occupies approximately 65% of the frame, centered horizontally, sitting in the lower-center of the image. The top 25% and side margins are empty white space.",
             "colors": {
                 "primary": "dark charcoal-brown (#3d3028) base coat",
@@ -981,11 +981,11 @@
             "composition": {
                 "subject_position": "centered, body fills lower 65% of frame",
                 "white_space": "top 25% entirely empty, moderate equal margins left and right, minimal below",
-                "framing": "eye-level, medium distance, perfectly frontal — direct confrontational gaze"
+                "framing": "eye-level, medium distance, perfectly frontal direct confrontational gaze"
             },
             "mood": "dignified, watchful, confident, iconic, local, mysterious",
-            "esn_color_match": "ESN Dark Blue (#2e3192) — the deep charcoal tones of the coat are tonally close to dark navy; this cat reads as a sophisticated silhouette against cyan or light-coloured section backgrounds. Also works against ESN Orange backgrounds for warm contrast.",
-            "design_connection": "kedi-1.webp — companion cat cutout; use both in the same section at varied scales. kedi-2's frontal direct gaze creates a stronger focal anchor while kedi-1's upward glance adds dynamism — place kedi-2 as the 'hero cat' and kedi-1 as a secondary element",
+            "esn_color_match": "ESN Dark Blue (#2e3192) the deep charcoal tones of the coat are tonally close to dark navy; this cat reads as a sophisticated silhouette against cyan or light-coloured section backgrounds. Also works against ESN Orange backgrounds for warm contrast.",
+            "design_connection": "kedi-1.webp companion cat cutout; use both in the same section at varied scales. kedi-2's frontal direct gaze creates a stronger focal anchor while kedi-1's upward glance adds dynamism place kedi-2 as the 'hero cat' and kedi-1 as a secondary element",
             "tags": [
                 "cat",
                 "kedi",
@@ -1004,16 +1004,16 @@
                 "dignified"
             ],
             "suggested_section": "Reality",
-            "suggested_use": "Position as a lower-right or lower-center anchor element in the Reality section at 30–40% viewport width. The direct frontal gaze creates strong eye contact with the user as they scroll past — highly effective as a personality-driven section break element. Can also be used at small scale (15% viewport width) as a decorative footer element in the Action section for brand warmth.",
+            "suggested_use": "Position as a lower-right or lower-center anchor element in the Reality section at 30–40% viewport width. The direct frontal gaze creates strong eye contact with the user as they scroll past highly effective as a personality-driven section break element. Can also be used at small scale (15% viewport width) as a decorative footer element in the Action section for brand warmth.",
             "animation_hints": {
                 "entry": "scale 0.92 to 1.0, opacity 0 to 1, duration 0.8s ease-out, triggered at Intersection Observer threshold 0.3",
-                "primary": "slow blink simulation using opacity on an eye-overlay layer: 1.0 to 0.15 to 1.0 over 0.3s, triggered every 6s with randomized delay — mimics natural cat blinking",
-                "secondary": "subtle translateY 0 to -4px to 0, 5s loop ease-in-out — gentle idle breathing",
-                "parallax": "0.25x scroll speed relative to background — cat feels grounded, barely moves",
+                "primary": "slow blink simulation using opacity on an eye-overlay layer: 1.0 to 0.15 to 1.0 over 0.3s, triggered every 6s with randomized delay mimics natural cat blinking",
+                "secondary": "subtle translateY 0 to -4px to 0, 5s loop ease-in-out gentle idle breathing",
+                "parallax": "0.25x scroll speed relative to background cat feels grounded, barely moves",
                 "hover": "scale 1.05, filter brightness(1.1), transition 0.25s ease-out",
                 "reduced_motion_fallback": "static placement lower-right or lower-center, opacity 90%, no blink, no movement"
             },
-            "design_notes": "Darker coat means this cat composites cleanly on both light and dark backgrounds without mix-blend-mode. However, the fine fur at ear tips may show slight white fringing on saturated color backgrounds — apply a 1px inward feather mask if precision is needed. The tail extending left requires adequate left-side padding in the layout so it is not cropped by container overflow. Never place on white section backgrounds."
+            "design_notes": "Darker coat means this cat composites cleanly on both light and dark backgrounds without mix-blend-mode. However, the fine fur at ear tips may show slight white fringing on saturated color backgrounds apply a 1px inward feather mask if precision is needed. The tail extending left requires adequate left-side padding in the layout so it is not cropped by container overflow. Never place on white section backgrounds."
         },
         {
             "filename": "kiz-kulesi-1.webp",
@@ -1021,7 +1021,7 @@
             "aspect_ratio": "approximately 1:2",
             "background": "white",
             "asset_type": "cutout",
-            "subject": "Maiden's Tower (Kız Kulesi) — Daytime, Frontal View with Visitors",
+            "subject": "Maiden's Tower (Kız Kulesi) Daytime, Frontal View with Visitors",
             "description": "The Maiden's Tower (Kız Kulesi) photographed from water level at a straight frontal angle in overcast daylight, showing the complete structure from flagpole tip to waterline. The tower consists of a lower two-storey annexe building with cream-rendered walls, terracotta-red tiled roof, arched windows with brown wooden shutters, and a covered entrance portico. Above it rises the main stone tower body with irregular coursed limestone, decorative iron cross-bracing bands, and a wrought-iron viewing balcony. The upper section transitions to a whitewashed lantern room topped by a dark oxidized copper dome with an ornate metal crown. A tall flagpole with a red Turkish flag flies from the apex. A small group of approximately 15 visitors is visible on the stone landing pier at the base. The complete structure fills approximately 80% of the frame height, centered. Large white space occupies the top 15% (sky removed) and narrow margins at left and right. The Bosphorus water (pale grey-blue) occupies the bottom 8% of the frame.",
             "colors": {
                 "primary": "limestone warm grey (#a08870) tower body",
@@ -1035,8 +1035,8 @@
                 "framing": "eye-level from water, perfectly frontal, full structure visible from tip to waterline"
             },
             "mood": "historic, serene, iconic, legendary, timeless, solitary",
-            "esn_color_match": "ESN Dark Blue (#2e3192) and ESN Cyan (#00a6ef) — the tower's warm stone and cream tones sit beautifully against deep navy backgrounds; the grey-blue water echoes ESN Cyan, reinforcing a Bosphorus colour story",
-            "design_connection": "kiz-kulesi-2.webp — both show the Maiden's Tower; kiz-kulesi-1 is the cooler, factual daytime view while kiz-kulesi-2 is the golden sunset version. Use kiz-kulesi-1 for a Discovery or Pride context and kiz-kulesi-2 for Hero or emotional sections. Together they can power a day/night or mood-shift transition effect.",
+            "esn_color_match": "ESN Dark Blue (#2e3192) and ESN Cyan (#00a6ef) the tower's warm stone and cream tones sit beautifully against deep navy backgrounds; the grey-blue water echoes ESN Cyan, reinforcing a Bosphorus colour story",
+            "design_connection": "kiz-kulesi-2.webp both show the Maiden's Tower; kiz-kulesi-1 is the cooler, factual daytime view while kiz-kulesi-2 is the golden sunset version. Use kiz-kulesi-1 for a Discovery or Pride context and kiz-kulesi-2 for Hero or emotional sections. Together they can power a day/night or mood-shift transition effect.",
             "tags": [
                 "maiden's tower",
                 "kız kulesi",
@@ -1059,12 +1059,12 @@
             "animation_hints": {
                 "entry": "translateY +35px to 0, opacity 0 to 1, duration 1s ease-out, triggered at Intersection Observer threshold 0.25",
                 "primary": "Turkish flag wave: CSS SVG or canvas ripple animation on flag element, 2s loop ease-in-out",
-                "secondary": "very slow translateY 0 to -6px to 0 over 10s loop ease-in-out — tower gently rising with tidal rhythm",
-                "parallax": "0.4x scroll speed relative to background — tower moves at mid-depth parallax",
+                "secondary": "very slow translateY 0 to -6px to 0 over 10s loop ease-in-out tower gently rising with tidal rhythm",
+                "parallax": "0.4x scroll speed relative to background tower moves at mid-depth parallax",
                 "hover": "filter brightness(1.06) saturate(1.1), transition 0.3s ease-out",
                 "reduced_motion_fallback": "static centered placement, opacity 90%, no flag animation, no movement"
             },
-            "design_notes": "The white sky cutout is clean but the ornate metal crown and flagpole tip are fine elements that may show minor white halos against saturated dark backgrounds — apply a luminance mask or mix-blend-mode: multiply. The water at the base has a slight photographic texture; feather the bottom 5% for seamless compositing over non-water backgrounds. The flagpole is very thin and may disappear at small display sizes — maintain a minimum rendered height of 300px."
+            "design_notes": "The white sky cutout is clean but the ornate metal crown and flagpole tip are fine elements that may show minor white halos against saturated dark backgrounds apply a luminance mask or mix-blend-mode: multiply. The water at the base has a slight photographic texture; feather the bottom 5% for seamless compositing over non-water backgrounds. The flagpole is very thin and may disappear at small display sizes maintain a minimum rendered height of 300px."
         },
         {
             "filename": "lale-2.webp",
@@ -1072,8 +1072,8 @@
             "aspect_ratio": "approximately 3:4",
             "background": "white",
             "asset_type": "cutout",
-            "subject": "Golden Yellow Tulip Cluster — Low-Angle Upward View",
-            "description": "A cluster of approximately 10–12 golden-amber tulips photographed from a very low angle looking upward, so the flowers appear to tower above the viewer against a white sky. The tulips are fully formed with tightly closed but rounding petals in a rich golden-orange-yellow (#e8920a) with deeper orange-amber shadowing in the petal folds. Stems are dark olive-green, mostly hidden behind the massed flowerheads. The cluster sits in the lower-center and lower-right portion of the frame; the two tallest tulips at the left and right flanks rise highest. Approximately 55% of the frame is empty white space — the upper 45% is entirely white, with the tulip cluster occupying a roughly rectangular band across the lower half. No text visible.",
+            "subject": "Golden Yellow Tulip Cluster Low-Angle Upward View",
+            "description": "A cluster of approximately 10–12 golden-amber tulips photographed from a very low angle looking upward, so the flowers appear to tower above the viewer against a white sky. The tulips are fully formed with tightly closed but rounding petals in a rich golden-orange-yellow (#e8920a) with deeper orange-amber shadowing in the petal folds. Stems are dark olive-green, mostly hidden behind the massed flowerheads. The cluster sits in the lower-center and lower-right portion of the frame; the two tallest tulips at the left and right flanks rise highest. Approximately 55% of the frame is empty white space the upper 45% is entirely white, with the tulip cluster occupying a roughly rectangular band across the lower half. No text visible.",
             "colors": {
                 "primary": "golden amber (#e8920a) petals",
                 "secondary": "deep orange (#c06010) petal shadows",
@@ -1082,12 +1082,12 @@
             },
             "composition": {
                 "subject_position": "lower-center, cluster spans roughly left-center to right-center of lower half",
-                "white_space": "very large — top 45% entirely empty white, moderate margins at far left and far right",
-                "framing": "extreme low angle looking up, worm's-eye perspective — tulips appear monumental"
+                "white_space": "very large top 45% entirely empty white, moderate margins at far left and far right",
+                "framing": "extreme low angle looking up, worm's-eye perspective tulips appear monumental"
             },
             "mood": "joyful, spring, vibrant, celebratory, warm, energetic",
-            "esn_color_match": "ESN Orange (#f47b20) — the golden amber of the tulips is a natural match for ESN Orange; this asset is ideal over ESN Dark Blue (#2e3192) or ESN Cyan backgrounds where the warm yellow-orange will pop dramatically",
-            "design_connection": "cini-yatay.webp — the tulip is a core Ottoman motif also depicted on the Iznik tiles; pairing the real tulip cluster with the tile texture background creates a layered cultural resonance in the Pride or Discovery section",
+            "esn_color_match": "ESN Orange (#f47b20) the golden amber of the tulips is a natural match for ESN Orange; this asset is ideal over ESN Dark Blue (#2e3192) or ESN Cyan backgrounds where the warm yellow-orange will pop dramatically",
+            "design_connection": "cini-yatay.webp the tulip is a core Ottoman motif also depicted on the Iznik tiles; pairing the real tulip cluster with the tile texture background creates a layered cultural resonance in the Pride or Discovery section",
             "tags": [
                 "tulip",
                 "lale",
@@ -1106,16 +1106,16 @@
                 "cultural"
             ],
             "suggested_section": "Discovery",
-            "suggested_use": "Anchor to the bottom edge of the Discovery or Hero section viewport, positioned center or slightly right, at 50–70% viewport width. The large empty white space above the cluster leaves room for headline text to sit over the flowers without covering them. The low-angle framing creates the impression that tulips are growing up from the bottom of the screen — extremely effective as a scroll-reveal bottom-anchored element.",
+            "suggested_use": "Anchor to the bottom edge of the Discovery or Hero section viewport, positioned center or slightly right, at 50–70% viewport width. The large empty white space above the cluster leaves room for headline text to sit over the flowers without covering them. The low-angle framing creates the impression that tulips are growing up from the bottom of the screen extremely effective as a scroll-reveal bottom-anchored element.",
             "animation_hints": {
-                "entry": "translateY +50px to 0, opacity 0 to 1, duration 1s ease-out — flowers rise up from below as user scrolls, triggered at Intersection Observer threshold 0.25",
-                "primary": "gentle group sway: rotate -2deg to +2deg over 4s loop ease-in-out, transform-origin bottom-center — natural wind motion",
+                "entry": "translateY +50px to 0, opacity 0 to 1, duration 1s ease-out flowers rise up from below as user scrolls, triggered at Intersection Observer threshold 0.25",
+                "primary": "gentle group sway: rotate -2deg to +2deg over 4s loop ease-in-out, transform-origin bottom-center natural wind motion",
                 "secondary": "individual tulip offset: stagger the sway timing by 0.4s per flower left-to-right for a natural wave effect across the cluster",
-                "parallax": "0.6x scroll speed relative to background — tulips rise faster than the sky behind them, emphasizing the low-angle perspective",
-                "hover": "rotate +3deg scale(1.03), transition 0.3s ease-out — tulips lean toward the cursor",
+                "parallax": "0.6x scroll speed relative to background tulips rise faster than the sky behind them, emphasizing the low-angle perspective",
+                "hover": "rotate +3deg scale(1.03), transition 0.3s ease-out tulips lean toward the cursor",
                 "reduced_motion_fallback": "static bottom-center placement, opacity 95%, no sway, no stagger"
             },
-            "design_notes": "The cutout has significant white space above — this is compositionally intentional and should be preserved; do not crop the top white area as it provides breathing room for text overlay. Apply mix-blend-mode: multiply to eliminate the white against any coloured background. The deep orange shadows within the petals will read correctly on both light and dark target backgrounds. Scale generously — this asset loses impact at small sizes."
+            "design_notes": "The cutout has significant white space above this is compositionally intentional and should be preserved; do not crop the top white area as it provides breathing room for text overlay. Apply mix-blend-mode: multiply to eliminate the white against any coloured background. The deep orange shadows within the petals will read correctly on both light and dark target backgrounds. Scale generously this asset loses impact at small sizes."
         },
         {
             "filename": "kiz-kulesi-2.webp",
@@ -1123,8 +1123,8 @@
             "aspect_ratio": "approximately 3:5",
             "background": "white",
             "asset_type": "cutout",
-            "subject": "Maiden's Tower (Kız Kulesi) — Golden Sunset with Seagulls",
-            "description": "The Maiden's Tower photographed at golden hour sunset from a straight frontal water-level angle. The entire scene is bathed in a deep warm amber-terracotta glow that saturates the tower walls, the Bosphorus water, and the distant Asian shore. The tower structure is identical to kiz-kulesi-1.webp but rendered in warm sepia-amber tones: cream walls are now burnt orange, the stone body glows in tawny amber, and the dome is a deep charcoal-brown. A red Turkish flag on the flagpole is visible at the apex. A small orange-and-white lighthouse marker structure is visible to the right of the tower. The stone pier at the base is partially visible with tiny human silhouettes. Approximately 10–12 seagulls are in flight around the tower at various heights and positions, scattered across the upper two-thirds of the image — some close and large, others small and distant. The Bosphorus foreground water reflects the amber sunset in rippled warm-toned horizontals. On the distant left horizon, a hazy shoreline with a mosque silhouette and minaret is faintly visible. The sky has been removed and replaced with white, occupying the top 15% of the frame. The total composition fills approximately 85% of the frame.",
+            "subject": "Maiden's Tower (Kız Kulesi) Golden Sunset with Seagulls",
+            "description": "The Maiden's Tower photographed at golden hour sunset from a straight frontal water-level angle. The entire scene is bathed in a deep warm amber-terracotta glow that saturates the tower walls, the Bosphorus water, and the distant Asian shore. The tower structure is identical to kiz-kulesi-1.webp but rendered in warm sepia-amber tones: cream walls are now burnt orange, the stone body glows in tawny amber, and the dome is a deep charcoal-brown. A red Turkish flag on the flagpole is visible at the apex. A small orange-and-white lighthouse marker structure is visible to the right of the tower. The stone pier at the base is partially visible with tiny human silhouettes. Approximately 10–12 seagulls are in flight around the tower at various heights and positions, scattered across the upper two-thirds of the image some close and large, others small and distant. The Bosphorus foreground water reflects the amber sunset in rippled warm-toned horizontals. On the distant left horizon, a hazy shoreline with a mosque silhouette and minaret is faintly visible. The sky has been removed and replaced with white, occupying the top 15% of the frame. The total composition fills approximately 85% of the frame.",
             "colors": {
                 "primary": "burnt amber-terracotta (#c06820) overall warm tone",
                 "secondary": "deep tawny brown (#7a4020) tower stone in shadow",
@@ -1134,11 +1134,11 @@
             "composition": {
                 "subject_position": "centered, tower as vertical anchor, seagulls scattered upper two-thirds",
                 "white_space": "top 15% white sky, narrow left and right margins",
-                "framing": "eye-level from water, frontal, medium distance — full structure from flag to waterline"
+                "framing": "eye-level from water, frontal, medium distance full structure from flag to waterline"
             },
             "mood": "romantic, golden, poetic, dramatic, timeless, soaring, legendary",
-            "esn_color_match": "ESN Orange (#f47b20) — the entire image is tonally aligned with ESN Orange through its amber sunset palette. This is the strongest ESN Orange asset in the set. Place over ESN Dark Blue (#2e3192) or deep navy gradients for maximum emotional impact.",
-            "design_connection": "kiz-kulesi-1.webp — direct pair; kiz-kulesi-1 is the cool daytime factual version, kiz-kulesi-2 is the golden emotional version. Use in a day-to-dusk CSS transition or crossfade to show Istanbul's two moods. Also connects to feribot-yatay.webp — both feature the Bosphorus at the same visual scale and can be layered in the same scene.",
+            "esn_color_match": "ESN Orange (#f47b20) the entire image is tonally aligned with ESN Orange through its amber sunset palette. This is the strongest ESN Orange asset in the set. Place over ESN Dark Blue (#2e3192) or deep navy gradients for maximum emotional impact.",
+            "design_connection": "kiz-kulesi-1.webp direct pair; kiz-kulesi-1 is the cool daytime factual version, kiz-kulesi-2 is the golden emotional version. Use in a day-to-dusk CSS transition or crossfade to show Istanbul's two moods. Also connects to feribot-yatay.webp both feature the Bosphorus at the same visual scale and can be layered in the same scene.",
             "tags": [
                 "maiden's tower",
                 "kız kulesi",
@@ -1157,16 +1157,16 @@
                 "legendary"
             ],
             "suggested_section": "Hero",
-            "suggested_use": "Use as the primary centrepiece cutout of the Hero section, placed center-frame at 55–70% of viewport height. The seagulls scattered around the tower provide built-in ambient animation targets. Layer over a deep navy or gradient Bosphorus background. The warm amber palette should define the Hero section's colour mood — pair with ESN Dark Blue (#2e3192) as the section background for maximum dramatic contrast.",
+            "suggested_use": "Use as the primary centrepiece cutout of the Hero section, placed center-frame at 55–70% of viewport height. The seagulls scattered around the tower provide built-in ambient animation targets. Layer over a deep navy or gradient Bosphorus background. The warm amber palette should define the Hero section's colour mood pair with ESN Dark Blue (#2e3192) as the section background for maximum dramatic contrast.",
             "animation_hints": {
-                "entry": "scale 1.04 to 1.0, opacity 0 to 1, duration 1.2s ease-out, triggered at Intersection Observer threshold 0.2 — slow cinematic zoom-out reveal",
-                "primary": "seagulls: each bird gets individual translateX + translateY drift paths using CSS keyframes with 8–14s loops and staggered delays of 0.5–2s per bird — no two birds move in sync",
-                "secondary": "water reflection shimmer: translateX subtle 0 to 2px oscillation on the lower water area, 3s loop ease-in-out — simulates ripple light",
-                "parallax": "0.5x scroll speed relative to background — tower moves at mid-depth, seagulls at 0.7x for extra depth separation",
-                "hover": "filter brightness(1.08) saturate(1.05), transition 0.4s ease-out — golden glow intensifies",
+                "entry": "scale 1.04 to 1.0, opacity 0 to 1, duration 1.2s ease-out, triggered at Intersection Observer threshold 0.2 slow cinematic zoom-out reveal",
+                "primary": "seagulls: each bird gets individual translateX + translateY drift paths using CSS keyframes with 8–14s loops and staggered delays of 0.5–2s per bird no two birds move in sync",
+                "secondary": "water reflection shimmer: translateX subtle 0 to 2px oscillation on the lower water area, 3s loop ease-in-out simulates ripple light",
+                "parallax": "0.5x scroll speed relative to background tower moves at mid-depth, seagulls at 0.7x for extra depth separation",
+                "hover": "filter brightness(1.08) saturate(1.05), transition 0.4s ease-out golden glow intensifies",
                 "reduced_motion_fallback": "static centered placement, opacity 95%, all seagulls frozen, no shimmer, no parallax"
             },
-            "design_notes": "This is the single most emotionally powerful image in the set — prioritize it for the Hero section. The seagulls in the image are photographic and cannot be animated individually without masking each bird separately; the Cursor agent should either treat the full image as one layer with global drift, or mask the top two-thirds as the 'sky-and-birds' layer for separate parallax. The white sky cutout is moderately clean; apply mix-blend-mode: multiply. The foreground water has strong photographic texture — feather the bottom 8% to blend over section backgrounds. Never reduce this image to a small decorative element — it demands full-width or large-scale treatment."
+            "design_notes": "This is the single most emotionally powerful image in the set prioritize it for the Hero section. The seagulls in the image are photographic and cannot be animated individually without masking each bird separately; the Cursor agent should either treat the full image as one layer with global drift, or mask the top two-thirds as the 'sky-and-birds' layer for separate parallax. The white sky cutout is moderately clean; apply mix-blend-mode: multiply. The foreground water has strong photographic texture feather the bottom 8% to blend over section backgrounds. Never reduce this image to a small decorative element it demands full-width or large-scale treatment."
         },
         {
             "filename": "marti-1.webp",
@@ -1174,8 +1174,8 @@
             "aspect_ratio": "approximately 3:4",
             "background": "white",
             "asset_type": "cutout",
-            "subject": "Istanbul Seagull — Standing, Side Profile (Martı)",
-            "description": "A large adult seagull stands upright on a flat surface, photographed from a perfectly lateral left-facing side profile at eye level. The body posture is alert and dignified — chest forward, neck slightly extended, head turned cleanly to the left. The plumage is sharply bicolored: bright white on the head, neck, breast, and belly; dark charcoal-grey to dark brown-black on the folded wings and back. The beak is bright amber-yellow with a small red-orange spot near the tip and a black subterminal band — a classic large gull beak. The eye is golden-yellow with a dark pupil, set in an expressionless alert gaze. Both legs are visible and fully extended, amber-yellow with webbed feet spread on the ground. The tail feathers are white with dark edging. The bird occupies approximately 55% of the frame, positioned center to slightly right. Generous white space surrounds all sides, particularly above the head and below the feet.",
+            "subject": "Istanbul Seagull Standing, Side Profile (Martı)",
+            "description": "A large adult seagull stands upright on a flat surface, photographed from a perfectly lateral left-facing side profile at eye level. The body posture is alert and dignified chest forward, neck slightly extended, head turned cleanly to the left. The plumage is sharply bicolored: bright white on the head, neck, breast, and belly; dark charcoal-grey to dark brown-black on the folded wings and back. The beak is bright amber-yellow with a small red-orange spot near the tip and a black subterminal band a classic large gull beak. The eye is golden-yellow with a dark pupil, set in an expressionless alert gaze. Both legs are visible and fully extended, amber-yellow with webbed feet spread on the ground. The tail feathers are white with dark edging. The bird occupies approximately 55% of the frame, positioned center to slightly right. Generous white space surrounds all sides, particularly above the head and below the feet.",
             "colors": {
                 "primary": "white (#f2f2f0) head, breast, belly",
                 "secondary": "dark charcoal-brown (#3a3228) wings and back",
@@ -1184,12 +1184,12 @@
             },
             "composition": {
                 "subject_position": "center to center-right, bird facing left",
-                "white_space": "generous on all sides — approximately 20% above head, 15% below feet, 25% to the left of beak, 20% to the right of tail",
+                "white_space": "generous on all sides approximately 20% above head, 15% below feet, 25% to the left of beak, 20% to the right of tail",
                 "framing": "perfect lateral side profile, eye-level, medium-close distance"
             },
             "mood": "bold, maritime, iconic, alert, proud, characteristic",
-            "esn_color_match": "ESN Cyan (#00a6ef) — the classic white seagull against a cyan or deep blue background creates the defining Istanbul Bosphorus image; the amber beak and legs also echo ESN Orange (#f47b20) as a warm accent",
-            "design_connection": "kiz-kulesi-2.webp — seagulls are part of the Maiden's Tower sunset composition; using marti-1 as a foreground element in the same Hero section at larger scale creates a convincing layered depth with the tower behind it. Also pairs naturally with feribot-yatay.webp and feribot-dikey-2.webp for a full Bosphorus scene.",
+            "esn_color_match": "ESN Cyan (#00a6ef) the classic white seagull against a cyan or deep blue background creates the defining Istanbul Bosphorus image; the amber beak and legs also echo ESN Orange (#f47b20) as a warm accent",
+            "design_connection": "kiz-kulesi-2.webp seagulls are part of the Maiden's Tower sunset composition; using marti-1 as a foreground element in the same Hero section at larger scale creates a convincing layered depth with the tower behind it. Also pairs naturally with feribot-yatay.webp and feribot-dikey-2.webp for a full Bosphorus scene.",
             "tags": [
                 "seagull",
                 "marti",
@@ -1211,13 +1211,13 @@
             "suggested_use": "Layer as a foreground cutout element in the Hero or Discovery section, anchored lower-left or lower-center at 20–30% of viewport width. The left-facing pose creates natural directional tension toward section text placed to the right. At small scale it reads as an ambient scene detail; at large scale (40%+ viewport width) it becomes a bold mascot-level foreground element.",
             "animation_hints": {
                 "entry": "translateX -40px to 0, opacity 0 to 1, duration 0.8s ease-out, triggered at Intersection Observer threshold 0.3",
-                "primary": "idle head bob: translateY 0 to -4px to 0 with slight rotate -1deg to +1deg, 3.5s loop ease-in-out — mimics a standing bird scanning its environment",
-                "secondary": "weight shift: subtle scaleX 1.0 to 0.98 alternating on each leg, 2s loop — simulates rocking between feet",
-                "parallax": "0.3x scroll speed relative to background — bird is close to ground plane, minimal parallax",
-                "hover": "rotate -5deg scale(1.06), transition 0.25s ease-out — bird startles slightly as cursor approaches",
+                "primary": "idle head bob: translateY 0 to -4px to 0 with slight rotate -1deg to +1deg, 3.5s loop ease-in-out mimics a standing bird scanning its environment",
+                "secondary": "weight shift: subtle scaleX 1.0 to 0.98 alternating on each leg, 2s loop simulates rocking between feet",
+                "parallax": "0.3x scroll speed relative to background bird is close to ground plane, minimal parallax",
+                "hover": "rotate -5deg scale(1.06), transition 0.25s ease-out bird startles slightly as cursor approaches",
                 "reduced_motion_fallback": "static placement lower-left or lower-center, opacity 90%, no movement"
             },
-            "design_notes": "Exceptionally clean cutout — edge isolation around the fine beak tip, leg webbing, and individual tail feathers is precise. mix-blend-mode: multiply will work perfectly. The white plumage on the breast will vanish against white section backgrounds — always composite over a colored or dark background. The lateral pose means the asset has strong horizontal directionality; always respect the left-facing orientation in layout — do not CSS-flip horizontally as it would look unnatural for a bird."
+            "design_notes": "Exceptionally clean cutout edge isolation around the fine beak tip, leg webbing, and individual tail feathers is precise. mix-blend-mode: multiply will work perfectly. The white plumage on the breast will vanish against white section backgrounds always composite over a colored or dark background. The lateral pose means the asset has strong horizontal directionality; always respect the left-facing orientation in layout do not CSS-flip horizontally as it would look unnatural for a bird."
         },
         {
             "filename": "mermer-deseni.webp",
@@ -1225,7 +1225,7 @@
             "aspect_ratio": "approximately 1:2",
             "background": "white",
             "asset_type": "graphic",
-            "subject": "Iznik Tile Panel — Framed Ottoman Floral Composition with Border",
+            "subject": "Iznik Tile Panel Framed Ottoman Floral Composition with Border",
             "description": "A rectangular decorative tile panel rendered in Iznik ceramic style, photographed or digitally reproduced at a flat frontal angle. The panel has a clear three-zone structure: an outer border of cobalt blue with dense white arabesque scrollwork and green floral accent motifs at corners and intervals; a narrow inner turquoise-blue linear border; and a central white field densely filled with a symmetrical vertical Ottoman floral design. The central motif consists of a continuous vertical axis of tulips (red, elongated needle-shape), carnations (red, fringed), stylized blue hyacinths and rosettes, and large dark-cobalt saz leaves, all rendered in cobalt blue, turquoise, red, and olive green on white glaze. The panel is displayed slightly off-white at the very edges of the frame, suggesting it is set into a wall or display mount. Hairline tile grid lines are barely visible. The panel fills approximately 90% of the frame.",
             "colors": {
                 "primary": "cobalt blue (#1a3a9c) border and floral elements",
@@ -1235,12 +1235,12 @@
             },
             "composition": {
                 "subject_position": "centered, fills frame vertically",
-                "white_space": "minimal — thin off-white margin visible at left and right edges only",
+                "white_space": "minimal thin off-white margin visible at left and right edges only",
                 "framing": "flat frontal, no perspective, full panel in frame"
             },
             "mood": "ornate, imperial, structured, cultural, symmetric, timeless",
-            "esn_color_match": "ESN Dark Blue (#2e3192) and ESN Cyan (#00a6ef) — the cobalt border directly matches ESN Dark Blue; the turquoise inner lining echoes ESN Cyan. This panel is the most brand-aligned heritage texture in the set.",
-            "design_connection": "cini-yatay.webp and mermer-deseni1.webp — all three are Iznik/Ottoman tile assets. Use mermer-deseni as a tall vertical panel element, cini-yatay as a wide repeating field texture, and mermer-deseni1 as a corner accent graphic to build a layered Ottoman visual system across the Pride section.",
+            "esn_color_match": "ESN Dark Blue (#2e3192) and ESN Cyan (#00a6ef) the cobalt border directly matches ESN Dark Blue; the turquoise inner lining echoes ESN Cyan. This panel is the most brand-aligned heritage texture in the set.",
+            "design_connection": "cini-yatay.webp and mermer-deseni1.webp all three are Iznik/Ottoman tile assets. Use mermer-deseni as a tall vertical panel element, cini-yatay as a wide repeating field texture, and mermer-deseni1 as a corner accent graphic to build a layered Ottoman visual system across the Pride section.",
             "tags": [
                 "iznik",
                 "tile",
@@ -1262,13 +1262,13 @@
             "suggested_use": "Use as a tall vertical decorative panel element anchored to the left or right edge of the Pride section, at approximately 20–25% viewport width. Its strong vertical format and framed border make it ideal as a side pillar or divider between text blocks. Can also be used at reduced opacity (30–40%) as a background texture layer behind section content.",
             "animation_hints": {
                 "entry": "translateX -30px to 0, opacity 0 to 1, duration 1s ease-out, triggered at Intersection Observer threshold 0.25",
-                "primary": "extremely slow vertical pan: translateY 0 to -1.5% over 20s loop ease-in-out — gives the illusion of an endless decorative surface",
+                "primary": "extremely slow vertical pan: translateY 0 to -1.5% over 20s loop ease-in-out gives the illusion of an endless decorative surface",
                 "secondary": "null",
-                "parallax": "0.15x scroll speed — panel behaves like a fixed wall decoration, barely moving",
+                "parallax": "0.15x scroll speed panel behaves like a fixed wall decoration, barely moving",
                 "hover": "filter saturate(1.15) brightness(1.05), transition 0.4s ease-out",
                 "reduced_motion_fallback": "static placement left or right edge, opacity 85%, no movement"
             },
-            "design_notes": "This is a photographic reproduction of a physical tile panel — minor photographic distortion and slight color variation between tile sections may be visible at large display sizes. Use CSS filter: saturate(1.1) to normalize color consistency if needed. The outer border has a thin off-white margin that may appear as a faint frame line against dark backgrounds — apply a 2px inward crop or feather mask at the edges. Do not place on white backgrounds."
+            "design_notes": "This is a photographic reproduction of a physical tile panel minor photographic distortion and slight color variation between tile sections may be visible at large display sizes. Use CSS filter: saturate(1.1) to normalize color consistency if needed. The outer border has a thin off-white margin that may appear as a faint frame line against dark backgrounds apply a 2px inward crop or feather mask at the edges. Do not place on white backgrounds."
         },
         {
             "filename": "mermer-deseni1.webp",
@@ -1276,7 +1276,7 @@
             "aspect_ratio": "approximately 1:1",
             "background": "white",
             "asset_type": "graphic",
-            "subject": "Iznik Tile Corner Motif — Digital Illustration with Tulips and Carnations",
+            "subject": "Iznik Tile Corner Motif Digital Illustration with Tulips and Carnations",
             "description": "A digitally illustrated square Iznik-style tile composition designed as a corner or quarter-panel motif. The upper-left quadrant features five elongated red tulips with olive-green stems fanning outward diagonally from a central root, rendered in flat graphic style with white highlight lines. Scattered between the tulips are small cyan teardrop buds. The lower-right quadrant contains a large stylized leaf or medallion shape in turquoise, filled with cobalt blue arabesque scrollwork with white detail lines. At the center of the composition, a cluster of red carnations (dianthus) with green stems emerges from the meeting point of the two quadrants, surrounded by turquoise accent buds. Small cyan circular berry clusters are scattered in the upper-left white field. The overall style is clean, vector-like digital illustration rather than a photographic tile reproduction. The composition fills nearly the full square frame with minimal white margin.",
             "colors": {
                 "primary": "crimson red (#d42020) tulips and carnations",
@@ -1285,13 +1285,13 @@
                 "detail": "olive green (#6a7820) stems"
             },
             "composition": {
-                "subject_position": "diagonal composition — tulips upper-left, arabesque lower-right, carnations center",
-                "white_space": "minimal — small white margin at all four corners; white field visible in upper-left quadrant between tulip stems",
-                "framing": "flat graphic, top-down, no perspective — pure decorative illustration"
+                "subject_position": "diagonal composition tulips upper-left, arabesque lower-right, carnations center",
+                "white_space": "minimal small white margin at all four corners; white field visible in upper-left quadrant between tulip stems",
+                "framing": "flat graphic, top-down, no perspective pure decorative illustration"
             },
             "mood": "vibrant, graphic, celebratory, cultural, modern-traditional, dynamic",
-            "esn_color_match": "ESN Cyan (#00a6ef) and ESN Dark Blue (#2e3192) — the turquoise and cobalt are near-perfect matches to both ESN blues; the red carnations and tulips provide energetic contrast. This is the most ESN-brand-aligned decorative graphic in the set.",
-            "design_connection": "mermer-deseni.webp and cini-yatay.webp — all three are Iznik tile assets; mermer-deseni1 is the sharpest and most graphic, making it ideal as an overlay element or section accent while the other two serve as background textures. The tulip motif also connects thematically to lale-2.webp.",
+            "esn_color_match": "ESN Cyan (#00a6ef) and ESN Dark Blue (#2e3192) the turquoise and cobalt are near-perfect matches to both ESN blues; the red carnations and tulips provide energetic contrast. This is the most ESN-brand-aligned decorative graphic in the set.",
+            "design_connection": "mermer-deseni.webp and cini-yatay.webp all three are Iznik tile assets; mermer-deseni1 is the sharpest and most graphic, making it ideal as an overlay element or section accent while the other two serve as background textures. The tulip motif also connects thematically to lale-2.webp.",
             "tags": [
                 "iznik",
                 "tile",
@@ -1310,16 +1310,16 @@
                 "decorative"
             ],
             "suggested_section": "Discovery",
-            "suggested_use": "Use as a floating decorative corner accent element, positioned at viewport corners or as a section divider graphic at 15–25% viewport width. Its clean digital illustration style means it requires no masking — place directly over any section background. Particularly effective as an animated entry flourish between the Hero and Discovery sections, or as a repeated pattern tile at small scale across a section background.",
+            "suggested_use": "Use as a floating decorative corner accent element, positioned at viewport corners or as a section divider graphic at 15–25% viewport width. Its clean digital illustration style means it requires no masking place directly over any section background. Particularly effective as an animated entry flourish between the Hero and Discovery sections, or as a repeated pattern tile at small scale across a section background.",
             "animation_hints": {
-                "entry": "rotate -5deg to 0, scale 0.9 to 1.0, opacity 0 to 1, duration 0.8s ease-out, triggered at Intersection Observer threshold 0.3 — unfurls like a flower blooming",
-                "primary": "very slow rotation: rotate 0 to 2deg to 0 over 8s loop ease-in-out — gentle organic sway as if the stems are alive",
-                "secondary": "staggered scale pulse on individual tulip heads: scale 1.0 to 1.03 to 1.0 per tulip, each with 0.6s offset, 5s loop — mimics individual flowers swaying in a breeze",
-                "parallax": "null — this is a graphic overlay, not a depth element",
-                "hover": "rotate 5deg scale(1.08), transition 0.3s ease-out — motif spins playfully toward cursor",
+                "entry": "rotate -5deg to 0, scale 0.9 to 1.0, opacity 0 to 1, duration 0.8s ease-out, triggered at Intersection Observer threshold 0.3 unfurls like a flower blooming",
+                "primary": "very slow rotation: rotate 0 to 2deg to 0 over 8s loop ease-in-out gentle organic sway as if the stems are alive",
+                "secondary": "staggered scale pulse on individual tulip heads: scale 1.0 to 1.03 to 1.0 per tulip, each with 0.6s offset, 5s loop mimics individual flowers swaying in a breeze",
+                "parallax": "null this is a graphic overlay, not a depth element",
+                "hover": "rotate 5deg scale(1.08), transition 0.3s ease-out motif spins playfully toward cursor",
                 "reduced_motion_fallback": "static placement at corner or section boundary, opacity 90%, no rotation, no pulse"
             },
-            "design_notes": "This is a clean vector-style digital illustration with crisp edges — no fringing artifacts expected. The white field areas within the composition (upper-left tulip zone) will show as white against backgrounds; apply mix-blend-mode: multiply to drop all white cleanly. At very small sizes (under 80px) the fine arabesque detail in the cobalt scrollwork will collapse — maintain a minimum rendered width of 120px. This asset can be rotated 90°, 180°, or 270° to create four different corner variants for a border or frame layout."
+            "design_notes": "This is a clean vector-style digital illustration with crisp edges no fringing artifacts expected. The white field areas within the composition (upper-left tulip zone) will show as white against backgrounds; apply mix-blend-mode: multiply to drop all white cleanly. At very small sizes (under 80px) the fine arabesque detail in the cobalt scrollwork will collapse maintain a minimum rendered width of 120px. This asset can be rotated 90°, 180°, or 270° to create four different corner variants for a border or frame layout."
         },
         {
             "filename": "simit-2.webp",
@@ -1327,8 +1327,8 @@
             "aspect_ratio": "approximately 3:4",
             "background": "white",
             "asset_type": "cutout",
-            "subject": "Simit — Top-Down View in Kraft Paper Bag",
-            "description": "A single simit (Istanbul sesame bread ring) photographed from directly above in a top-down flat-lay perspective, resting inside an open kraft paper bag printed with English-language text in a decorative editorial font. Visible text fragments on the bag include 'VOL NO. 30', 'dough', 'chocolate chip', 'cookies', 'straightforward', 'amazingly', 'ingredients', and partial sentences about baking — suggesting a repurposed artisan food packaging bag. The simit is a perfect toroidal ring of braided bread, golden-brown with deep caramelized patches, entirely encrusted with densely packed toasted sesame seeds that give it a textured amber-brown surface. The hole at the center of the simit is visible and shows the interior of the kraft bag beneath. The simit and its open bag fill approximately 70% of the frame, positioned center to slightly upper-center. White space is visible in all four corners and the lower portion of the frame.",
+            "subject": "Simit Top-Down View in Kraft Paper Bag",
+            "description": "A single simit (Istanbul sesame bread ring) photographed from directly above in a top-down flat-lay perspective, resting inside an open kraft paper bag printed with English-language text in a decorative editorial font. Visible text fragments on the bag include 'VOL NO. 30', 'dough', 'chocolate chip', 'cookies', 'straightforward', 'amazingly', 'ingredients', and partial sentences about baking suggesting a repurposed artisan food packaging bag. The simit is a perfect toroidal ring of braided bread, golden-brown with deep caramelized patches, entirely encrusted with densely packed toasted sesame seeds that give it a textured amber-brown surface. The hole at the center of the simit is visible and shows the interior of the kraft bag beneath. The simit and its open bag fill approximately 70% of the frame, positioned center to slightly upper-center. White space is visible in all four corners and the lower portion of the frame.",
             "colors": {
                 "primary": "golden amber-brown (#c47820) sesame crust",
                 "secondary": "kraft tan (#c8a060) paper bag",
@@ -1338,11 +1338,11 @@
             "composition": {
                 "subject_position": "center to upper-center",
                 "white_space": "four corners empty, bottom 20% of frame mostly white",
-                "framing": "directly overhead flat-lay, no perspective — perfect circular geometry of simit fully visible"
+                "framing": "directly overhead flat-lay, no perspective perfect circular geometry of simit fully visible"
             },
             "mood": "appetizing, artisan, local, morning, authentic, warm",
-            "esn_color_match": "ESN Orange (#f47b20) — the golden sesame crust is tonally identical to ESN Orange; this asset will feel brand-native against ESN Dark Blue or ESN Cyan section backgrounds",
-            "design_connection": "Simit-1.webp — both are simit cutouts; simit-2 shows a single simit from above in packaging (intimate, editorial), while Simit-1 shows a stack of four from the side (abundant, street-food energy). Use together in the Reality section for a complementary food pairing at different scales and angles.",
+            "esn_color_match": "ESN Orange (#f47b20) the golden sesame crust is tonally identical to ESN Orange; this asset will feel brand-native against ESN Dark Blue or ESN Cyan section backgrounds",
+            "design_connection": "Simit-1.webp both are simit cutouts; simit-2 shows a single simit from above in packaging (intimate, editorial), while Simit-1 shows a stack of four from the side (abundant, street-food energy). Use together in the Reality section for a complementary food pairing at different scales and angles.",
             "tags": [
                 "simit",
                 "bread",
@@ -1363,14 +1363,14 @@
             "suggested_section": "Reality",
             "suggested_use": "Place as a mid-size floating editorial element in the Reality section at 25–35% viewport width, anchored upper-center or center. The overhead angle and circular form make it visually striking as a standalone food stamp graphic. Pair with a price callout graphic (e.g. '₺10') placed inside the simit hole for an editorial cost-of-living infographic moment.",
             "animation_hints": {
-                "entry": "scale 0.88 to 1.0, opacity 0 to 1, duration 0.7s ease-out — simit appears to drop into frame from above, triggered at Intersection Observer threshold 0.3",
-                "primary": "slow rotation: rotate 0 to 360deg over 30s linear loop — simit spins lazily like it is sitting on a lazy Susan",
+                "entry": "scale 0.88 to 1.0, opacity 0 to 1, duration 0.7s ease-out simit appears to drop into frame from above, triggered at Intersection Observer threshold 0.3",
+                "primary": "slow rotation: rotate 0 to 360deg over 30s linear loop simit spins lazily like it is sitting on a lazy Susan",
                 "secondary": "null",
                 "parallax": "null",
                 "hover": "scale(1.06) filter brightness(1.08), transition 0.25s ease-out",
                 "reduced_motion_fallback": "static centered placement, opacity 95%, no rotation"
             },
-            "design_notes": "The kraft paper bag has irregular torn edges that blend into the white background — mix-blend-mode: multiply will drop the white cleanly. The printed text on the bag is legible at large sizes and may be readable by users; the English baking text is incidental and does not conflict with the Istanbul narrative. The circular simit geometry is perfect for a CSS border-radius: 50% clip-path hover effect if the Cursor agent wants to create a circular reveal interaction."
+            "design_notes": "The kraft paper bag has irregular torn edges that blend into the white background mix-blend-mode: multiply will drop the white cleanly. The printed text on the bag is legible at large sizes and may be readable by users; the English baking text is incidental and does not conflict with the Istanbul narrative. The circular simit geometry is perfect for a CSS border-radius: 50% clip-path hover effect if the Cursor agent wants to create a circular reveal interaction."
         },
         {
             "filename": "Simit-1.webp",
@@ -1378,7 +1378,7 @@
             "aspect_ratio": "approximately 1:1",
             "background": "white",
             "asset_type": "cutout",
-            "subject": "Simit Stack — Four Simits on Newspaper Wrapping",
+            "subject": "Simit Stack Four Simits on Newspaper Wrapping",
             "description": "Four simit (Istanbul sesame bread rings) stacked vertically in a neat tower, photographed from a slightly elevated three-quarter front angle. Each simit is a twisted-rope braided dough ring generously coated in toasted sesame seeds, baked to a rich golden-chestnut brown with lighter pale cream inner curves where the sesame coverage is thinner. The four rings decrease slightly in diameter from bottom to top, giving the stack a slightly tapered profile. The bottom simit rests on a crumpled sheet of grey-white newspaper-print wrapping paper with black Latin-alphabet text visible. The stack fills approximately 65% of the frame, centered horizontally, sitting in the center-to-lower portion. White space is visible above (top 25%) and moderately on both sides.",
             "colors": {
                 "primary": "golden chestnut-brown (#b86820) sesame crust",
@@ -1392,8 +1392,8 @@
                 "framing": "slightly elevated three-quarter front angle, medium-close distance, stack fills vertical center of frame"
             },
             "mood": "abundant, appetizing, street-food, warm, communal, everyday",
-            "esn_color_match": "ESN Orange (#f47b20) — the rich golden sesame crust maps directly onto ESN Orange; the stack's warm brown tones sit powerfully against ESN Dark Blue (#2e3192) or ESN Cyan backgrounds",
-            "design_connection": "simit-2.webp — companion simit asset; use Simit-1 as the primary abundant food element (four simits = generosity, street energy) and simit-2 as the close editorial detail (one simit = intimacy, daily ritual). Together they tell the full simit story in the Reality section.",
+            "esn_color_match": "ESN Orange (#f47b20) the rich golden sesame crust maps directly onto ESN Orange; the stack's warm brown tones sit powerfully against ESN Dark Blue (#2e3192) or ESN Cyan backgrounds",
+            "design_connection": "simit-2.webp companion simit asset; use Simit-1 as the primary abundant food element (four simits = generosity, street energy) and simit-2 as the close editorial detail (one simit = intimacy, daily ritual). Together they tell the full simit story in the Reality section.",
             "tags": [
                 "simit",
                 "stack",
@@ -1412,16 +1412,16 @@
                 "abundant"
             ],
             "suggested_section": "Reality",
-            "suggested_use": "Position as a bold lower-center or lower-right anchor element in the Reality section at 30–40% viewport width. The vertical stack format works well alongside a headline or statistic placed to the left. The four-simit tower conveys abundance and affordability — ideal as the hero food element for a cost-of-living or student lifestyle subsection.",
+            "suggested_use": "Position as a bold lower-center or lower-right anchor element in the Reality section at 30–40% viewport width. The vertical stack format works well alongside a headline or statistic placed to the left. The four-simit tower conveys abundance and affordability ideal as the hero food element for a cost-of-living or student lifestyle subsection.",
             "animation_hints": {
-                "entry": "translateY +40px to 0, opacity 0 to 1, duration 0.8s ease-out, triggered at Intersection Observer threshold 0.3 — stack slides up from below as if being handed up from a street cart",
-                "primary": "subtle vertical bob: translateY 0 to -6px to 0, 4.5s loop ease-in-out — stack gently rises and falls",
-                "secondary": "very slight tilt oscillation: rotate -1deg to +1deg over 6s loop ease-in-out — natural hand-held wobble",
+                "entry": "translateY +40px to 0, opacity 0 to 1, duration 0.8s ease-out, triggered at Intersection Observer threshold 0.3 stack slides up from below as if being handed up from a street cart",
+                "primary": "subtle vertical bob: translateY 0 to -6px to 0, 4.5s loop ease-in-out stack gently rises and falls",
+                "secondary": "very slight tilt oscillation: rotate -1deg to +1deg over 6s loop ease-in-out natural hand-held wobble",
                 "parallax": "0.35x scroll speed relative to background",
-                "hover": "scale(1.04) rotate(-2deg), transition 0.25s ease-out — stack leans toward viewer",
+                "hover": "scale(1.04) rotate(-2deg), transition 0.25s ease-out stack leans toward viewer",
                 "reduced_motion_fallback": "static placement lower-center or lower-right, opacity 95%, no bob, no tilt"
             },
-            "design_notes": "Clean cutout with good edge isolation around the sesame seeds. The newspaper wrapping at the base has irregular crumpled edges — apply mix-blend-mode: multiply to drop the white, but test that the grey newspaper text does not become too dark against colored backgrounds. The stack is slightly wider than tall; ensure the container does not crop the left and right edges of the bottom simit which extends the widest. Never place on white section backgrounds."
+            "design_notes": "Clean cutout with good edge isolation around the sesame seeds. The newspaper wrapping at the base has irregular crumpled edges apply mix-blend-mode: multiply to drop the white, but test that the grey newspaper text does not become too dark against colored backgrounds. The stack is slightly wider than tall; ensure the container does not crop the left and right edges of the bottom simit which extends the widest. Never place on white section backgrounds."
         },
         {
             "filename": "taksim-tramvay.webp",
@@ -1443,8 +1443,8 @@
                 "framing": "slightly elevated three-quarter front-left, medium distance, full vehicle in frame"
             },
             "mood": "iconic, nostalgic, energetic, urban, joyful, distinctly Istanbul",
-            "esn_color_match": "ESN Magenta (#ec008c) is the closest ESN brand energy match — both are bold saturated warm hues that signal action and excitement. However the tram's crimson red also pairs powerfully against ESN Dark Blue (#2e3192) backgrounds, creating maximum contrast for the Action or Hero section.",
-            "design_connection": "feribot-yatay.webp and feribot-dikey-2.webp — all three are iconic Istanbul transport cutouts. The tram (land), ferry (sea) trio can be used together across the Discovery section to illustrate Istanbul's multi-modal, lived-in transportation experience.",
+            "esn_color_match": "ESN Magenta (#ec008c) is the closest ESN brand energy match both are bold saturated warm hues that signal action and excitement. However the tram's crimson red also pairs powerfully against ESN Dark Blue (#2e3192) backgrounds, creating maximum contrast for the Action or Hero section.",
+            "design_connection": "feribot-yatay.webp and feribot-dikey-2.webp all three are iconic Istanbul transport cutouts. The tram (land), ferry (sea) trio can be used together across the Discovery section to illustrate Istanbul's multi-modal, lived-in transportation experience.",
             "tags": [
                 "tram",
                 "tramvay",
@@ -1465,14 +1465,14 @@
             "suggested_section": "Discovery",
             "suggested_use": "Place as a large right-anchored or center-right cutout in the Discovery section at 50–65% of viewport width, with the nose pointing left toward section text. The three-quarter perspective gives strong depth. Works equally well as a bold Hero section element if the primary narrative hook is Istanbul's urban character rather than the Bosphorus.",
             "animation_hints": {
-                "entry": "translateX +80px to 0, opacity 0 to 1, duration 1s ease-out — tram slides in from the right as if arriving at a stop, triggered at Intersection Observer threshold 0.25",
-                "primary": "slow translateX drift right-to-left: 0 to -20px over 16s loop ease-in-out — tram continues its journey across the frame",
-                "secondary": "subtle vertical sine wave ±3px, 5s loop ease-in-out, offset 2s — tracks vibration on cobblestones",
-                "parallax": "0.55x scroll speed relative to background — tram is a foreground element, moves faster than the cityscape behind it",
-                "hover": "scale(1.03) brightness(1.08), transition 0.3s ease-out — tram brightens as if catching sunlight",
+                "entry": "translateX +80px to 0, opacity 0 to 1, duration 1s ease-out tram slides in from the right as if arriving at a stop, triggered at Intersection Observer threshold 0.25",
+                "primary": "slow translateX drift right-to-left: 0 to -20px over 16s loop ease-in-out tram continues its journey across the frame",
+                "secondary": "subtle vertical sine wave ±3px, 5s loop ease-in-out, offset 2s tracks vibration on cobblestones",
+                "parallax": "0.55x scroll speed relative to background tram is a foreground element, moves faster than the cityscape behind it",
+                "hover": "scale(1.03) brightness(1.08), transition 0.3s ease-out tram brightens as if catching sunlight",
                 "reduced_motion_fallback": "static placement center-right, opacity 90%, no movement"
             },
-            "design_notes": "Exceptionally clean cutout — the crimson body has high contrast against the white background making the mask precise. The pantograph arm at the top is thin and may show minor white fringing against dark backgrounds — apply mix-blend-mode: multiply or inspect the top edge. The destination text 'TAKSİM – TÜNEL' and unit number '410' are legible at display sizes above 300px width and add authentic narrative detail — do not obscure with overlays. Never place on white or light-coloured section backgrounds."
+            "design_notes": "Exceptionally clean cutout the crimson body has high contrast against the white background making the mask precise. The pantograph arm at the top is thin and may show minor white fringing against dark backgrounds apply mix-blend-mode: multiply or inspect the top edge. The destination text 'TAKSİM – TÜNEL' and unit number '410' are legible at display sizes above 300px width and add authentic narrative detail do not obscure with overlays. Never place on white or light-coloured section backgrounds."
         },
         {
             "filename": "turk-kahvesi-1.webp",
@@ -1480,7 +1480,7 @@
             "aspect_ratio": "approximately 3:4",
             "background": "white",
             "asset_type": "cutout",
-            "subject": "Turkish Coffee — Top-Down View in Cobalt Blue Ottoman Cup and Saucer",
+            "subject": "Turkish Coffee Top-Down View in Cobalt Blue Ottoman Cup and Saucer",
             "description": "A small Turkish coffee cup and saucer photographed from directly overhead in a flat-lay perspective. The cup is a traditional demitasse shape with a single gold handle visible at the right side. It is filled to near the rim with dark Turkish coffee topped by a dense tan-brown foam with fine dark espresso bubbles scattered across the surface. The cup exterior and saucer are decorated in a rich cobalt blue glaze with an intricate Ottoman floral pattern of red carnations, green leaves, and gold vine tendrils on a deep royal blue (#1a3ab0) ground, framed by a continuous gilded gold rim on both cup and saucer. The circular saucer occupies approximately 70% of the frame, centered. The cup sits slightly off-center to the upper-left within the saucer. Generous white space fills the top 20% and side margins of the frame.",
             "colors": {
                 "primary": "royal cobalt blue (#1a3ab0) cup and saucer glaze",
@@ -1491,11 +1491,11 @@
             "composition": {
                 "subject_position": "centered, saucer fills center 70% of frame",
                 "white_space": "top 20% empty, moderate equal margins at left, right, and bottom",
-                "framing": "directly overhead flat-lay, no perspective — perfect circular saucer geometry fully visible"
+                "framing": "directly overhead flat-lay, no perspective perfect circular saucer geometry fully visible"
             },
             "mood": "luxurious, cultural, intimate, traditional, ornate, ritual",
-            "esn_color_match": "ESN Dark Blue (#2e3192) — the deep cobalt glaze is tonally identical to ESN Dark Blue, making this asset feel entirely brand-native. The gold rim provides a premium accent that elevates section quality.",
-            "design_connection": "turk-kahvesi-3.webp — both are Turkish coffee cutouts; turk-kahvesi-1 is the top-down luxurious cobalt version (premium, ceremonial), while turk-kahvesi-3 is the three-quarter Iznik white version (everyday, accessible). Use together in the Reality section to show the spectrum from affordable daily ritual to culturally rich experience.",
+            "esn_color_match": "ESN Dark Blue (#2e3192) the deep cobalt glaze is tonally identical to ESN Dark Blue, making this asset feel entirely brand-native. The gold rim provides a premium accent that elevates section quality.",
+            "design_connection": "turk-kahvesi-3.webp both are Turkish coffee cutouts; turk-kahvesi-1 is the top-down luxurious cobalt version (premium, ceremonial), while turk-kahvesi-3 is the three-quarter Iznik white version (everyday, accessible). Use together in the Reality section to show the spectrum from affordable daily ritual to culturally rich experience.",
             "tags": [
                 "turkish coffee",
                 "türk kahvesi",
@@ -1517,13 +1517,13 @@
             "suggested_use": "Position as a floating editorial element anchored center or upper-right in the Reality section at 30–40% viewport width. The top-down circular form is graphically striking and reads as an almost abstract design element at small sizes. Pair with a descriptive callout about Turkish coffee culture or a UNESCO heritage note. Can also be used in the Pride section as a cultural symbol alongside the Galata Tower.",
             "animation_hints": {
                 "entry": "scale 0.9 to 1.0, opacity 0 to 1, duration 0.8s ease-out, triggered at Intersection Observer threshold 0.3",
-                "primary": "steam effect: CSS pseudo-element wavy translateY upward animation above the cup rim, 3 staggered wisps, 2.5s loop ease-in-out — coffee steam rising",
-                "secondary": "very slow rotation: rotate 0 to 4deg to 0 over 8s loop ease-in-out — saucer gently tilting as if placed on a slightly uneven surface",
+                "primary": "steam effect: CSS pseudo-element wavy translateY upward animation above the cup rim, 3 staggered wisps, 2.5s loop ease-in-out coffee steam rising",
+                "secondary": "very slow rotation: rotate 0 to 4deg to 0 over 8s loop ease-in-out saucer gently tilting as if placed on a slightly uneven surface",
                 "parallax": "null",
                 "hover": "scale(1.05) filter brightness(1.08), transition 0.3s ease-out",
                 "reduced_motion_fallback": "static centered placement, opacity 95%, no steam, no rotation"
             },
-            "design_notes": "The circular saucer has a clean cutout edge. Apply mix-blend-mode: multiply to eliminate the white background. The deep cobalt glaze may appear near-black on very dark section backgrounds — test contrast and apply CSS filter: brightness(1.1) if the blue detail needs to be more visible. The gold rim is a key visual element and should not be obscured by overlay text. Maintain minimum rendered size of 200px diameter for the floral detail to remain appreciable."
+            "design_notes": "The circular saucer has a clean cutout edge. Apply mix-blend-mode: multiply to eliminate the white background. The deep cobalt glaze may appear near-black on very dark section backgrounds test contrast and apply CSS filter: brightness(1.1) if the blue detail needs to be more visible. The gold rim is a key visual element and should not be obscured by overlay text. Maintain minimum rendered size of 200px diameter for the floral detail to remain appreciable."
         },
         {
             "filename": "yerebatan-sarnici-yatay.webp",
@@ -1531,8 +1531,8 @@
             "aspect_ratio": "approximately 16:9",
             "background": "real-scene",
             "asset_type": "full-bleed-photo",
-            "subject": "Basilica Cistern (Yerebatan Sarnıcı) — Wide Symmetrical Interior, Amber Lighting",
-            "description": "A wide-angle interior photograph of the Basilica Cistern (Yerebatan Sarnıcı) in Istanbul, shot from ground level at the central aisle looking directly down the main axis toward a vanishing point. The composition is nearly perfectly symmetrical: two parallel rows of massive Roman columns with Corinthian-style capitals extend from foreground to background, flanking a flooded central aisle. The ceiling is a continuous series of Byzantine brick barrel vaults illuminated by warm amber-gold uplighting, creating a dramatic chiaroscuro effect of glowing arches against shadowed interstices. Each column base is lit by individual amber spotlights reflecting in the still dark water below, creating doubled luminous columns in the reflections. The overall palette is a rich amber-gold (#c87010) with deep chestnut-brown (#3a1808) shadows and flecks of crimson red (#9a1010) from colored accent lights on several columns in the mid-ground. The far end of the cistern is barely visible as a warm rectangle of distant light. A modern wooden walkway platform is faintly visible along the right colonnade. The scene fills the full frame — no white space.",
+            "subject": "Basilica Cistern (Yerebatan Sarnıcı) Wide Symmetrical Interior, Amber Lighting",
+            "description": "A wide-angle interior photograph of the Basilica Cistern (Yerebatan Sarnıcı) in Istanbul, shot from ground level at the central aisle looking directly down the main axis toward a vanishing point. The composition is nearly perfectly symmetrical: two parallel rows of massive Roman columns with Corinthian-style capitals extend from foreground to background, flanking a flooded central aisle. The ceiling is a continuous series of Byzantine brick barrel vaults illuminated by warm amber-gold uplighting, creating a dramatic chiaroscuro effect of glowing arches against shadowed interstices. Each column base is lit by individual amber spotlights reflecting in the still dark water below, creating doubled luminous columns in the reflections. The overall palette is a rich amber-gold (#c87010) with deep chestnut-brown (#3a1808) shadows and flecks of crimson red (#9a1010) from colored accent lights on several columns in the mid-ground. The far end of the cistern is barely visible as a warm rectangle of distant light. A modern wooden walkway platform is faintly visible along the right colonnade. The scene fills the full frame no white space.",
             "colors": {
                 "primary": "amber-gold (#c87010) vaulted ceiling and column uplighting",
                 "secondary": "deep chestnut-brown (#3a1808) water surface and shadow zones",
@@ -1541,12 +1541,12 @@
             },
             "composition": {
                 "subject_position": "perfectly centered vanishing point, columns frame left and right symmetrically",
-                "white_space": "none — full-bleed real scene photography",
+                "white_space": "none full-bleed real scene photography",
                 "framing": "ground level, perfectly frontal and symmetrical, extreme wide angle, deep perspective recession"
             },
             "mood": "mysterious, ancient, dramatic, underground, awe-inspiring, cinematic",
-            "esn_color_match": "ESN Orange (#f47b20) — the amber-gold ceiling and column lighting is a direct tonal match to ESN Orange, making this the most ESN Orange-aligned full-bleed background in the set. Also resonates with ESN Dark Blue (#2e3192) for the deep shadow water zones.",
-            "design_connection": "yerebatan-sarnici-dikey.webp — direct pair showing the same space; the landscape version is the establishing shot (wide, symmetrical, grand) while the portrait version is the immersive first-person tunnel view. Use landscape as a section background and portrait as a mobile-optimized alternative or a parallax foreground layer.",
+            "esn_color_match": "ESN Orange (#f47b20) the amber-gold ceiling and column lighting is a direct tonal match to ESN Orange, making this the most ESN Orange-aligned full-bleed background in the set. Also resonates with ESN Dark Blue (#2e3192) for the deep shadow water zones.",
+            "design_connection": "yerebatan-sarnici-dikey.webp direct pair showing the same space; the landscape version is the establishing shot (wide, symmetrical, grand) while the portrait version is the immersive first-person tunnel view. Use landscape as a section background and portrait as a mobile-optimized alternative or a parallax foreground layer.",
             "tags": [
                 "basilica cistern",
                 "yerebatan",
@@ -1567,14 +1567,14 @@
             "suggested_section": "Pride",
             "suggested_use": "Use as a full-viewport-width background image for the Pride section, positioned as a fixed or parallax background. The perfect central symmetry creates a natural center channel for headline text overlay. Apply a dark semi-transparent gradient overlay (dark navy to transparent) on the left third for legible text placement. This image alone can carry an entire scroll section as the background.",
             "animation_hints": {
-                "entry": "opacity 0 to 1, duration 1.2s ease-out — slow cinematic fade-in, triggered at Intersection Observer threshold 0.2",
-                "primary": "very slow zoom: scale 1.0 to 1.04 over 20s ease-in-out, transform-origin center — Ken Burns effect pulling the viewer deeper into the cistern",
-                "secondary": "subtle brightness pulse on the amber ceiling: filter brightness 1.0 to 1.06 to 1.0 over 8s loop ease-in-out — torchlight flicker",
-                "parallax": "0.2x scroll speed — as the fixed background, it moves very slowly relative to foreground content to maintain depth illusion",
-                "hover": "null — full-bleed background, no hover state",
+                "entry": "opacity 0 to 1, duration 1.2s ease-out slow cinematic fade-in, triggered at Intersection Observer threshold 0.2",
+                "primary": "very slow zoom: scale 1.0 to 1.04 over 20s ease-in-out, transform-origin center Ken Burns effect pulling the viewer deeper into the cistern",
+                "secondary": "subtle brightness pulse on the amber ceiling: filter brightness 1.0 to 1.06 to 1.0 over 8s loop ease-in-out torchlight flicker",
+                "parallax": "0.2x scroll speed as the fixed background, it moves very slowly relative to foreground content to maintain depth illusion",
+                "hover": "null full-bleed background, no hover state",
                 "reduced_motion_fallback": "static full-bleed background, opacity 90%, no zoom, no brightness pulse"
             },
-            "design_notes": "This is a full-bleed real-scene photograph with no cutout handling needed. The perfect symmetry means the image can be center-cropped at any aspect ratio without losing compositional integrity. The amber tones are warm enough that white text will need a semi-transparent dark overlay for legibility — recommend a CSS background: linear-gradient overlay at 40–55% opacity in ESN Dark Blue (#2e3192) or black. Do not apply mix-blend-mode. The image is relatively low resolution for a full-bleed background — CSS filter: blur(0.3px) can soften any compression artifacts at large viewport sizes."
+            "design_notes": "This is a full-bleed real-scene photograph with no cutout handling needed. The perfect symmetry means the image can be center-cropped at any aspect ratio without losing compositional integrity. The amber tones are warm enough that white text will need a semi-transparent dark overlay for legibility recommend a CSS background: linear-gradient overlay at 40–55% opacity in ESN Dark Blue (#2e3192) or black. Do not apply mix-blend-mode. The image is relatively low resolution for a full-bleed background CSS filter: blur(0.3px) can soften any compression artifacts at large viewport sizes."
         },
         {
             "filename": "yerebatan-sarnici-dikey.webp",
@@ -1582,8 +1582,8 @@
             "aspect_ratio": "approximately 9:16",
             "background": "real-scene",
             "asset_type": "full-bleed-photo",
-            "subject": "Basilica Cistern (Yerebatan Sarnıcı) — Tall Immersive Interior, Orange and Teal Lighting",
-            "description": "A tall portrait interior photograph of the Basilica Cistern ,shot from ground level looking diagonally down the colonnade from a slightly off-center left position, creating a dramatic asymmetric perspective. The upper two-thirds of the frame is dominated by the vaulted brick ceiling lit in a vivid fiery orange-red (#d04010), so intense it borders on infrared in tone — the herringbone brickwork of the barrel vaults is rendered in extraordinary textural detail by the raking light. Two rows of tall Roman columns recede toward a vanishing point; those in the foreground are large and close, those in the background diminish rapidly. A striking color contrast defines the lower third: the floor and walkway are bathed in an electric turquoise-cyan (#00c8c0) from LED ground uplighting, reflecting on the wet floor surface as luminous pools. Small warm amber spotlights at column bases glow amber-orange against the cyan ground. Visitors are faintly visible as dark silhouettes in the mid-ground. The full frame is filled — no white space.",
+            "subject": "Basilica Cistern (Yerebatan Sarnıcı) Tall Immersive Interior, Orange and Teal Lighting",
+            "description": "A tall portrait interior photograph of the Basilica Cistern ,shot from ground level looking diagonally down the colonnade from a slightly off-center left position, creating a dramatic asymmetric perspective. The upper two-thirds of the frame is dominated by the vaulted brick ceiling lit in a vivid fiery orange-red (#d04010), so intense it borders on infrared in tone the herringbone brickwork of the barrel vaults is rendered in extraordinary textural detail by the raking light. Two rows of tall Roman columns recede toward a vanishing point; those in the foreground are large and close, those in the background diminish rapidly. A striking color contrast defines the lower third: the floor and walkway are bathed in an electric turquoise-cyan (#00c8c0) from LED ground uplighting, reflecting on the wet floor surface as luminous pools. Small warm amber spotlights at column bases glow amber-orange against the cyan ground. Visitors are faintly visible as dark silhouettes in the mid-ground. The full frame is filled no white space.",
             "colors": {
                 "primary": "fiery orange-red (#d04010) vaulted ceiling",
                 "secondary": "electric turquoise-cyan (#00c8c0) floor and water reflections",
@@ -1592,12 +1592,12 @@
             },
             "composition": {
                 "subject_position": "columns frame left and right, strong diagonal recession to lower-right vanishing point",
-                "white_space": "none — full-bleed real scene photography",
+                "white_space": "none full-bleed real scene photography",
                 "framing": "ground level, slight left offset, wide-angle with strong diagonal perspective, columns fill left and right edges"
             },
             "mood": "otherworldly, dramatic, ancient, vivid, immersive, underground",
-            "esn_color_match": "ESN Orange (#f47b20) for the ceiling and ESN Cyan (#00a6ef) for the floor — this single image contains both ESN's two most prominent brand colors in a natural dramatic split, making it the most brand-resonant full-bleed photograph in the entire set.",
-            "design_connection": "yerebatan-sarnici-yatay.webp — direct companion; use the landscape version as desktop/wide background and this portrait version as mobile background for the same Pride section, or use as a scrollytelling transition background that morphs from the wide symmetrical view to this immersive diagonal one.",
+            "esn_color_match": "ESN Orange (#f47b20) for the ceiling and ESN Cyan (#00a6ef) for the floor this single image contains both ESN's two most prominent brand colors in a natural dramatic split, making it the most brand-resonant full-bleed photograph in the entire set.",
+            "design_connection": "yerebatan-sarnici-yatay.webp direct companion; use the landscape version as desktop/wide background and this portrait version as mobile background for the same Pride section, or use as a scrollytelling transition background that morphs from the wide symmetrical view to this immersive diagonal one.",
             "tags": [
                 "basilica cistern",
                 "yerebatan",
@@ -1616,16 +1616,16 @@
                 "immersive"
             ],
             "suggested_section": "Pride",
-            "suggested_use": "Use as a full-viewport-height background for a Pride section panel, particularly for mobile viewports where the portrait format fills the screen naturally. The orange ceiling / cyan floor split creates a natural horizontal dividing line at mid-frame — place headline text in the upper amber zone and supporting body text against the cooler lower zone. Also highly effective as a scrollytelling transition background with a slow upward pan animation.",
+            "suggested_use": "Use as a full-viewport-height background for a Pride section panel, particularly for mobile viewports where the portrait format fills the screen naturally. The orange ceiling / cyan floor split creates a natural horizontal dividing line at mid-frame place headline text in the upper amber zone and supporting body text against the cooler lower zone. Also highly effective as a scrollytelling transition background with a slow upward pan animation.",
             "animation_hints": {
-                "entry": "opacity 0 to 1, duration 1.5s ease-out — slow immersive fade-in as user scrolls into the cistern, triggered at Intersection Observer threshold 0.15",
-                "primary": "slow upward pan: translateY 0 to -4% over 25s ease-in-out loop — camera rises slowly through the space as if descending stairs into the cistern",
-                "secondary": "turquoise floor shimmer: CSS overlay layer with animated opacity 0.7 to 1.0 pulse on the lower third, 4s loop ease-in-out — water reflection light shimmer",
-                "parallax": "0.25x scroll speed — background moves slowly as user scrolls, accentuating depth",
-                "hover": "null — full-bleed background",
+                "entry": "opacity 0 to 1, duration 1.5s ease-out slow immersive fade-in as user scrolls into the cistern, triggered at Intersection Observer threshold 0.15",
+                "primary": "slow upward pan: translateY 0 to -4% over 25s ease-in-out loop camera rises slowly through the space as if descending stairs into the cistern",
+                "secondary": "turquoise floor shimmer: CSS overlay layer with animated opacity 0.7 to 1.0 pulse on the lower third, 4s loop ease-in-out water reflection light shimmer",
+                "parallax": "0.25x scroll speed background moves slowly as user scrolls, accentuating depth",
+                "hover": "null full-bleed background",
                 "reduced_motion_fallback": "static full-bleed background centered, opacity 90%, no pan, no shimmer"
             },
-            "design_notes": "Full-bleed real-scene photograph — no cutout handling needed. The orange-cyan color split is so vivid that white text will require a darkening overlay on both zones: recommend a dark radial gradient vignette from edges (70% dark navy opacity) fading to 20% at center. The portrait format is ideal for mobile; pair with yerebatan-sarnici-yatay for desktop in a responsive CSS background-image swap. The extreme color saturation may look oversaturated on some displays — CSS filter: saturate(0.9) can normalize if needed without losing the dramatic quality."
+            "design_notes": "Full-bleed real-scene photograph no cutout handling needed. The orange-cyan color split is so vivid that white text will require a darkening overlay on both zones: recommend a dark radial gradient vignette from edges (70% dark navy opacity) fading to 20% at center. The portrait format is ideal for mobile; pair with yerebatan-sarnici-yatay for desktop in a responsive CSS background-image swap. The extreme color saturation may look oversaturated on some displays CSS filter: saturate(0.9) can normalize if needed without losing the dramatic quality."
         },
         {
             "filename": "turk-kahvesi-3.webp",
@@ -1633,8 +1633,8 @@
             "aspect_ratio": "approximately 3:4",
             "background": "white",
             "asset_type": "cutout",
-            "subject": "Turkish Coffee — Three-Quarter View in Iznik White Floral Cup and Saucer",
-            "description": "A traditional Turkish coffee cup and saucer photographed from a slightly elevated three-quarter angle, showing both the interior of the cup and the decorated exterior. The cup is a standard cylindrical demitasse with a simple looped handle at the right, made of white porcelain. The exterior of both cup and saucer are decorated with a classic Iznik-style floral pattern: light cobalt blue (#5080c0) hyacinths and scrolling leaves, red carnations (#c02020), green stems, and a fine blue geometric border ring — all on a white glaze ground. The cup is filled nearly to the rim with dark Turkish coffee topped by a dense, slightly uneven tan-brown foam with fine dark bubble clusters. The saucer is a standard round shape, tilted slightly toward the viewer in perspective. The cup-and-saucer assembly occupies approximately 70% of the frame, sitting center to slightly right, with the top of the cup at upper-center and the saucer base at lower-center. White space fills the upper-left corner and left margin generously.",
+            "subject": "Turkish Coffee Three-Quarter View in Iznik White Floral Cup and Saucer",
+            "description": "A traditional Turkish coffee cup and saucer photographed from a slightly elevated three-quarter angle, showing both the interior of the cup and the decorated exterior. The cup is a standard cylindrical demitasse with a simple looped handle at the right, made of white porcelain. The exterior of both cup and saucer are decorated with a classic Iznik-style floral pattern: light cobalt blue (#5080c0) hyacinths and scrolling leaves, red carnations (#c02020), green stems, and a fine blue geometric border ring all on a white glaze ground. The cup is filled nearly to the rim with dark Turkish coffee topped by a dense, slightly uneven tan-brown foam with fine dark bubble clusters. The saucer is a standard round shape, tilted slightly toward the viewer in perspective. The cup-and-saucer assembly occupies approximately 70% of the frame, sitting center to slightly right, with the top of the cup at upper-center and the saucer base at lower-center. White space fills the upper-left corner and left margin generously.",
             "colors": {
                 "primary": "white porcelain (#f5f5f0) cup and saucer body",
                 "secondary": "tan-brown (#9a6020) coffee foam surface",
@@ -1647,8 +1647,8 @@
                 "framing": "slightly elevated three-quarter angle, medium-close, tilted perspective shows both cup interior and saucer face"
             },
             "mood": "everyday, warm, cultural, accessible, morning, familiar",
-            "esn_color_match": "ESN Cyan (#00a6ef) — the light cobalt-blue Iznik floral motifs on the white porcelain echo ESN Cyan, making this asset feel fresh and brand-aligned against ESN Dark Blue or neutral dark section backgrounds",
-            "design_connection": "turk-kahvesi-1.webp — companion Turkish coffee asset; turk-kahvesi-3 is the accessible everyday Iznik white version while turk-kahvesi-1 is the luxurious cobalt blue overhead version. Together they offer two visual registers of the same cultural ritual. Also connects to mermer-deseni1.webp and cini-yatay.webp through the shared Iznik floral design language on the cup.",
+            "esn_color_match": "ESN Cyan (#00a6ef) the light cobalt-blue Iznik floral motifs on the white porcelain echo ESN Cyan, making this asset feel fresh and brand-aligned against ESN Dark Blue or neutral dark section backgrounds",
+            "design_connection": "turk-kahvesi-1.webp companion Turkish coffee asset; turk-kahvesi-3 is the accessible everyday Iznik white version while turk-kahvesi-1 is the luxurious cobalt blue overhead version. Together they offer two visual registers of the same cultural ritual. Also connects to mermer-deseni1.webp and cini-yatay.webp through the shared Iznik floral design language on the cup.",
             "tags": [
                 "turkish coffee",
                 "türk kahvesi",
@@ -1670,18 +1670,18 @@
             "suggested_use": "Use as a floating cutout element in the Reality section at 25–35% viewport width, anchored center or right-center. The three-quarter perspective gives it more dimensionality and warmth than the top-down version, making it ideal for a student lifestyle narrative. Pair with a brief text note about Turkish coffee culture or a price callout. Can be stacked with turk-kahvesi-1 in a split-layout showing 'two ways to experience Istanbul's coffee culture'.",
             "animation_hints": {
                 "entry": "translateY +20px to 0, opacity 0 to 1, duration 0.7s ease-out, triggered at Intersection Observer threshold 0.3",
-                "primary": "steam wisps: 2 CSS pseudo-element wavy SVG path animations rising 20px above the cup rim, 3s loop ease-in-out, staggered 0.8s apart — coffee steam",
-                "secondary": "gentle tilt oscillation: rotate -1.5deg to +1.5deg over 6s loop ease-in-out — cup rocking on saucer slightly",
+                "primary": "steam wisps: 2 CSS pseudo-element wavy SVG path animations rising 20px above the cup rim, 3s loop ease-in-out, staggered 0.8s apart coffee steam",
+                "secondary": "gentle tilt oscillation: rotate -1.5deg to +1.5deg over 6s loop ease-in-out cup rocking on saucer slightly",
                 "parallax": "null",
-                "hover": "scale(1.04) rotate(2deg), transition 0.25s ease-out — cup tilts invitingly toward cursor",
+                "hover": "scale(1.04) rotate(2deg), transition 0.25s ease-out cup tilts invitingly toward cursor",
                 "reduced_motion_fallback": "static center or right-center placement, opacity 95%, no steam, no tilt"
             },
-            "design_notes": "The white porcelain cup body will be nearly invisible against white section backgrounds — always composite over a colored or dark background. Apply mix-blend-mode: multiply to drop the background white cleanly; however, test carefully as the white porcelain itself may also partially disappear on very dark backgrounds, requiring a subtle drop-shadow (box-shadow: 0 4px 20px rgba(0,0,0,0.25)) to maintain the cup's visible silhouette. The coffee foam surface is detailed and photorealistic — do not reduce below 150px rendered width or the texture will compress unattractively."
+            "design_notes": "The white porcelain cup body will be nearly invisible against white section backgrounds always composite over a colored or dark background. Apply mix-blend-mode: multiply to drop the background white cleanly; however, test carefully as the white porcelain itself may also partially disappear on very dark backgrounds, requiring a subtle drop-shadow (box-shadow: 0 4px 20px rgba(0,0,0,0.25)) to maintain the cup's visible silhouette. The coffee foam surface is detailed and photorealistic do not reduce below 150px rendered width or the texture will compress unattractively."
         }
     ],
     "global_asset_rules": {
-        "background_type": "ALL images in this project set have white/transparent backgrounds — they are CUT-OUT compositing assets, NOT full-bleed photography",
-        "critical_constraint": "NEVER place these images on white or very light background sections — the subjects will become invisible or lose impact",
+        "background_type": "ALL images in this project set have white/transparent backgrounds they are CUT-OUT compositing assets, NOT full-bleed photography",
+        "critical_constraint": "NEVER place these images on white or very light background sections the subjects will become invisible or lose impact",
         "recommended_backgrounds": [
             "ESN Cyan (#00a6ef) for Hero/maritime scenes",
             "ESN Dark Blue (#2e3192) for Pride/historical scenes",
@@ -1689,11 +1689,11 @@
             "ESN Magenta (#ec008c) for Action/CTA section",
             "Warm cream or dark brown for food/coffee assets"
         ],
-        "compositing_technique": "Use CSS mix-blend-mode: multiply on white backgrounds to make white transparent in browsers that support it — though actual transparent WebP is preferable",
+        "compositing_technique": "Use CSS mix-blend-mode: multiply on white backgrounds to make white transparent in browsers that support it though actual transparent WebP is preferable",
         "animation_global": {
             "max_duration": "1s for UI animations, 8-12s for ambient loops (ferry, seagull drift)",
             "easing": "ease-out for entry animations, ease-in-out for loops",
-            "reduced_motion": "All animations must check prefers-reduced-motion — fallback to opacity fade only",
+            "reduced_motion": "All animations must check prefers-reduced-motion fallback to opacity fade only",
             "trigger": "Intersection Observer, threshold 0.25-0.3"
         }
     }

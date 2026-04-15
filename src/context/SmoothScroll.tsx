@@ -7,8 +7,6 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
 
-// Drives Lenis via GSAP's ticker and keeps ScrollTrigger in sync.
-// Must be a child of <ReactLenis> so useLenis() can access the context.
 function LenisBridge() {
     const lenis = useLenis();
 

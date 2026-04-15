@@ -2,6 +2,8 @@
 
 import { useRef, useCallback, useState, Fragment } from "react";
 import dynamic from "next/dynamic";
+import Image from "next/image";
+import type { Map } from "leaflet";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -14,23 +16,6 @@ if (typeof window !== "undefined") {
 }
 
 const MapBackground = dynamic(() => import("./MapBackground"), { ssr: false });
-
-/* ── Smooth curve builder functions ─────────────────────── */
-function cubicPoint(
-    p0: { x: number; y: number },
-    c1: { x: number; y: number },
-    c2: { x: number; y: number },
-    p3: { x: number; y: number },
-    t: number,
-) {
-    const mt = 1 - t;
-    const mt2 = mt * mt;
-    const t2 = t * t;
-    return {
-        x: mt2 * mt * p0.x + 3 * mt2 * t * c1.x + 3 * mt * t2 * c2.x + t2 * t * p3.x,
-        y: mt2 * mt * p0.y + 3 * mt2 * t * c1.y + 3 * mt * t2 * c2.y + t2 * t * p3.y,
-    };
-}
 
 function curveControls(pts: { x: number; y: number }[], i: number, tension = 1) {
     const p0 = pts[Math.max(0, i - 1)];
@@ -50,7 +35,6 @@ function curveControls(pts: { x: number; y: number }[], i: number, tension = 1) 
     return { p1, c1, c2, p2 };
 }
 
-/* Smooth route that still passes exactly through every landmark point */
 function routePathThroughPoints(pts: { x: number; y: number }[]) {
     if (pts.length < 2) return "";
     let d = `M ${pts[0].x} ${pts[0].y}`;
@@ -122,22 +106,16 @@ export default function Discovery() {
     const cardTrackRef = useRef<HTMLDivElement>(null);
     const marti2Ref = useRef<HTMLDivElement>(null);
     const marti1Ref = useRef<HTMLDivElement>(null);
-    const laleLeftRef = useRef<HTMLDivElement>(null);
-    const laleRightRef = useRef<HTMLDivElement>(null);
 
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const leafletMap = useRef<any>(null);
+    const leafletMap = useRef<Map | null>(null);
     const [mapReady, setMapReady] = useState(false);
     const [pinPositions, setPinPositions] = useState<{ x: number; y: number }[]>([]);
     const [routePath, setRoutePath] = useState("");
 
-    const handleMapReady = useCallback((m: unknown) => {
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        const map = m as any;
+    const handleMapReady = useCallback((map: Map) => {
         leafletMap.current = map;
         map.invalidateSize();
 
-        // Use Leaflet's own projection — pins will sit exactly on the map tiles
         const positions = LANDMARKS.map(lm => {
             const pt = map.latLngToContainerPoint([lm.lat, lm.lng]);
             return { x: Math.round(pt.x), y: Math.round(pt.y) };
@@ -151,23 +129,18 @@ export default function Discovery() {
     useGSAP(() => {
         if (!sectionRef.current) return;
 
-        /* ── Always hide decoratives / headline on first paint ──────────── */
         gsap.set(headlineRef.current, { opacity: 0, y: 28 });
         gsap.set(subRef.current, { opacity: 0 });
         gsap.set(ferryRef.current, { x: "140%" });
-        gsap.set([marti2Ref.current, marti1Ref.current], { opacity: 0, y: -15 });
-        // Left lale needs to be flipped via GSAP so rotation is also handled by GSAP
-        gsap.set(laleLeftRef.current, { scaleX: -1, opacity: 0, y: -30 });
-        gsap.set(laleRightRef.current, { opacity: 0, y: -30 });
+        gsap.set(marti2Ref.current, { opacity: 0, y: -15 });
+        gsap.set(marti1Ref.current, { opacity: 0, y: -15, xPercent: -50 });
         gsap.set(cardFrameRef.current, { opacity: 0, x: -28 });
         gsap.set(cardTrackRef.current, { xPercent: 0 });
 
-        /* Hide pins/cards — refs may still be null before mapReady */
         pinDotRefs.current.forEach(el => { if (el) gsap.set(el, { scale: 0, opacity: 0 }); });
         ringRefs.current.forEach(el => { if (el) gsap.set(el, { scale: 1, opacity: 0 }); });
         labelRefs.current.forEach(el => { if (el) gsap.set(el, { opacity: 0, y: 6 }); });
 
-        /* ── Bail until Leaflet has calculated real pixel positions ─────── */
         if (!mapReady || pinPositions.length === 0 || !routeRef.current) return;
 
         const path = routeRef.current;
@@ -194,19 +167,12 @@ export default function Discovery() {
                     },
                 });
 
-                /* 0 ── Headline */
                 tl.to(headlineRef.current, { opacity: 1, y: 0, duration: 0.6, ease: "power2.out" }, 0);
                 tl.to(subRef.current, { opacity: 1, duration: 0.5 }, 0.3);
 
-                /* 0 ── Lale corner decorations bloom in from top */
-                tl.to(laleLeftRef.current, { opacity: 1, y: 0, duration: 0.9, ease: "power2.out" }, 0);
-                tl.to(laleRightRef.current, { opacity: 1, y: 0, duration: 0.9, ease: "power2.out" }, 0.15);
+                tl.to(marti2Ref.current, { opacity: 1, y: 0, duration: 0.55, ease: "power2.out" }, 0.05);
+                tl.to(marti1Ref.current, { opacity: 0.95, y: 0, duration: 0.55, ease: "power2.out" }, 0.2);
 
-                /* 0 ── Seagulls */
-                tl.to(marti2Ref.current, { opacity: 0.75, y: 0, duration: 0.5 }, 0.1);
-                tl.to(marti1Ref.current, { opacity: 0.55, y: 0, duration: 0.5 }, 0.3);
-
-                /* Ferry is independent so other timeline animations keep their speed */
                 gsap.to(ferryRef.current, {
                     x: "-150%",
                     ease: "none",
@@ -219,7 +185,6 @@ export default function Discovery() {
                     },
                 });
 
-                /* 0.8 ── Route draws with segment timings */
                 const routeStart = 0.8;
                 const segmentDurations = [25, 25, 18, 15];
                 const pointTimings = pointTimingsFromSegmentDurations(segmentDurations);
@@ -236,31 +201,26 @@ export default function Discovery() {
                     segStart += segmentDurations[seg];
                 }
 
-                /* ── Per-landmark reveals ──────────────────────────────── */
                 const totalDuration = segmentDurations.reduce((a, b) => a + b, 0);
                 LANDMARKS.forEach((lm, i) => {
                     const t = routeStart + totalDuration * (pointTimings[i] ?? 0);
 
-                    /* Pin dot pop */
                     tl.to(pinDotRefs.current[i], {
                         scale: 1, opacity: 1,
                         duration: 0.4, ease: "back.out(2.5)",
                     }, t);
 
-                    /* Expanding ring */
                     tl.fromTo(ringRefs.current[i],
                         { scale: 1, opacity: 0.8 },
                         { scale: 3.5, opacity: 0, duration: 0.55, ease: "power2.out" },
                         t + 0.05,
                     );
 
-                    /* Label */
                     tl.to(labelRefs.current[i], {
                         opacity: 1, y: 0,
                         duration: 0.4, ease: "power2.out",
                     }, t + 0.05);
 
-                    /* Film-strip card flow: each next card slides in-frame */
                     if (i === 0) {
                         tl.to(cardFrameRef.current, {
                             opacity: 1,
@@ -281,12 +241,8 @@ export default function Discovery() {
             },
         );
 
-        /* ── Idle / ambient animations ──────────────────────────────────── */
-        gsap.to(marti2Ref.current, { y: "+=10", x: "+=6", duration: 3.5, repeat: -1, yoyo: true, ease: "sine.inOut" });
-        gsap.to(marti1Ref.current, { y: "-=4", rotate: 1.5, duration: 4, repeat: -1, yoyo: true, ease: "sine.inOut", delay: 0.8 });
-        // Lale sway — transformOrigin at the top so petals swing naturally
-        gsap.to(laleLeftRef.current, { rotate: -1.8, scaleX: -1, duration: 4.5, repeat: -1, yoyo: true, ease: "sine.inOut", transformOrigin: "top right" });
-        gsap.to(laleRightRef.current, { rotate: 1.8, duration: 4.2, repeat: -1, yoyo: true, ease: "sine.inOut", transformOrigin: "top left", delay: 0.4 });
+        gsap.to(marti2Ref.current, { y: "+=12", x: "+=8", duration: 3.5, repeat: -1, yoyo: true, ease: "sine.inOut" });
+        gsap.to(marti1Ref.current, { y: "-=6", rotate: 2, duration: 4, repeat: -1, yoyo: true, ease: "sine.inOut", delay: 0.8 });
 
         return () => mm.revert();
 
@@ -300,12 +256,9 @@ export default function Discovery() {
             className="relative w-full min-h-screen overflow-hidden"
             style={{ background: "#07213b" }}
         >
-            {/* ── z:1  Leaflet map — CartoDB dark tiles, fixed at zoom 13 ── */}
             <div className="absolute inset-0" style={{ zIndex: 1 }}>
                 <MapBackground onMapReady={handleMapReady} />
             </div>
-
-            {/* ── z:2  Light veil — preserves map readability ──────────────── */}
             <div
                 className="absolute inset-0 pointer-events-none"
                 style={{
@@ -316,41 +269,9 @@ export default function Discovery() {
                     ].join(", "),
                 }}
             />
-
-            {/* ── z:10  lale-2 top-left (desktop — visible throughout scroll) */}
-            {/*
-                GSAP sets scaleX(-1) to flip; the outer div is positioned at
-                the corner. Stays visible the entire pinned scroll duration.
-            */}
-            <div
-                ref={laleLeftRef}
-                className="hidden md:block absolute top-0 left-0 pointer-events-none"
-                style={{
-                    zIndex: 10,
-                    width: "clamp(180px, 22vw, 300px)",
-                }}
-            >
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={`${CDN}/lale-2.webp`} alt="" className="w-full h-auto" />
-            </div>
-
-            {/* ── z:10  lale-2 top-right (desktop) ───────────────────────── */}
-            <div
-                ref={laleRightRef}
-                className="hidden md:block absolute top-0 right-0 pointer-events-none"
-                style={{
-                    zIndex: 10,
-                    width: "clamp(180px, 22vw, 300px)",
-                }}
-            >
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={`${CDN}/lale-2.webp`} alt="" className="w-full h-auto" />
-            </div>
-
-            {/* ── z:20  Headline ──────────────────────────────────────────── */}
             <div
                 ref={headlineRef}
-                className="absolute top-[6%] left-1/2 -translate-x-1/2 text-center pointer-events-none w-full px-4"
+                className="absolute left-1/2 -translate-x-1/2 text-center pointer-events-none w-full px-4 top-32 max-md:top-[calc(env(safe-area-inset-top,0px)+5.75rem)] md:top-[6%]"
                 style={{ zIndex: 20 }}
             >
                 <h2
@@ -365,42 +286,18 @@ export default function Discovery() {
                     7 HILLS&nbsp;&middot;&nbsp;
                     <span style={{ color: "#00aeef" }}>15 MILLION</span> STORIES
                 </h2>
-                <p
-                    ref={subRef}
-                    className="mt-3 tracking-[0.2em] uppercase font-light"
-                    style={{
-                        fontSize: "clamp(0.65rem, 1.2vw, 0.82rem)",
-                        color: "rgba(255,255,255,0.82)",
-                        textShadow: "0 1px 8px rgba(0,0,0,0.7)",
-                    }}
-                >
-                    The Erasmus Route &mdash; Istanbul
-                </p>
             </div>
-
-            {/* ── z:10  marti-2 flying seagull ────────────────────────────── */}
             <div
                 ref={marti2Ref}
-                className="absolute top-[11%] right-[5%] w-[7%] max-w-[88px] pointer-events-none"
-                style={{ zIndex: 10 }}
+                className="absolute right-[2%] sm:right-[4%] pointer-events-none max-md:top-[calc(env(safe-area-inset-top,0px)+10rem)] md:top-[7%]"
+                style={{
+                    zIndex: 17,
+                    width: "clamp(100px, 16vw, 200px)",
+                    filter: "drop-shadow(0 4px 14px rgba(0,0,0,0.55)) drop-shadow(0 0 1px rgba(255,255,255,0.35))",
+                }}
             >
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={`${CDN}/marti-2.webp`} alt="" className="w-full h-auto" />
+                <Image src={`${CDN}/marti-2.webp`} alt="" width={400} height={300} className="w-full h-auto" sizes="(max-width: 768px) 100px, 200px" />
             </div>
-
-            {/* ── z:10  marti-1 standing seagull, bottom-right ────────────── */}
-            <div
-                ref={marti1Ref}
-                className="absolute bottom-[4%] right-[1.5%] w-[4%] max-w-[50px] pointer-events-none"
-                style={{ zIndex: 10 }}
-            >
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={`${CDN}/marti-1.webp`} alt="" className="w-full h-auto" />
-            </div>
-
-            {/* ── z:12  SVG route — pixel-space coordinates from Leaflet ─────
-                No viewBox: SVG user units = CSS pixels, matching containerPoint.
-                overflow-visible allows the path to extend outside the rect.   */}
             {routePath && (
                 <svg
                     className="absolute inset-0 pointer-events-none"
@@ -433,16 +330,11 @@ export default function Discovery() {
                     />
                 </svg>
             )}
-
-            {/* ── z:15  Pin markers ────────────────────────────────────────
-                All positioned using Leaflet's latLngToContainerPoint() values.
-                Pin dots are exactly over the correct geographic tile locations.  */}
             {positionsReady && LANDMARKS.map((lm, i) => {
                 const pos = pinPositions[i];
 
                 return (
                     <Fragment key={lm.id}>
-                        {/* Pin dot + ring + label */}
                         <div
                             className="absolute"
                             style={{
@@ -452,37 +344,30 @@ export default function Discovery() {
                                 zIndex: 15,
                             }}
                         >
-                            {/* Expanding ring (burst on reveal) */}
                             <div
                                 ref={el => { ringRefs.current[i] = el; }}
-                                className="absolute rounded-full"
+                                className="absolute rounded-full max-md:-inset-[14px] md:-inset-3"
                                 style={{
-                                    inset: "-12px",
                                     border: `1px solid ${lm.accent}70`,
                                 }}
                             />
-                            {/* Glowing dot */}
                             <div
                                 ref={el => { pinDotRefs.current[i] = el; }}
-                                className="relative rounded-full"
+                                className="relative rounded-full w-4 h-4 md:w-[13px] md:h-[13px]"
                                 style={{
-                                    width: 13,
-                                    height: 13,
                                     background: lm.accent,
                                     boxShadow: `0 0 14px 5px ${lm.accent}90`,
                                     zIndex: 2,
                                 }}
                             />
-                            {/* Label above pin */}
                             <div
                                 ref={el => { labelRefs.current[i] = el; }}
                                 className="absolute bottom-full left-1/2 -translate-x-1/2 pb-[6px] whitespace-nowrap text-center"
                             >
                                 <span
-                                    className="font-bold leading-tight"
+                                    className="font-bold leading-tight text-[0.68rem] md:text-[clamp(0.58rem,0.85vw,0.7rem)]"
                                     style={{
                                         fontFamily: "var(--font-kelson-sans), Arial, sans-serif",
-                                        fontSize: "clamp(0.58rem, 0.85vw, 0.7rem)",
                                         color: "white",
                                         textShadow: "0 1px 6px rgba(0,0,0,1), 0 0 12px rgba(0,0,0,0.8)",
                                     }}
@@ -494,8 +379,6 @@ export default function Discovery() {
                     </Fragment>
                 );
             })}
-
-            {/* ── z:40  Film-strip info cards in fixed frame ────────────── */}
             <div
                 ref={cardFrameRef}
                 className="absolute left-[6%] bottom-[12%] pointer-events-none overflow-hidden rounded-2xl"
@@ -515,13 +398,14 @@ export default function Discovery() {
                         >
                             <div style={{ height: 3, background: lm.accent }} />
 
-                            <div className="w-full overflow-hidden" style={{ height: 110 }}>
-                                {/* eslint-disable-next-line @next/next/no-img-element */}
-                                <img
+                            <div className="relative w-full overflow-hidden" style={{ height: 110 }}>
+                                <Image
                                     src={lm.image}
                                     alt={lm.imageAlt}
-                                    className="w-full h-full object-contain object-bottom"
+                                    fill
+                                    className="object-contain object-bottom"
                                     style={{ filter: "drop-shadow(0 2px 8px rgba(0,0,0,0.6))" }}
+                                    sizes="340px"
                                 />
                             </div>
 
@@ -549,23 +433,31 @@ export default function Discovery() {
                     ))}
                 </div>
             </div>
-
-            {/* ── z:10  Ferry crossing the Bosphorus ──────────────────────── */}
             <div
                 ref={ferryRef}
-                className="absolute bottom-[7%] right-0 w-[36%] sm:w-[28%] max-w-[460px] opacity-55 pointer-events-none"
+                className="absolute bottom-[7%] right-0 w-[36%] sm:w-[28%] max-w-[460px] pointer-events-none"
                 style={{ zIndex: 10 }}
             >
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
+                <Image
                     src={`${CDN}/feribot-yatay.webp`}
                     alt="Istanbul ferry"
-                    className="w-full h-auto"
+                    width={920}
+                    height={360}
+                    className="relative z-0 w-full h-auto opacity-55"
                     style={{ transform: "scaleX(-1)" }}
+                    sizes="(max-width: 640px) 36vw, 460px"
                 />
+                <div
+                    ref={marti1Ref}
+                    className="absolute left-[44%] top-[2%] z-10 pointer-events-none"
+                    style={{
+                        width: "clamp(42px, 15%, 92px)",
+                        filter: "drop-shadow(0 3px 10px rgba(0,0,0,0.5)) drop-shadow(0 0 1px rgba(255,255,255,0.4))",
+                    }}
+                >
+                    <Image src={`${CDN}/marti-1.webp`} alt="" width={184} height={138} className="w-full h-auto" sizes="92px" />
+                </div>
             </div>
-
-            {/* ── z:20  Scroll cue ──────────────────────────────────────────── */}
             <div
                 className="absolute bottom-[2%] left-1/2 -translate-x-1/2 pointer-events-none animate-scroll-cue"
                 style={{ zIndex: 20 }}
@@ -575,12 +467,10 @@ export default function Discovery() {
                     <path d="M4 20 L12 32 L20 20" stroke="rgba(255,255,255,0.4)" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
             </div>
-
-            {/* Screen-reader landmark list — visually hidden, a11y-accessible */}
             <ul className="sr-only" aria-label="Istanbul landmarks">
                 {LANDMARKS.map(lm => (
                     <li key={lm.id}>
-                        <strong>{lm.label}</strong> — {lm.sublabel}: {lm.description}
+                        <strong>{lm.label}</strong> {lm.sublabel}: {lm.description}
                     </li>
                 ))}
             </ul>

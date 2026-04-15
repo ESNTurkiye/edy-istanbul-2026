@@ -3,6 +3,7 @@
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { useRef } from "react";
+import Image from "next/image";
 import { useHeroParallax } from "@/hooks/useScrollAnimation";
 import "./Hero.css";
 
@@ -49,59 +50,43 @@ export default function Hero() {
 
     return (
         <section ref={sectionRef} className="hero-section">
-
-            {/* ── Top-left cloud ─────────────────────────────────────────── */}
             <div ref={cloudOneRef} className="absolute cloud-one z-20 pointer-events-none">
-                <div ref={innerCloudOneRef} className="sway-a w-full h-full">
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img src="/images/cloud-one.png" alt="" className="w-full h-full object-contain" />
+                <div ref={innerCloudOneRef} className="sway-a relative w-full h-full">
+                    <Image src="/images/cloud-one.png" alt="" fill className="object-contain" sizes="45vw" priority />
                 </div>
             </div>
 
-            {/* ── Top-right cloud ────────────────────────────────────────── */}
             <div ref={cloudTwoRef} className="absolute cloud-two z-20 pointer-events-none">
-                <div ref={innerCloudTwoRef} className="sway-c w-full h-full">
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img src="/images/cloud-one.png" alt="" className="w-full h-full object-contain" />
+                <div ref={innerCloudTwoRef} className="sway-c relative w-full h-full">
+                    <Image src="/images/cloud-one.png" alt="" fill className="object-contain" sizes="40vw" priority />
                 </div>
             </div>
 
-            {/* ── Bottom-left cloud ──────────────────────────────────────── */}
             <div ref={leftCloudRef} className="absolute left-cloud-bottom z-20 pointer-events-none">
-                <div ref={innerLCRef} className="sway-b w-full h-full">
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img src="/images/cloud-two.png" alt="" className="w-full h-full object-contain" />
+                <div ref={innerLCRef} className="sway-b relative w-full h-full">
+                    <Image src="/images/cloud-two.png" alt="" fill className="object-contain" sizes="100vw" priority />
                 </div>
             </div>
 
-            {/* ── Bottom-right cloud ─────────────────────────────────────── */}
             <div ref={rightCloudRef} className="absolute right-cloud-bottom z-20 pointer-events-none">
-                <div ref={innerRCRef} className="sway-d w-full h-full">
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img src="/images/cloud-two.png" alt="" className="w-full h-full object-contain -scale-x-100" />
+                <div ref={innerRCRef} className="sway-d relative w-full h-full">
+                    <Image src="/images/cloud-two.png" alt="" fill className="object-contain -scale-x-100" sizes="100vw" priority />
                 </div>
             </div>
 
-            {/* ── Left flower bouquet (foreground) ───────────────────────── */}
             <div ref={flowerLeftRef} className="absolute flower-left z-20 pointer-events-none">
-                <div className="sway-b w-full h-full">
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img src="/images/flower-bouquet.png" alt="" className="w-full h-full object-contain" />
+                <div className="sway-b relative w-full h-full">
+                    <Image src="/images/flower-bouquet.png" alt="" fill className="object-contain" sizes="70vw" priority />
                 </div>
             </div>
 
-            {/* ── Right flower bouquet (foreground) ──────────────────────── */}
             <div ref={flowerRightRef} className="absolute flower-right z-20 pointer-events-none">
-                <div className="sway-d w-full h-full">
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img src="/images/flower-bouquet.png" alt="" className="w-full h-full object-contain" />
+                <div className="sway-d relative w-full h-full">
+                    <Image src="/images/flower-bouquet.png" alt="" fill className="object-contain" sizes="70vw" priority />
                 </div>
             </div>
 
-            {/* ── Center frame + Bosphorus video ─────────────────────────── */}
             <div ref={centerFrameRef} className="absolute center-frame z-0 pointer-events-none flex items-center justify-center">
-
-                {/* Bosphorus video, clipped to the frame oval */}
                 <video
                     className="absolute z-0 w-full h-full object-cover object-center"
                     style={{ clipPath: "inset(12.1% 12.1% 12.1% 12.1% round 600px)" }}
@@ -113,42 +98,52 @@ export default function Hero() {
                 >
                     <source src="/videos/hero-video.mp4#t=2" type="video/mp4" />
                 </video>
-
-                {/* Frame overlay (cutout photo) – sways gently as a single unit */}
-                <div className="sway-a w-full h-full z-10">
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img
+                <div className="hero-text-content absolute inset-0 z-5 flex flex-col items-center justify-center text-center pointer-events-none box-border w-full h-full px-[14%] py-[13%] max-w-full">
+                    <p
+                        className="text-white uppercase font-bold mb-3 max-w-full hero-text-eyebrow"
+                        style={{
+                            textShadow: "0 1px 14px rgba(0,0,0,0.65), 0 2px 6px rgba(0,0,0,0.45)",
+                        }}
+                    >
+                        More than a destination
+                    </p>
+                    <p
+                        className="text-white uppercase font-semibold mb-2 max-w-full leading-snug px-0.5 hero-text-finalist"
+                        style={{
+                            textShadow: "0 1px 12px rgba(0,0,0,0.6), 0 2px 4px rgba(0,0,0,0.4)",
+                        }}
+                    >
+                        Finalist · Erasmus Destination of the Year 2026
+                    </p>
+                    <h1
+                        className="hero-title font-bold tracking-tighter leading-tight text-white max-w-full"
+                        style={{
+                            fontFamily: "var(--font-kelson-sans), Arial, sans-serif",
+                            textShadow: "0 4px 40px rgba(0,0,0,0.45), 0 2px 8px rgba(0,0,0,0.3)",
+                        }}
+                    >
+                        Istanbul
+                    </h1>
+                    <p
+                        className="text-white mt-2 font-medium max-w-full hero-text-tagline"
+                        style={{
+                            letterSpacing: "0.12em",
+                            textShadow: "0 1px 12px rgba(0,0,0,0.6), 0 2px 4px rgba(0,0,0,0.4)",
+                        }}
+                    >
+                        Two continents. One welcome.
+                    </p>
+                </div>
+                <div className="sway-a relative z-10 w-full h-full">
+                    <Image
                         src="/images/frame.png"
-                        alt="Hero frame — Bosphorus view"
-                        className="w-full h-full object-contain"
+                        alt="Hero frame Bosphorus view"
+                        fill
+                        className="object-contain"
+                        sizes="85vw"
+                        priority
                     />
                 </div>
-            </div>
-
-            {/* ── Headline ──────────────────────────────────────────────── */}
-            <div className="z-20 relative hero-text-content text-center pointer-events-none drop-shadow-xl p-4">
-                <p
-                    className="text-white/90 tracking-[0.3em] uppercase font-light mb-2"
-                    style={{ fontSize: "clamp(0.6rem, 1.2vw, 0.78rem)" }}
-                >
-                    Finalist · Erasmus Destination of the Year 2026
-                </p>
-                <h1
-                    className="font-bold tracking-tighter leading-tight text-white"
-                    style={{
-                        fontFamily: "var(--font-kelson-sans), Arial, sans-serif",
-                        fontSize: "clamp(3rem, 9vw, 7rem)",
-                        textShadow: "0 4px 40px rgba(0,0,0,0.35)",
-                    }}
-                >
-                    Istanbul
-                </h1>
-                <p
-                    className="text-white/95 mt-2 font-light"
-                    style={{ fontSize: "clamp(0.75rem, 1.5vw, 1rem)", letterSpacing: "0.1em" }}
-                >
-                    Two continents. One welcome.
-                </p>
             </div>
         </section>
     );

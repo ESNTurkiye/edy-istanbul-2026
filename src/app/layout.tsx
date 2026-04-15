@@ -13,17 +13,17 @@ const lato = Lato({
 export const metadata: Metadata = {
     metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? "https://istanbul.esnturkiye.org"),
     title: "Istanbul · Erasmus Destination of the Year 2026",
-    description: "ESN Türkiye invites Europe to Istanbul. Two continents, one welcome — vote for Istanbul at EGM Split.",
+    description: "ESN Türkiye invites Europe to Istanbul. Two continents, one welcome vote for Istanbul at EGM Split.",
     openGraph: {
         title: "Istanbul · Erasmus Destination of the Year 2026",
-        description: "ESN Türkiye invites Europe to Istanbul. Two continents, one welcome — vote for Istanbul at EGM Split.",
-        images: [{ url: "/og.png", width: 1200, height: 630, alt: "Istanbul — Erasmus Destination of the Year 2026" }],
+        description: "ESN Türkiye invites Europe to Istanbul. Two continents, one welcome vote for Istanbul at EGM Split.",
+        images: [{ url: "/og.png", width: 1200, height: 630, alt: "Istanbul Erasmus Destination of the Year 2026" }],
         type: "website",
     },
     twitter: {
         card: "summary_large_image",
         title: "Istanbul · Erasmus Destination of the Year 2026",
-        description: "ESN Türkiye invites Europe to Istanbul. Two continents, one welcome — vote for Istanbul at EGM Split.",
+        description: "ESN Türkiye invites Europe to Istanbul. Two continents, one welcome vote for Istanbul at EGM Split.",
         images: ["/og.png"],
     },
 };
@@ -39,16 +39,15 @@ export default function RootLayout({
             className={`${lato.variable} h-full antialiased`}
         >
             <head>
-                {/* Preconnect to external asset origins */}
-                <link rel="preconnect" href="https://cdn.jsdelivr.net" />
-                <link rel="preconnect" href="https://unpkg.com" />
-                <link rel="preconnect" href="https://basemaps.cartocdn.com" />
-                {/* DNS prefetch for tile subdomains */}
+                <link rel="preconnect" href="https://cdn.jsdelivr.net" crossOrigin="anonymous" />
+                <link rel="preconnect" href="https://unpkg.com" crossOrigin="anonymous" />
+                <link rel="preconnect" href="https://basemaps.cartocdn.com" crossOrigin="anonymous" />
                 <link rel="dns-prefetch" href="https://a.basemaps.cartocdn.com" />
                 <link rel="dns-prefetch" href="https://b.basemaps.cartocdn.com" />
                 <link rel="dns-prefetch" href="https://c.basemaps.cartocdn.com" />
+                <link rel="preload" href="/videos/hero-video.mp4" as="video" type="video/mp4" />
             </head>
-            <body className="min-h-full flex flex-col bg-zinc-50 dark:bg-black font-sans">
+            <body className="min-h-full flex flex-col font-sans">
                 <SmoothScroll>
                     {children}
                     <Footer />
