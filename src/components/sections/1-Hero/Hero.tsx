@@ -98,6 +98,42 @@ export default function Hero() {
                 >
                     <source src="/videos/hero-video.mp4#t=2" type="video/mp4" />
                 </video>
+                <div className="hero-text-content absolute inset-0 z-5 flex flex-col items-center justify-center text-center pointer-events-none box-border w-full h-full px-[14%] py-[13%] max-w-full">
+                    <p
+                        className="text-white uppercase font-bold mb-3 max-w-full hero-text-eyebrow"
+                        style={{
+                            textShadow: "0 1px 14px rgba(0,0,0,0.65), 0 2px 6px rgba(0,0,0,0.45)",
+                        }}
+                    >
+                        More than a destination
+                    </p>
+                    <p
+                        className="text-white uppercase font-semibold mb-2 max-w-full leading-snug px-0.5 hero-text-finalist"
+                        style={{
+                            textShadow: "0 1px 12px rgba(0,0,0,0.6), 0 2px 4px rgba(0,0,0,0.4)",
+                        }}
+                    >
+                        Finalist · Erasmus Destination of the Year 2026
+                    </p>
+                    <h1
+                        className="hero-title font-bold tracking-tighter leading-tight text-white max-w-full"
+                        style={{
+                            fontFamily: "var(--font-kelson-sans), Arial, sans-serif",
+                            textShadow: "0 4px 40px rgba(0,0,0,0.45), 0 2px 8px rgba(0,0,0,0.3)",
+                        }}
+                    >
+                        Istanbul
+                    </h1>
+                    <p
+                        className="text-white mt-2 font-medium max-w-full hero-text-tagline"
+                        style={{
+                            letterSpacing: "0.12em",
+                            textShadow: "0 1px 12px rgba(0,0,0,0.6), 0 2px 4px rgba(0,0,0,0.4)",
+                        }}
+                    >
+                        Two continents. One welcome.
+                    </p>
+                </div>
                 <div className="sway-a relative z-10 w-full h-full">
                     <Image
                         src="/images/frame.png"
@@ -108,38 +144,6 @@ export default function Hero() {
                         priority
                     />
                 </div>
-            </div>
-
-            <div className="z-20 relative hero-text-content text-center pointer-events-none p-4">
-                <p
-                    className="text-white tracking-[0.25em] uppercase font-semibold mb-2"
-                    style={{
-                        fontSize: "clamp(0.72rem, 1.6vw, 0.9rem)",
-                        textShadow: "0 1px 12px rgba(0,0,0,0.6), 0 2px 4px rgba(0,0,0,0.4)",
-                    }}
-                >
-                    Finalist · Erasmus Destination of the Year 2026
-                </p>
-                <h1
-                    className="font-bold tracking-tighter leading-tight text-white"
-                    style={{
-                        fontFamily: "var(--font-kelson-sans), Arial, sans-serif",
-                        fontSize: "clamp(3rem, 9vw, 7rem)",
-                        textShadow: "0 4px 40px rgba(0,0,0,0.45), 0 2px 8px rgba(0,0,0,0.3)",
-                    }}
-                >
-                    Istanbul
-                </h1>
-                <p
-                    className="text-white mt-2 font-medium"
-                    style={{
-                        fontSize: "clamp(0.9rem, 2vw, 1.2rem)",
-                        letterSpacing: "0.12em",
-                        textShadow: "0 1px 12px rgba(0,0,0,0.6), 0 2px 4px rgba(0,0,0,0.4)",
-                    }}
-                >
-                    Two continents. One welcome.
-                </p>
             </div>
         </section>
     );

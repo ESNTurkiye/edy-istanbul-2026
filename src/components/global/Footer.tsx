@@ -4,7 +4,16 @@ export default function Footer() {
             className="relative w-full overflow-hidden"
             style={{ background: "#0a0a0a" }}
         >
-            <div className="w-full flex items-center justify-center px-4 py-4">
+            <div className="w-full flex flex-col items-center justify-center px-4 pt-10 pb-4 gap-3">
+                <p
+                    className="text-white font-semibold uppercase text-center tracking-[0.28em] select-none"
+                    style={{
+                        fontSize: "clamp(0.72rem, 2.2vw, 1rem)",
+                        textShadow: "0 1px 12px rgba(0,0,0,0.5)",
+                    }}
+                >
+                    More than a destination
+                </p>
                 <span
                     className="text-white font-black uppercase leading-none w-full text-center select-none"
                     style={{
