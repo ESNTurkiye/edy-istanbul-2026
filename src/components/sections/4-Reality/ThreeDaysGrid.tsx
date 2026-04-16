@@ -91,7 +91,7 @@ export default function ThreeDaysGrid() {
                         >
                             {idx < 2 ? (
                                 <>
-                                    <div className={`-mx-6 -mt-6 px-8 pt-4 mb-6 relative overflow-visible ${day.mediaAspectClass}`} style={{ transform: "translateY(137px) scale(1.2)" }}>
+                                    <div className={`-mx-6 -mt-6 relative mb-4 overflow-hidden md:px-8 md:pt-4 md:mb-6 md:overflow-visible md:translate-y-[137px] md:scale-[1.2] ${day.mediaAspectClass}`}>
                                         <Image
                                             src={`${CDN}/${day.image}`}
                                             alt=""
@@ -101,7 +101,7 @@ export default function ThreeDaysGrid() {
                                             sizes="(max-width: 768px) 100vw, 360px"
                                         />
                                     </div>
-                                    <div className="mt-auto">
+                                    <div className="md:mt-auto">
                                         <div
                                             className="text-[0.62rem] font-semibold tracking-[0.2em] uppercase mb-2"
                                             style={{ color: day.accent }}

@@ -450,7 +450,7 @@ export default function Discovery() {
                 />
                 <div
                     ref={marti1Ref}
-                    className="absolute left-[44%] top-[2%] z-10 pointer-events-none"
+                    className="absolute left-[44%] top-[2%] md:top-[calc(2%+39px)] z-10 pointer-events-none"
                     style={{
                         width: "clamp(42px, 15%, 92px)",
                         filter: "drop-shadow(0 3px 10px rgba(0,0,0,0.5)) drop-shadow(0 0 1px rgba(255,255,255,0.4))",
