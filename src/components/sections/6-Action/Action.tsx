@@ -98,7 +98,7 @@ export default function Action() {
             <div className="relative z-10 flex flex-col items-center text-center px-6 py-20">
                 <div ref={headlineRef} className="opacity-0 mb-10">
                     <p className="text-white/60 text-[clamp(0.65rem,1vw,0.8rem)] tracking-[0.3em] uppercase font-medium mb-4">
-                        EGM Split · 16–19 April 2026
+                        
                     </p>
                     <h2 className="font-brand font-bold text-white leading-tight text-[clamp(2.4rem,7vw,5.5rem)]">
                         Ten Thousand Students<br />Finding Home.
