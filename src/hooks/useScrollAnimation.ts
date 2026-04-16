@@ -11,29 +11,11 @@ if (typeof window !== "undefined") {
 
 export interface ParallaxItem {
     ref: RefObject<HTMLDivElement | null>;
-    /**
-     * Horizontal drift speed multiplier.
-     * Higher value = faster drift = appears closer to the viewer.
-     */
     speed: number;
-    /**
-     * Direction of horizontal drift.
-     *  1 = drift right,  -1 = drift left.
-     * Default: alternates based on index (elements alternate direction for depth).
-     */
+
     direction?: 1 | -1;
 }
 
-/**
- * Scroll-driven HORIZONTAL parallax (X-axis only).
- *
- * Per the animation rules:
- *   - Elements drift LEFT or RIGHT at different speeds to suggest depth.
- *   - NO vertical (Y-axis) translation during scroll.
- *   - The continuous idle rotation (-3°→+3°) is handled via CSS `.sway-*` classes,
- *     so it runs independently even while scrolling.
- *   - `scrub: true` makes every animation bidirectional scrolling back replays it.
- */
 export function useHeroParallax(
     containerRef: RefObject<HTMLElement | null>,
     items: ParallaxItem[],
@@ -48,8 +30,8 @@ export function useHeroParallax(
             (context) => {
                 const { isMobile } = context.conditions as { isMobile: boolean };
 
-                const depthMul  = isMobile ? 0.35 : 1;
-                const scrubVal  = isMobile ? 1.8 : 1.2;
+                const depthMul = isMobile ? 0.35 : 1;
+                const scrubVal = isMobile ? 1.8 : 1.2;
 
                 const BASE_VW = 0.12;
 
@@ -64,9 +46,9 @@ export function useHeroParallax(
                         ease: "none",
                         scrollTrigger: {
                             trigger: containerRef.current,
-                            start:   "top top",
-                            end:     "bottom top",
-                            scrub:   scrubVal,
+                            start: "top top",
+                            end: "bottom top",
+                            scrub: scrubVal,
                             invalidateOnRefresh: true,
                         },
                     });

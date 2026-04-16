@@ -9,8 +9,6 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { CDN, LANDMARKS } from "./landmarks";
 
-
-
 if (typeof window !== "undefined") {
     gsap.registerPlugin(ScrollTrigger);
 }
@@ -385,19 +383,22 @@ export default function Discovery() {
                 style={{
                     width: "clamp(230px, 28vw, 340px)",
                     zIndex: 40,
+                    isolation: "isolate",
                     background: "rgba(2,10,24,0.85)",
                     backdropFilter: "blur(14px)",
+                    WebkitBackdropFilter: "blur(14px)",
                 }}
             >
                 <div ref={cardTrackRef} className="flex w-full">
                     {LANDMARKS.map((lm) => (
                         <div
                             key={`film-card-${lm.id}`}
-                            className="shrink-0"
-                            style={{ width: "100%", border: `1px solid ${lm.accent}55` }}
+                            className="shrink-0 overflow-hidden rounded-2xl"
+                            style={{
+                                width: "100%",
+                                boxShadow: `inset 0 0 0 1px ${lm.accent}55`,
+                            }}
                         >
-                            <div style={{ height: 3, background: lm.accent }} />
-
                             <div className="relative w-full overflow-hidden" style={{ height: 110 }}>
                                 <Image
                                     src={lm.image}
