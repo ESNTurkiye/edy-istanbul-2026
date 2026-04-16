@@ -120,21 +120,6 @@ export default function SkylineReveal() {
             });
         });
 
-        // ---- Galata brightness — filter yerine overlay opacity ----
-        // filter animasyonu kaldırıldı, CSS pseudo-element veya overlay div daha ucuz
-        // Alternatif: galata wrapper'ına hafif opacity pulse
-        const galataEntry = entryRefs.current[1];
-        if (galataEntry) {
-            gsap.to(galataEntry, {
-                opacity: 0.88,   // 1 → 0.88 → 1, brightness efekti simüle eder
-                duration: 5.5,
-                repeat: -1,
-                yoyo: true,
-                ease: "sine.inOut",
-                delay: 2,
-            });
-        }
-
         // ---- Kuşlar — x/y tek tween'e toplandı ----
         const birdScrollTrigger = {
             trigger: wrapRef.current,
