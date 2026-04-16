@@ -18,9 +18,9 @@ export default function LiteratureStrip() {
         if (!stripRef.current) return;
         gsap.fromTo(
             quoteRefs.current.filter(Boolean),
-            { opacity: 0, x: -30 },
+            { opacity: 0 },
             {
-                opacity: 1, x: 0,
+                opacity: 1,
                 duration: 0.9,
                 stagger: 0.25,
                 ease: "power2.out",
