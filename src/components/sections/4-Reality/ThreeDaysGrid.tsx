@@ -78,52 +78,98 @@ export default function ThreeDaysGrid() {
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    {THREE_DAYS.map((day) => (
+                    {THREE_DAYS.map((day, idx) => (
                         <div
                             key={day.day}
-                            className="rounded-2xl p-6 overflow-hidden"
+                            className="rounded-2xl p-6 overflow-hidden flex flex-col"
                             style={{
                                 background: "rgba(255,255,255,0.05)",
                                 border: `1px solid ${day.accent}30`,
                                 backdropFilter: "blur(6px)",
+                                height: "100%",
                             }}
                         >
-                            <div className={`-mx-6 -mt-6 relative mb-4 overflow-hidden ${day.mediaAspectClass}`}>
-                                <Image
-                                    src={`${CDN}/${day.image}`}
-                                    alt=""
-                                    fill
-                                    className="object-cover"
-                                    style={{ objectPosition: day.imageObjectPosition }}
-                                    sizes="(max-width: 768px) 100vw, 360px"
-                                />
-                            </div>
-                            <div
-                                className="text-[0.62rem] font-semibold tracking-[0.2em] uppercase mb-2"
-                                style={{ color: day.accent }}
-                            >
-                                {day.day}
-                            </div>
-                            <h3
-                                className="text-white font-bold mb-4 leading-tight"
-                                style={{
-                                    fontFamily: "var(--font-kelson-sans), Arial, sans-serif",
-                                    fontSize: "1.05rem",
-                                }}
-                            >
-                                {day.title}
-                            </h3>
-                            <ul className="flex flex-col gap-2">
-                                {day.items.map((item) => (
-                                    <li key={item} className="flex items-center gap-2 text-white/55" style={{ fontSize: "0.8rem" }}>
-                                        <span
-                                            className="w-1.5 h-1.5 rounded-full shrink-0"
-                                            style={{ background: day.accent }}
+                            {idx < 2 ? (
+                                <>
+                                    <div className={`-mx-6 -mt-6 px-8 pt-4 mb-6 relative overflow-visible ${day.mediaAspectClass}`} style={{ transform: "translateY(137px) scale(1.2)" }}>
+                                        <Image
+                                            src={`${CDN}/${day.image}`}
+                                            alt=""
+                                            fill
+                                            className="object-cover"
+                                            style={{ objectPosition: day.imageObjectPosition }}
+                                            sizes="(max-width: 768px) 100vw, 360px"
                                         />
-                                        {item}
-                                    </li>
-                                ))}
-                            </ul>
+                                    </div>
+                                    <div className="mt-auto">
+                                        <div
+                                            className="text-[0.62rem] font-semibold tracking-[0.2em] uppercase mb-2"
+                                            style={{ color: day.accent }}
+                                        >
+                                            {day.day}
+                                        </div>
+                                        <h3
+                                            className="text-white font-bold mb-4 leading-tight"
+                                            style={{
+                                                fontFamily: "var(--font-kelson-sans), Arial, sans-serif",
+                                                fontSize: "1.05rem",
+                                            }}
+                                        >
+                                            {day.title}
+                                        </h3>
+                                        <ul className="flex flex-col gap-2">
+                                            {day.items.map((item) => (
+                                                <li key={item} className="flex items-center gap-2 text-white/55" style={{ fontSize: "0.8rem" }}>
+                                                    <span
+                                                        className="w-1.5 h-1.5 rounded-full shrink-0"
+                                                        style={{ background: day.accent }}
+                                                    />
+                                                    {item}
+                                                </li>
+                                            ))}
+                                        </ul>
+                                    </div>
+                                </>
+                            ) : (
+                                <>
+                                    <div className={`-mx-6 -mt-6 relative mb-4 overflow-hidden ${day.mediaAspectClass}`}>
+                                        <Image
+                                            src={`${CDN}/${day.image}`}
+                                            alt=""
+                                            fill
+                                            className="object-cover"
+                                            style={{ objectPosition: day.imageObjectPosition }}
+                                            sizes="(max-width: 768px) 100vw, 360px"
+                                        />
+                                    </div>
+                                    <div
+                                        className="text-[0.62rem] font-semibold tracking-[0.2em] uppercase mb-2"
+                                        style={{ color: day.accent }}
+                                    >
+                                        {day.day}
+                                    </div>
+                                    <h3
+                                        className="text-white font-bold mb-4 leading-tight"
+                                        style={{
+                                            fontFamily: "var(--font-kelson-sans), Arial, sans-serif",
+                                            fontSize: "1.05rem",
+                                        }}
+                                    >
+                                        {day.title}
+                                    </h3>
+                                    <ul className="flex flex-col gap-2">
+                                        {day.items.map((item) => (
+                                            <li key={item} className="flex items-center gap-2 text-white/55" style={{ fontSize: "0.8rem" }}>
+                                                <span
+                                                    className="w-1.5 h-1.5 rounded-full shrink-0"
+                                                    style={{ background: day.accent }}
+                                                />
+                                                {item}
+                                            </li>
+                                        ))}
+                                    </ul>
+                                </>
+                            )}
                         </div>
                     ))}
                 </div>
