@@ -107,14 +107,6 @@ export default function Hero() {
                     >
                         More than a destination
                     </p>
-                    <p
-                        className="text-white uppercase font-semibold mb-2 max-w-full leading-snug px-0.5 hero-text-finalist"
-                        style={{
-                            textShadow: "0 1px 12px rgba(0,0,0,0.6), 0 2px 4px rgba(0,0,0,0.4)",
-                        }}
-                    >
-                        Finalist
-                    </p>
                     <h1
                         className="hero-title font-bold tracking-tighter leading-tight text-white max-w-full"
                         style={{

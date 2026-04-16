@@ -72,12 +72,6 @@
     font-size: clamp(0.62rem, 4.2cqi, 1.05rem);
     letter-spacing: clamp(0.08em, 0.1em + 0.9cqi, 0.32em);
 }
-
-.hero-text-finalist {
-    font-size: clamp(0.55rem, 3.4cqi, 0.9rem);
-    letter-spacing: clamp(0.06em, 0.2em, 0.25em);
-}
-
 .hero-title {
     font-size: clamp(1.85rem, 19cqi, 4.35rem);
 }
