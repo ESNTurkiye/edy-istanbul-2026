@@ -113,7 +113,7 @@ export default function Hero() {
                             textShadow: "0 1px 12px rgba(0,0,0,0.6), 0 2px 4px rgba(0,0,0,0.4)",
                         }}
                     >
-                        Finalist · Erasmus Destination of the Year 2026
+                        Finalist
                     </p>
                     <h1
                         className="hero-title font-bold tracking-tighter leading-tight text-white max-w-full"
