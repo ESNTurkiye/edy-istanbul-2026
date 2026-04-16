@@ -101,10 +101,10 @@ export default function Action() {
                         EGM Split · 16–19 April 2026
                     </p>
                     <h2 className="font-brand font-bold text-white leading-tight text-[clamp(2.4rem,7vw,5.5rem)]">
-                        One Vote. Ten Thousand<br />Students Finding Home.
+                        Ten Thousand Students<br />Finding Home.
                     </h2>
                     <p className="mt-5 text-white/95 text-[clamp(0.85rem,1.5vw,1.1rem)] max-w-[500px] mx-auto leading-relaxed">
-                        Every year, one city earns the honour of hosting Europe&apos;s Erasmus community. Make it Istanbul. Make it unforgettable.
+                        Discover the authentic Erasmus experience in Istanbul. Make every moment unforgettable.
                     </p>
                 </div>
             </div>
