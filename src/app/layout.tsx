@@ -12,18 +12,18 @@ const lato = Lato({
 
 export const metadata: Metadata = {
     metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? "https://istanbul.esnturkiye.org"),
-    title: "Istanbul · Erasmus Destination of the Year 2026",
-    description: "ESN Türkiye invites Europe to Istanbul. Two continents, one welcome vote for Istanbul at EGM Split.",
+    title: "Istanbul · Where two continents meet",
+    description: "ESN Türkiye invites Europe to Istanbul. Two continents, one welcome",
     openGraph: {
-        title: "Istanbul · Erasmus Destination of the Year 2026",
-        description: "ESN Türkiye invites Europe to Istanbul. Two continents, one welcome vote for Istanbul at EGM Split.",
-        images: [{ url: "/og.png", width: 1200, height: 630, alt: "Istanbul Erasmus Destination of the Year 2026" }],
+        title: "Istanbul · Where two continents meet",
+        description: "ESN Türkiye invites Europe to Istanbul. Two continents, one welcome",
+        images: [{ url: "/og.png", width: 1200, height: 630, alt: "Istanbul" }],
         type: "website",
     },
     twitter: {
         card: "summary_large_image",
-        title: "Istanbul · Erasmus Destination of the Year 2026",
-        description: "ESN Türkiye invites Europe to Istanbul. Two continents, one welcome vote for Istanbul at EGM Split.",
+        title: "Istanbul · Where two continents meet",
+        description: "ESN Türkiye invites Europe to Istanbul. Two continents, one welcome",
         images: ["/og.png"],
     },
 };
