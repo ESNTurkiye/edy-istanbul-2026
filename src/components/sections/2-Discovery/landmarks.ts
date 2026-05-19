@@ -1,4 +1,4 @@
-export const CDN = "https://cdn.jsdelivr.net/gh/ESNTurkiye/esn-assets@main/istanbul";
+export const CDN = "https://cdn.jsdelivr.net/gh/ESNTurkiye/esn-assets@main/apps/edy/cities/istanbul";
 
 export const PIN_TIMINGS = [1.1, 2.0, 3.0, 4.0, 5.1] as const;
 
