@@ -1,6 +1,6 @@
 import Image from "next/image";
 
-const CDN = "https://cdn.jsdelivr.net/gh/ESNTurkiye/esn-assets@main/istanbul";
+const CDN = "https://cdn.jsdelivr.net/gh/ESNTurkiye/esn-assets@main/apps/edy/cities/istanbul";
 
 const DAY_STATS = [
     { label: "Avg. Monthly Cost", value: "€ 400", note: "among Europe's most affordable" },

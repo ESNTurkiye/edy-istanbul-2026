@@ -10,7 +10,7 @@ if (typeof window !== "undefined") {
     gsap.registerPlugin(ScrollTrigger);
 }
 
-const CDN = "https://cdn.jsdelivr.net/gh/ESNTurkiye/esn-assets@main/istanbul";
+const CDN = "https://cdn.jsdelivr.net/gh/ESNTurkiye/esn-assets@main/apps/edy/cities/istanbul";
 
 const SPORTS = [
     { label: "Running", detail: "The Bosphorus shore paths stretch for miles. Sunrise jogs with seagulls as pace-setters.", accent: "#7ac143" },

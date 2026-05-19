@@ -10,7 +10,7 @@ if (typeof window !== "undefined") {
     gsap.registerPlugin(ScrollTrigger);
 }
 
-const CDN = "https://cdn.jsdelivr.net/gh/ESNTurkiye/esn-assets@main/istanbul";
+const CDN = "https://cdn.jsdelivr.net/gh/ESNTurkiye/esn-assets@main/apps/edy/cities/istanbul";
 
 const ONE_DAY = [
     { time: "07:30", label: "Sunrise simit", note: "Grab a simit from a street cart and walk to Galata Bridge." },

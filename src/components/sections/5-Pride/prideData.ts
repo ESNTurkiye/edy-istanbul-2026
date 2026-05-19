@@ -1,4 +1,4 @@
-export const CDN = "https://cdn.jsdelivr.net/gh/ESNTurkiye/esn-assets@main/istanbul";
+export const CDN = "https://cdn.jsdelivr.net/gh/ESNTurkiye/esn-assets@main/apps/edy/cities/istanbul";
 
 export const INFO_CARDS = [
     {
